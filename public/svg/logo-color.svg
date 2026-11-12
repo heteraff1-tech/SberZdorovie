@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="87" viewBox="0 0 100 87" fill="none">
+  <g transform="translate(0 0)">
+    <g>
+      <path d="M17.825 80.601C11.8101 74.317 7.77366 66.4045 6.21687 57.8462C4.66007 49.2879 5.65153 40.4608 9.06814 32.4611C12.4847 24.4614 18.176 17.6415 25.435 12.8484C32.6941 8.05522 41.2013 5.5 49.9 5.5C58.5988 5.5 67.1059 8.05522 74.365 12.8484C81.6241 17.6415 87.3153 24.4614 90.7319 32.4611C94.1485 40.4608 95.14 49.2879 93.5832 57.8462C92.0264 66.4045 87.9899 74.317 81.975 80.601" stroke-width="11" stroke-linecap="round" stroke="url(#intro-track-2)" id="intro-track-1" />
+    </g>
+    <defs>
+      <linearGradient x1="49.725" y1="6.10105" x2="49.725" y2="80.601" gradientUnits="userSpaceOnUse" id="intro-track-2">
+        <stop stop-color="#413941" />
+        <stop offset="0.65" stop-color="#2E282F" />
+        <stop offset="1" stop-color="#231E26" />
+      </linearGradient>
+    </defs>
+  </g>
+  <g transform="translate(0.105 0.037)">
+    <g>
+      <path d="M17.7608 80.5338C12.9257 75.4611 9.35999 69.3159 7.35534 62.6009C5.3507 55.8858 4.96403 48.7916 6.22696 41.8984C7.48989 35.0053 10.3665 28.509 14.6217 22.9408C18.8768 17.3726 24.3895 12.8907 30.709 9.86172C37.0284 6.83269 43.9751 5.34255 50.981 5.51316C57.9868 5.68377 64.8527 7.5103 71.0172 10.8433C77.1818 14.1764 82.4698 18.9213 86.4488 24.69C90.4279 30.4587 92.9849 37.0873 93.9108 44.0338" stroke-width="11" stroke-linecap="round" stroke="url(#intro-arc-2)" id="intro-arc-1" />
+    </g>
+    <defs>
+      <linearGradient x1="44.1608" y1="5.0338" x2="44.1608" y2="80.5338" gradientUnits="userSpaceOnUse" id="intro-arc-2">
+        <stop stop-color="#947D8B" />
+        <stop offset="0.39" stop-color="#966E83" />
+        <stop offset="0.76" stop-color="#954B6B" />
+        <stop offset="0.91" stop-color="#963E62" />
+        <stop offset="1" stop-color="#79485D" />
+      </linearGradient>
+    </defs>
+  </g>
+  <g transform="translate(27.46 29.18)">
+    <g>
+      <path d="M23.25 6.02326C19.75 1.52326 16.25 -0.226742 12.5 0.0232575C5 0.273258 0 6.27326 0 13.7733C0 23.7733 6.25 30.2733 14.75 37.2733C17.75 39.7733 20.65 42.2733 23 42.7733C25.1 42.6233 27.85 39.7733 31.25 37.0233C39.75 29.7733 46.75 23.2733 46.75 13.7733C46.75 6.17326 41.6 0.0232575 34.05 0.0232575C29.5 0.0232575 26 1.92326 23.25 6.02326Z" fill="url(#intro-heart-2)" id="intro-heart-1" />
+    </g>
+    <defs>
+      <linearGradient x1="23.25" y1="0.0232575" x2="23.25" y2="42.5233" gradientUnits="userSpaceOnUse" id="intro-heart-2">
+        <stop stop-color="#DC0074" />
+        <stop offset="0.35" stop-color="#D90061" />
+        <stop offset="0.71" stop-color="#C30033" />
+        <stop offset="1" stop-color="#B0001A" />
+      </linearGradient>
+    </defs>
+  </g>
+</svg>

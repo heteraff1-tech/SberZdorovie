@@ -1,0 +1,142 @@
+.onboarding {
+  position: absolute;
+  inset: 0;
+  /* Штора перекрывает иконки статус-бара, когда закрыта. */
+  user-select: none;
+  -webkit-user-select: none;
+  font: 500 var(--text-size) / var(--text-line) var(--font-text);
+  background: var(--ink);
+}
+
+.onboarding .glow {
+  position: absolute;
+  left: -272px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--action-time) var(--ease-in-out);
+}
+.glow-intro { top: -86px; }
+.glow-final { top: -116px; }
+.onboarding[data-phase="intro"] .glow-intro { opacity: 1; animation: glow-in var(--intro-time) ease-out both; }
+.onboarding:is([data-phase="pull"], [data-phase="done"]) .glow-final { transition: none; }
+
+.onboarding .brand {
+  position: absolute;
+  inset-inline: 0;
+  top: 444px;
+  margin: 0;
+  opacity: 0;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity var(--copy-time) var(--ease-out), filter var(--copy-time) var(--ease-out),
+    transform var(--copy-time) var(--ease-out);
+}
+.onboarding[data-phase="intro"] .brand {
+  opacity: 1;
+  animation: brand-in var(--intro-time) var(--ease-out) var(--stagger-time) both;
+}
+.onboarding[data-phase="welcome"] .brand { transform: translateY(-82px) scale(.333); filter: blur(1px); }
+
+.onboarding .welcome { pointer-events: none; }
+.welcome h1, .welcome p {
+  position: absolute;
+  margin: 0;
+  text-align: center;
+  opacity: 0;
+  filter: blur(2px);
+  transition: opacity var(--action-time) var(--ease-in-out), filter var(--action-time) var(--ease-in-out);
+}
+.welcome h1 {
+  left: 20px;
+  right: 20px;
+  top: 395px;
+  font: 500 var(--text-size) / var(--text-line) var(--font-text);
+}
+.welcome p {
+  left: 27px;
+  right: 27px;
+  top: 433px;
+  font: 400 var(--copy-size) / var(--copy-line) var(--font-copy);
+}
+.onboarding[data-phase="welcome"] .welcome h1 {
+  opacity: 1;
+  filter: none;
+  animation: copy-title var(--copy-time) var(--ease-out) both;
+}
+.onboarding[data-phase="welcome"] .welcome p {
+  opacity: 1;
+  filter: none;
+  /* Оба текста заканчивают движение в один кадр. */
+  animation: copy-text calc(var(--copy-time) - var(--stagger-time)) var(--ease-out) var(--stagger-time) both;
+}
+
+.onboarding .action {
+  position: absolute;
+  left: 20px;
+  top: 758px;
+  width: 362px;
+  height: var(--action-height);
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--action-radius);
+  color: var(--text);
+  background: var(--action);
+  cursor: pointer;
+  transition: left var(--action-time) var(--ease-out), width var(--action-time) var(--ease-out),
+    top var(--action-time) var(--ease-out);
+}
+.action span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+  transition: transform var(--action-time) var(--ease-out);
+}
+.action span + span { transform: translateY(66px); }
+.onboarding[data-phase="connect"] .action { left: 58px; top: 720px; width: 289px; }
+.onboarding[data-phase="connect"] .action span:first-child { transform: translateY(-66px); }
+.onboarding[data-phase="connect"] .action span + span { transform: translateY(0); }
+
+.gesture {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  touch-action: none;
+  cursor: grab;
+  -webkit-tap-highlight-color: transparent;
+}
+.gesture:active { cursor: grabbing; }
+.gesture[aria-disabled="true"] { cursor: default; }
+.gesture:focus-visible { outline-offset: -10px; border-radius: var(--screen-radius); }
+
+.curtain {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: var(--curtain);
+  transition: opacity var(--curtain-time) var(--ease-in-out);
+}
+.curtain[data-state="closed"] { opacity: 1; pointer-events: auto; }
+.curtain[data-state="opening"] { pointer-events: auto; }
+
+@keyframes glow-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes brand-in {
+  from { opacity: 0; transform: scale(.2376); filter: blur(2px); }
+  47% { opacity: .96; transform: scale(.98); filter: blur(1px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes copy-title {
+  from { opacity: 0; transform: translateY(69.25px) scale(.5); filter: blur(1px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@keyframes copy-text {
+  from { opacity: 0; transform: translateY(42px) scale(.5); filter: blur(2px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .onboarding { --intro-time: 1ms !important; --copy-time: 1ms !important; --stagger-time: 0ms !important; --action-time: 1ms !important; }
+}
