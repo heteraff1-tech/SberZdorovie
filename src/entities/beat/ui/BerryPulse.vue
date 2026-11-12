@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { getSvg } from '@/shared/lib/asset'
+import { easeBetween } from '@/shared/lib/easing'
 import { PulseShape } from '../model/PulseShape'
 
 const props = defineProps({
@@ -10,6 +11,7 @@ const props = defineProps({
   merge: { type: Number, required: true },
 })
 
+const emit = defineEmits(['contact'])
 const host = ref(null)
 const ready = ref(false)
 const request = new AbortController()
@@ -22,6 +24,7 @@ const pulseStyle = computed(() => {
   }
 })
 let shape
+let threadTips = []
 
 onMounted(async () => {
   try {
@@ -34,6 +37,7 @@ onMounted(async () => {
     // Один SVG остаётся в DOM на всех этапах жеста.
     host.value.append(svg)
     shape = new PulseShape(svg)
+    threadTips = svg.querySelectorAll('g[id="pulse-strands"] > path:not(.pulse-stream)')
     ready.value = true
   } catch (error) {
     if (error.name !== 'AbortError') console.error(error)
@@ -43,8 +47,24 @@ onMounted(async () => {
 onUnmounted(() => request.abort())
 
 watchEffect(() => {
-  if (ready.value) shape.draw(props.pull, props.merge, props.tension)
+  if (!ready.value) return
+  shape.draw(props.pull, props.merge, props.tension)
+  emit('contact', props.phase === 'pull' && props.pull > 0 && props.merge === 0 ? readContact() : 0)
 })
+
+function readContact() {
+  let nearest = 1.16
+  for (const thread of threadTips) {
+    const start = thread.getAttribute('d')?.match(/^M\s*([-\d.]+)[ ,]+([-\d.]+)/i)
+    if (!start) continue
+
+    // Граница сердца в системе координат SVG пульса.
+    const distance = Math.hypot((Number(start[1]) - 63.5) / 22, (Number(start[2]) - 353) / 21)
+    if (distance < .86) return 1
+    nearest = Math.min(nearest, distance)
+  }
+  return 1 - easeBetween(.86, 1.16, nearest)
+}
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, reactive } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { BeatLogo, BerryPulse } from '@/entities/beat'
 import { PullGesture } from '@/features/pulse-pull'
 import { getMotionStyle } from '@/shared/config/motion'
@@ -13,13 +13,12 @@ const flow = new OnboardingFlow(state, () => matchMedia('(prefers-reduced-motion
 const gesture = new PullGesture()
 const timing = getMotionStyle()
 
-const glow = computed(() => {
-  if (state.phase === 'welcome' || state.phase === 'done') return 1
-  return state.phase === 'pull' ? fill.value : 0
-})
+const contact = ref(0)
 const showAction = computed(() => ['welcome', 'connect'].includes(state.phase))
 const canPull = computed(() => flow.canPull)
 const fill = computed(() => state.phase === 'pull' ? easeBetween(.32, .96, state.merge) : 1)
+const isFilling = computed(() => state.phase === 'pull' && fill.value > 0 && fill.value < 1)
+const showWave = computed(() => state.phase === 'done' || (state.phase === 'pull' && fill.value >= .8))
 
 onMounted(() => flow.start())
 onUnmounted(() => flow.dispose())
@@ -66,10 +65,21 @@ function cancelPull(event) {
       width="946"
       height="1067"
       alt=""
-      :style="{ opacity: glow }"
+      :style="{ opacity: state.phase === 'welcome' ? 1 : 0 }"
     />
-    <BerryPulse :phase="state.phase" :pull="state.pull" :tension="state.tension" :merge="state.merge" />
-    <BeatLogo :phase="state.phase" :fill="fill" />
+    <div v-if="showWave" class="light-wave" aria-hidden="true">
+      <span class="light-trail"></span>
+      <span class="light-front"></span>
+      <span class="light-source"></span>
+    </div>
+    <BerryPulse
+      :phase="state.phase"
+      :pull="state.pull"
+      :tension="state.tension"
+      :merge="state.merge"
+      @contact="contact = $event"
+    />
+    <BeatLogo :phase="state.phase" :fill="fill" :contact="contact" :filling="isFilling" />
     <p class="brand" aria-hidden="true">Daybeat</p>
 
     <div class="welcome" :aria-hidden="state.phase !== 'welcome'">
