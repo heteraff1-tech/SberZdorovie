@@ -1,17 +1,26 @@
 <script setup>
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue'
 import { getSvg } from '@/shared/lib/asset'
 import { PulseShape } from '../model/PulseShape'
 
 const props = defineProps({
   phase: { type: String, required: true },
   pull: { type: Number, required: true },
+  tension: { type: Number, required: true },
   merge: { type: Number, required: true },
 })
 
 const host = ref(null)
 const ready = ref(false)
 const request = new AbortController()
+const pulseStyle = computed(() => {
+  const { pull, merge, tension } = props
+  return {
+    '--arrow-opacity': Math.max(0, 1 - pull * 5 - Math.max(0, tension) * 4 - merge * 5),
+    '--arrow-fade': pull || merge || tension ? '0ms' : '160ms',
+    '--orbit-weight': (1 - pull) ** 2 * (1 - merge) * (1 - Math.abs(tension)),
+  }
+})
 let shape
 
 onMounted(async () => {
@@ -34,7 +43,7 @@ onMounted(async () => {
 onUnmounted(() => request.abort())
 
 watchEffect(() => {
-  if (ready.value) shape.draw(props.pull, props.merge)
+  if (ready.value) shape.draw(props.pull, props.merge, props.tension)
 })
 </script>
 
@@ -44,7 +53,7 @@ watchEffect(() => {
     class="berry"
     :data-phase="phase"
     :data-ready="ready"
-    :style="{ '--arrow-opacity': Math.max(0, 1 - pull * 2.8 - merge * 5), '--orbit-weight': (1 - pull) ** 2 * (1 - merge) }"
+    :style="pulseStyle"
     aria-hidden="true"
   ></div>
 </template>
@@ -76,7 +85,7 @@ watchEffect(() => {
 .berry > svg { transition: transform var(--action-time) var(--ease-out); }
 .berry[data-phase="connect"] > svg { transform: translateY(-2px); }
 
-.berry #pulse-arrows { opacity: 0; transition: opacity 160ms ease-out; }
+.berry #pulse-arrows { opacity: 0; transition: opacity var(--arrow-fade) ease-out; }
 .berry[data-phase="pull"] #pulse-arrows { opacity: var(--arrow-opacity); }
 .berry[data-phase="pull"] #pulse-arrows path {
   animation: arrow-light var(--arrow-time) ease-in-out infinite;
@@ -89,6 +98,17 @@ watchEffect(() => {
   stroke-dasharray: 8 92;
 }
 
+.berry .pulse-rear {
+  fill: none;
+  stroke: url(#pulse-rear-light);
+  stroke-width: .78;
+  stroke-linecap: round;
+}
+
+.berry .pulse-rear-glow { stroke-width: 2.5; }
+
+.berry .pulse-rim { stroke: url(#pulse-rim-light); }
+
 .berry .pulse-light {
   fill: none;
   stroke: #fc8aaa;
@@ -98,7 +118,7 @@ watchEffect(() => {
   opacity: 0;
 }
 .berry[data-phase="pull"] .pulse-light {
-  opacity: calc(.33 * var(--orbit-weight));
+  opacity: calc(.33 * var(--orbit-weight) + .25 * var(--rim-depth, 0));
   animation: ring-light var(--orbit-time) linear infinite;
 }
 .berry[data-phase="pull"] #pulse-inner .pulse-light { animation-direction: reverse; }

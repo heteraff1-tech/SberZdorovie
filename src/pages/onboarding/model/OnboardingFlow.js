@@ -1,4 +1,5 @@
 import { motion } from '@/shared/config/motion'
+import { easeBetween } from '@/shared/lib/easing'
 
 export class OnboardingFlow {
   #state
@@ -7,6 +8,7 @@ export class OnboardingFlow {
   #reduced
   #target = 0
   #speed = 0
+  #impulse = 0
   #spring = motion.pullSpring
 
   constructor(state, reduced) {
@@ -48,17 +50,21 @@ export class OnboardingFlow {
   grab() {
     this.#stopFrame()
     this.#speed = 0
+    this.#impulse = 0
+    if (this.#state.tension) this.#follow(this.#state.pull, motion.pullSpring)
   }
 
-  setPull(value) {
-    if (this.canPull) this.#follow(value, motion.pullSpring)
+  setPull(value, speed) {
+    if (!this.canPull) return
+    this.#impulse = value > 0 || this.#state.pull > 0 ? getImpulse(speed) : 0
+    this.#follow(value, motion.pullSpring)
   }
 
   release() {
     if (this.canPull) this.#follow(0, motion.returnSpring)
   }
 
-  finish() {
+  finish(speed = 0) {
     if (!this.canPull) return
     this.#stopFrame()
 
@@ -66,8 +72,12 @@ export class OnboardingFlow {
     state.finishing = true
     const start = performance.now()
     const duration = this.#reduced() ? 0 : motion.merge
+    const tension = state.tension
+    const impulse = getImpulse(speed)
     const tick = (time) => {
       state.merge = duration ? Math.max(0, Math.min(1, (time - start) / duration)) : 1
+      const push = easeBetween(0, .18, state.merge)
+      state.tension = (tension + (impulse - tension) * push) * (1 - easeBetween(.18, .85, state.merge))
       if (state.merge < 1) {
         this.#frame = requestAnimationFrame(tick)
         return
@@ -99,7 +109,10 @@ export class OnboardingFlow {
     this.#target = target
     this.#spring = spring
     if (this.#reduced()) {
-      this.grab()
+      this.#stopFrame()
+      this.#speed = 0
+      this.#impulse = 0
+      this.#state.tension = 0
       this.#state.pull = target
       return
     }
@@ -117,9 +130,17 @@ export class OnboardingFlow {
       this.#speed = (this.#speed - this.#spring * drift * seconds) * decay
       this.#state.pull = Math.max(0, Math.min(1, next))
 
-      if (Math.abs(this.#state.pull - this.#target) < .001 && Math.abs(this.#speed) < .018) {
+      // Натяжение от пальца затухает, инерция корпуса остаётся на пружине.
+      this.#impulse *= Math.exp(-10 * seconds)
+      const force = this.#impulse * .68 + Math.tanh(this.#speed / 4.6) * .32
+      this.#state.tension += (force - this.#state.tension) * (1 - Math.exp(-24 * seconds))
+
+      const still = Math.abs(this.#state.pull - this.#target) < .001 && Math.abs(this.#speed) < .018
+      if (still && Math.abs(this.#state.tension) < .005 && Math.abs(this.#impulse) < .005) {
         this.#state.pull = this.#target
+        this.#state.tension = 0
         this.#speed = 0
+        this.#impulse = 0
         this.#frame = undefined
         return
       }
@@ -127,4 +148,8 @@ export class OnboardingFlow {
     }
     this.#frame = requestAnimationFrame(tick)
   }
+}
+
+function getImpulse(speed) {
+  return Math.tanh(speed / 1.15)
 }

@@ -8,7 +8,7 @@ import { easeBetween } from '@/shared/lib/easing'
 import { OnboardingFlow } from '../model/OnboardingFlow'
 import './onboarding.css'
 
-const state = reactive({ phase: 'blank', curtain: 'off', pull: 0, merge: 0, finishing: false })
+const state = reactive({ phase: 'blank', curtain: 'off', pull: 0, tension: 0, merge: 0, finishing: false })
 const flow = new OnboardingFlow(state, () => matchMedia('(prefers-reduced-motion: reduce)').matches)
 const gesture = new PullGesture()
 const timing = getMotionStyle()
@@ -35,8 +35,8 @@ function startPull(event) {
 }
 
 function movePull(event) {
-  const progress = gesture.move(event)
-  if (progress !== null) flow.setPull(progress)
+  const sample = gesture.move(event)
+  if (sample) flow.setPull(sample.progress, sample.speed)
 }
 
 function endPull(event, cancelled = false) {
@@ -48,8 +48,7 @@ function endPull(event, cancelled = false) {
     return
   }
 
-  flow.setPull(result.progress)
-  if (result.complete) flow.finish()
+  if (result.complete) flow.finish(result.speed)
   else flow.release()
 }
 
@@ -69,7 +68,7 @@ function cancelPull(event) {
       alt=""
       :style="{ opacity: glow }"
     />
-    <BerryPulse :phase="state.phase" :pull="state.pull" :merge="state.merge" />
+    <BerryPulse :phase="state.phase" :pull="state.pull" :tension="state.tension" :merge="state.merge" />
     <BeatLogo :phase="state.phase" :fill="fill" />
     <p class="brand" aria-hidden="true">Daybeat</p>
 

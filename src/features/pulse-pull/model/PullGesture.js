@@ -27,21 +27,21 @@ export class PullGesture {
       this.#sample = { y: event.clientY, time: event.timeStamp }
     }
 
-    return Math.max(0, Math.min(1, this.#press.progress + this.#distance(event) / limits.distance))
+    const progress = Math.max(0, Math.min(1, this.#press.progress + this.#distance(event) / limits.distance))
+    const speed = event.timeStamp - this.#sample.time <= limits.sampleAge ? this.#speed : 0
+    return { progress, speed }
   }
 
   end(event, cancelled = false) {
     if (event.pointerId !== this.#press?.id) return null
 
-    const progress = this.move(event)
+    const { progress, speed } = this.move(event)
     const distance = this.#distance(event)
     // Давний импульс не считается быстрым свайпом после паузы.
-    const flick = distance >= limits.flickDistance &&
-      this.#speed >= limits.flickSpeed &&
-      event.timeStamp - this.#sample.time <= limits.sampleAge
+    const flick = distance >= limits.flickDistance && speed >= limits.flickSpeed
 
     this.#press = undefined
-    return { progress, complete: !cancelled && (progress === 1 || flick) }
+    return { speed, complete: !cancelled && (progress === 1 || flick) }
   }
 
   #distance(event) {
