@@ -4,7 +4,7 @@
 
 ## Запуск
 
-Установи Node.js 22.12+ и Git. В PowerShell или терминале выполни:
+Установи Node.js 22.12+ и Git. Команды подходят для PowerShell и других терминалов.
 
 ```bash
 git clone https://github.com/heteraff1-tech/SberZdorovie.git
