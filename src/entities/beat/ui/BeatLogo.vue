@@ -57,8 +57,8 @@ const mask = computed(() => {
 }
 
 .heart-glow {
-  filter: drop-shadow(0 0 8px rgb(255 43 118 / calc(.9 * var(--heart-contact))))
-    brightness(calc(1 + .65 * var(--heart-contact)));
+  filter: drop-shadow(0 0 12px rgb(195 0 49 / calc(.5 * var(--heart-contact))))
+    brightness(calc(1 + .25 * var(--heart-contact)));
   transition: filter 120ms ease-out;
 }
 

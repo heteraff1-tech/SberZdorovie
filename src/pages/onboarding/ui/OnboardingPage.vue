@@ -68,9 +68,8 @@ function cancelPull(event) {
       :style="{ opacity: state.phase === 'welcome' ? 1 : 0 }"
     />
     <div v-if="showWave" class="light-wave" aria-hidden="true">
-      <span class="light-trail"></span>
+      <img class="light-afterglow" :src="getSvg('glow-final')" width="946" height="1067" alt="" />
       <span class="light-front"></span>
-      <span class="light-source"></span>
     </div>
     <BerryPulse
       :phase="state.phase"
