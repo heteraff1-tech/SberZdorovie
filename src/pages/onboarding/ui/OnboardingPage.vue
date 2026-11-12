@@ -4,6 +4,7 @@ import { BeatLogo, BerryPulse } from '@/entities/beat'
 import { PullGesture } from '@/features/pulse-pull'
 import { getMotionStyle } from '@/shared/config/motion'
 import { getSvg } from '@/shared/lib/asset'
+import { easeBetween } from '@/shared/lib/easing'
 import { OnboardingFlow } from '../model/OnboardingFlow'
 import './onboarding.css'
 
@@ -14,14 +15,11 @@ const timing = getMotionStyle()
 
 const glow = computed(() => {
   if (state.phase === 'welcome' || state.phase === 'done') return 1
-  return state.phase === 'pull' ? color.value : 0
+  return state.phase === 'pull' ? fill.value : 0
 })
 const showAction = computed(() => ['welcome', 'connect'].includes(state.phase))
 const canPull = computed(() => flow.canPull)
-const color = computed(() => {
-  if (['blank', 'intro', 'welcome', 'done'].includes(state.phase)) return 1
-  return Math.max(0, (state.merge - .64) / .36)
-})
+const fill = computed(() => state.phase === 'pull' ? easeBetween(.32, .96, state.merge) : 1)
 
 onMounted(() => flow.start())
 onUnmounted(() => flow.dispose())
@@ -30,8 +28,9 @@ function startPull(event) {
   if (!flow.canPull) return
   const surface = event.currentTarget
   const scale = surface.getBoundingClientRect().height / surface.offsetHeight
-  if (!gesture.start(event, scale)) return
+  if (!gesture.start(event, scale, state.pull)) return
 
+  flow.grab()
   surface.setPointerCapture(event.pointerId)
 }
 
@@ -71,7 +70,7 @@ function cancelPull(event) {
       :style="{ opacity: glow }"
     />
     <BerryPulse :phase="state.phase" :pull="state.pull" :merge="state.merge" />
-    <BeatLogo :phase="state.phase" :color="color" />
+    <BeatLogo :phase="state.phase" :fill="fill" />
     <p class="brand" aria-hidden="true">Daybeat</p>
 
     <div class="welcome" :aria-hidden="state.phase !== 'welcome'">

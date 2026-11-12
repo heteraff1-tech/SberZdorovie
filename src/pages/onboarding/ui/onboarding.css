@@ -13,11 +13,14 @@
   left: -272px;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--action-time) var(--ease-in-out);
+  transition: opacity var(--copy-time) var(--ease-reveal);
 }
 .glow-intro { top: -86px; }
 .glow-final { top: -116px; }
-.onboarding[data-phase="intro"] .glow-intro { opacity: 1; animation: glow-in var(--intro-time) ease-out both; }
+.onboarding[data-phase="intro"] .glow-intro {
+  opacity: 1;
+  transition-duration: var(--intro-time);
+}
 .onboarding:is([data-phase="pull"], [data-phase="done"]) .glow-final { transition: none; }
 
 .onboarding .brand {
@@ -28,14 +31,24 @@
   opacity: 0;
   text-align: center;
   pointer-events: none;
-  transition: opacity var(--copy-time) var(--ease-out), filter var(--copy-time) var(--ease-out),
-    transform var(--copy-time) var(--ease-out);
+  filter: blur(4px);
+  transform: translateY(5px) scale(.96);
+  transition: opacity var(--copy-time) var(--ease-reveal), filter var(--copy-time) var(--ease-reveal),
+    transform var(--copy-time) var(--ease-reveal);
 }
+
 .onboarding[data-phase="intro"] .brand {
   opacity: 1;
-  animation: brand-in var(--intro-time) var(--ease-out) var(--stagger-time) both;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+  transition-delay: var(--stagger-time);
+  transition-duration: calc(var(--intro-time) - var(--stagger-time));
 }
-.onboarding[data-phase="welcome"] .brand { transform: translateY(-82px) scale(.333); filter: blur(1px); }
+
+.onboarding:is([data-phase="welcome"], [data-phase="connect"], [data-phase="pull"], [data-phase="done"]) .brand {
+  transform: translateY(-82px) scale(.333);
+  filter: blur(2px);
+}
 
 .onboarding .welcome { pointer-events: none; }
 .welcome h1, .welcome p {
@@ -43,31 +56,39 @@
   margin: 0;
   text-align: center;
   opacity: 0;
-  filter: blur(2px);
-  transition: opacity var(--action-time) var(--ease-in-out), filter var(--action-time) var(--ease-in-out);
+  filter: blur(5px);
+  transition: opacity var(--copy-time) var(--ease-reveal), transform var(--copy-time) var(--ease-reveal),
+    filter var(--copy-time) var(--ease-reveal);
 }
 .welcome h1 {
   left: 20px;
   right: 20px;
   top: 395px;
   font: 500 var(--text-size) / var(--text-line) var(--font-text);
+  transform: translateY(69.25px) scale(.5);
 }
 .welcome p {
   left: 27px;
   right: 27px;
   top: 433px;
   font: 400 var(--copy-size) / var(--copy-line) var(--font-copy);
+  transform: translateY(42px) scale(.5);
 }
-.onboarding[data-phase="welcome"] .welcome h1 {
+
+.onboarding[data-phase="welcome"] .welcome :is(h1, p) {
   opacity: 1;
-  filter: none;
-  animation: copy-title var(--copy-time) var(--ease-out) both;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
 }
+
 .onboarding[data-phase="welcome"] .welcome p {
-  opacity: 1;
-  filter: none;
   /* Оба текста заканчивают движение в один кадр. */
-  animation: copy-text calc(var(--copy-time) - var(--stagger-time)) var(--ease-out) var(--stagger-time) both;
+  transition-duration: calc(var(--copy-time) - var(--stagger-time));
+  transition-delay: var(--stagger-time);
+}
+
+.onboarding:is([data-phase="connect"], [data-phase="pull"], [data-phase="done"]) .welcome :is(h1, p) {
+  transform: translateY(-18px) scale(.94);
 }
 
 .onboarding .action {
@@ -123,20 +144,6 @@
 .curtain[data-state="closed"] { opacity: 1; pointer-events: auto; }
 .curtain[data-state="opening"] { pointer-events: auto; }
 
-@keyframes glow-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes brand-in {
-  from { opacity: 0; transform: scale(.2376); filter: blur(2px); }
-  47% { opacity: .96; transform: scale(.98); filter: blur(1px); }
-  to { opacity: 1; transform: scale(1); filter: blur(0); }
-}
-@keyframes copy-title {
-  from { opacity: 0; transform: translateY(69.25px) scale(.5); filter: blur(1px); }
-  to { opacity: 1; transform: none; filter: none; }
-}
-@keyframes copy-text {
-  from { opacity: 0; transform: translateY(42px) scale(.5); filter: blur(2px); }
-  to { opacity: 1; transform: none; filter: none; }
-}
 @media (prefers-reduced-motion: reduce) {
   .onboarding { --intro-time: 1ms !important; --copy-time: 1ms !important; --stagger-time: 0ms !important; --action-time: 1ms !important; }
 }

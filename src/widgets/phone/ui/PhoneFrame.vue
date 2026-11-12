@@ -96,7 +96,7 @@ onUnmounted(() => observer?.disconnect())
   inset: 16px;
   width: var(--screen-width);
   height: var(--screen-height);
-  overflow: hidden;
+  overflow: clip;
   isolation: isolate;
   border-radius: var(--screen-radius);
   background: var(--ink);

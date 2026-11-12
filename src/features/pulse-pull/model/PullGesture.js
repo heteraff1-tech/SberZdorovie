@@ -9,10 +9,10 @@ export class PullGesture {
     return Boolean(this.#press)
   }
 
-  start(event, scale) {
+  start(event, scale, progress) {
     if (this.active || !event.isPrimary || event.button !== 0) return false
 
-    this.#press = { id: event.pointerId, y: event.clientY, scale }
+    this.#press = { id: event.pointerId, y: event.clientY, scale, progress }
     this.#sample = { y: event.clientY, time: event.timeStamp }
     this.#speed = 0
     return true
@@ -27,7 +27,7 @@ export class PullGesture {
       this.#sample = { y: event.clientY, time: event.timeStamp }
     }
 
-    return Math.max(0, Math.min(1, this.#distance(event) / limits.distance))
+    return Math.max(0, Math.min(1, this.#press.progress + this.#distance(event) / limits.distance))
   }
 
   end(event, cancelled = false) {

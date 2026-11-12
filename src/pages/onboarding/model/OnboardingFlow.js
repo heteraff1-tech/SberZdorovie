@@ -5,6 +5,9 @@ export class OnboardingFlow {
   #timer
   #frame
   #reduced
+  #target = 0
+  #speed = 0
+  #spring = motion.pullSpring
 
   constructor(state, reduced) {
     this.#state = state
@@ -14,9 +17,8 @@ export class OnboardingFlow {
   start() {
     this.#after(motion.blank, () => {
       this.#state.phase = 'intro'
-      this.#after(motion.intro + motion.stagger + motion.introHold, () => {
-        this.#state.phase = 'welcome'
-      })
+      const intro = this.#reduced() ? 0 : motion.intro
+      this.#after(intro + motion.introHold, () => { this.#state.phase = 'welcome' })
     })
   }
 
@@ -43,58 +45,85 @@ export class OnboardingFlow {
     return phase === 'pull' && curtain === 'off' && !finishing
   }
 
+  grab() {
+    this.#stopFrame()
+    this.#speed = 0
+  }
+
   setPull(value) {
-    cancelAnimationFrame(this.#frame)
-    this.#state.pull = value
+    if (this.canPull) this.#follow(value, motion.pullSpring)
   }
 
   release() {
-    const start = this.#state.pull
-    this.#animate(motion.release, (step) => {
-      this.#state.pull = start * (1 - step)
-    })
+    if (this.canPull) this.#follow(0, motion.returnSpring)
   }
 
   finish() {
     if (!this.canPull) return
+    this.#stopFrame()
+
     const state = this.#state
     state.finishing = true
-    const start = state.pull
-    const duration = motion.stretch * (1 - start)
+    const start = performance.now()
+    const duration = this.#reduced() ? 0 : motion.merge
+    const tick = (time) => {
+      state.merge = duration ? Math.max(0, Math.min(1, (time - start) / duration)) : 1
+      if (state.merge < 1) {
+        this.#frame = requestAnimationFrame(tick)
+        return
+      }
+      this.#frame = undefined
+      state.phase = 'done'
+      state.finishing = false
+    }
 
-    this.#animate(duration, (step) => {
-      state.pull = start + (1 - start) * step
-    }, () => {
-      this.#animate(motion.merge, (step) => { state.merge = step }, () => {
-        state.phase = 'done'
-        state.finishing = false
-      })
-    })
+    if (duration) this.#frame = requestAnimationFrame(tick)
+    else tick(start)
   }
 
   dispose() {
     clearTimeout(this.#timer)
-    cancelAnimationFrame(this.#frame)
+    this.#stopFrame()
   }
 
   #after(duration, run) {
     this.#timer = setTimeout(run, duration)
   }
 
-  #animate(duration, update, done = () => {}) {
+  #stopFrame() {
     cancelAnimationFrame(this.#frame)
-    if (this.#reduced() || duration <= 0) {
-      update(1)
-      done()
+    this.#frame = undefined
+  }
+
+  #follow(target, spring) {
+    this.#target = target
+    this.#spring = spring
+    if (this.#reduced()) {
+      this.grab()
+      this.#state.pull = target
       return
     }
+    if (this.#frame !== undefined) return
 
-    const start = performance.now()
+    let last = performance.now()
     const tick = (time) => {
-      const part = Math.max(0, Math.min(1, (time - start) / duration))
-      update(1 - (1 - part) ** 3)
-      if (part < 1) this.#frame = requestAnimationFrame(tick)
-      else done()
+      // Затухающая пружина сохраняет скорость при смене направления.
+      const seconds = Math.max(0, Math.min(.064, (time - last) / 1000))
+      last = time
+      const gap = this.#state.pull - this.#target
+      const drift = this.#speed + this.#spring * gap
+      const decay = Math.exp(-this.#spring * seconds)
+      const next = this.#target + (gap + drift * seconds) * decay
+      this.#speed = (this.#speed - this.#spring * drift * seconds) * decay
+      this.#state.pull = Math.max(0, Math.min(1, next))
+
+      if (Math.abs(this.#state.pull - this.#target) < .001 && Math.abs(this.#speed) < .018) {
+        this.#state.pull = this.#target
+        this.#speed = 0
+        this.#frame = undefined
+        return
+      }
+      this.#frame = requestAnimationFrame(tick)
     }
     this.#frame = requestAnimationFrame(tick)
   }

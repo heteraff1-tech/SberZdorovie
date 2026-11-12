@@ -44,7 +44,7 @@ watchEffect(() => {
     class="berry"
     :data-phase="phase"
     :data-ready="ready"
-    :style="{ '--arrow-opacity': Math.max(0, 1 - Math.max(0, pull - .31) * 2.4), '--orbit-weight': (1 - pull) ** 2 }"
+    :style="{ '--arrow-opacity': Math.max(0, 1 - pull * 2.8 - merge * 5), '--orbit-weight': (1 - pull) ** 2 * (1 - merge) }"
     aria-hidden="true"
   ></div>
 </template>
@@ -81,6 +81,12 @@ watchEffect(() => {
 .berry[data-phase="pull"] #pulse-arrows path {
   animation: arrow-light var(--arrow-time) ease-in-out infinite;
   animation-delay: calc(var(--arrow-index) * var(--arrow-step));
+}
+
+.berry .pulse-stream {
+  stroke: #ffd1df;
+  stroke-width: .85;
+  stroke-dasharray: 8 92;
 }
 
 .berry .pulse-light {
