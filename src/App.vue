@@ -2,7 +2,7 @@
   <DesignSystemPage v-if="designSystem" />
   <main v-else class="app-stage">
     <UiPhoneFrame :light="home">
-      <HomePage v-if="home" :key="hash" :initial-assistant="initialAssistant" />
+      <HomePage v-if="home" :key="hash" :initial-view="initialView" />
       <Transition name="onboarding-exit">
         <OnboardingPage v-if="!home" @complete="home = true" />
       </Transition>
@@ -20,10 +20,11 @@ import { useLocationHash } from '@/shared/composables/useLocationHash';
 
 const hash = useLocationHash();
 const designSystem = computed(() => hash.value === '#design-system');
-const initialAssistant = computed(() => hash.value === '#assistant');
-const home = ref(initialAssistant.value || hash.value === '#home');
+const views = { '#home': 'home', '#assistant': 'assistant', '#pulse': 'pulse' };
+const initialView = computed(() => views[hash.value] || 'home');
+const home = ref(Boolean(views[hash.value]));
 watch(hash, () => {
-  home.value = initialAssistant.value || hash.value === '#home';
+  home.value = Boolean(views[hash.value]);
 });
 </script>
 

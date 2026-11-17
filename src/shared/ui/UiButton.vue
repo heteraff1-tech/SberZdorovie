@@ -2,7 +2,11 @@
   <button
     ref="element"
     class="ui-button"
-    :class="[`ui-button--${variant}`, `ui-button--${size}`, { 'ui-button--loading': loading }]"
+    :class="[
+      `ui-button--${variant}`,
+      `ui-button--${size}`,
+      { 'ui-button--loading': loading, 'ui-button--pill': pill },
+    ]"
     :type="type"
     :disabled="disabled || loading"
     :aria-busy="loading || undefined"
@@ -28,6 +32,7 @@ defineProps({
     validator: (value) => ['sm', 'md', 'lg', 'icon'].includes(value),
   },
   disabled: Boolean,
+  pill: Boolean,
   loading: Boolean,
 });
 defineEmits(['click']);

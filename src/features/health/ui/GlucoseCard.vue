@@ -1,7 +1,7 @@
 <template>
   <UiMetricCard title="Глюкоза" subtitle="Метод: натощак" compact>
     <div class="glucose-card">
-      <UiMetricValue :value="formattedValue" unit="ммоль/л" />
+      <UiMetricValue :value="formattedValue" status="Высокий" tone="elevated" unit="ммоль/л" />
       <UiDotScale :value="fill" :animate="animate" label="Шкала глюкозы" />
       <p class="glucose-card__goal">Цель меньше {{ data.target }}</p>
     </div>

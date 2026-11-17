@@ -1,7 +1,12 @@
 <template>
-  <UiMetricCard title="Пульс" compact>
+  <UiMetricCard
+    title="Пульс"
+    compact
+    action-label="Открыть пульс"
+    @select="$emit('select', $event)"
+  >
     <div class="pulse-card" :class="{ 'pulse-card--animated': animate }">
-      <UiMetricValue :value="value" unit="удара" />
+      <UiMetricValue :value="value" unit="уд/мин" status="Повышенный" tone="elevated" />
       <div class="pulse-card__wave" role="img" aria-label="График пульса">
         <img class="pulse-card__background" :src="assets.pulseBackground" alt="" />
         <img class="pulse-card__foreground" :src="assets.pulseForeground" alt="" />
@@ -14,6 +19,7 @@
 import { UiMetricCard, UiMetricValue } from '@/shared/ui';
 import { assets } from '@/shared/config/assets';
 defineProps({ value: { type: Number, required: true }, animate: { type: Boolean, default: true } });
+defineEmits(['select']);
 </script>
 
 <style scoped lang="scss" src="@/assets/styles/features/health/pulse-card.scss"></style>

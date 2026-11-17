@@ -1,0 +1,131 @@
+@use '../../mixins/text';
+
+.pulse-history {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: var(--space-18);
+  border-radius: var(--border-radius-card);
+  background: var(--background-surface3);
+
+  &__periods {
+    display: flex;
+    height: 36px;
+    padding: 3px;
+    border-radius: var(--radius-10);
+    background: var(--background-control);
+    button {
+      @include text.style('text-footnote');
+      flex: 1;
+      padding: 0;
+      border: 0;
+      border-radius: var(--radius-8);
+      background: transparent;
+      color: var(--foreground-default);
+      cursor: pointer;
+      &[aria-pressed='true'] {
+        background: var(--selection-background);
+      }
+    }
+  }
+  h2 {
+    @include text.style('heading-h4');
+    margin: 0;
+  }
+  &__plot {
+    position: relative;
+    height: 90px;
+    margin-top: -4px;
+  }
+  &__chart {
+    display: block;
+    width: 100%;
+    height: 90px;
+    overflow: visible;
+  }
+  &__grid {
+    fill: none;
+    stroke: var(--chart-grid);
+    stroke-width: 1;
+  }
+  &__labels {
+    @include text.style('text-caption');
+    fill: var(--chart-label);
+  }
+  @each $phase in rest, stress, activity, coffee {
+    &__phase--#{$phase} {
+      fill: var(--chart-#{$phase}-surface);
+      background: var(--chart-#{$phase});
+    }
+  }
+  &__point {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    cursor: pointer;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 7.25px;
+      left: 7.25px;
+      width: 5.5px;
+      height: 5.5px;
+      border: 1px solid var(--chart-point-outline);
+      border-radius: 50%;
+      background: var(--chart-pulse);
+    }
+    &[aria-pressed='true']::after {
+      top: 5.5px;
+      left: 5.5px;
+      width: 9px;
+      height: 9px;
+      border: 1.5px solid var(--chart-activity);
+      background: var(--background-control);
+    }
+  }
+  &__annotation {
+    @include text.style('text-caption');
+    fill: var(--product-metric-activity);
+  }
+  &__scrubber {
+    stroke: var(--chart-pulse-marker);
+    stroke-width: 1;
+  }
+  &__selection {
+    @include text.style('text-footnote');
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 30px;
+    margin-top: -4px;
+    padding: 0 9px;
+    border-radius: var(--radius-9);
+    background: var(--background-surface4);
+    span:last-child {
+      color: var(--foreground-muted);
+    }
+  }
+  &__legend {
+    @include text.style('text-caption');
+    display: flex;
+    gap: 12px;
+    margin-top: -8px;
+    color: var(--foreground-muted);
+    span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+  }
+}

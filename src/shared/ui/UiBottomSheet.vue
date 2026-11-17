@@ -1,12 +1,17 @@
 <template>
   <section
     class="ui-bottom-sheet"
-    :class="{ 'ui-bottom-sheet--open': open, 'ui-bottom-sheet--dragging': dragging }"
+    :class="{
+      'ui-bottom-sheet--open': open,
+      'ui-bottom-sheet--dragging': dragging,
+      'ui-bottom-sheet--expanded': expanded,
+    }"
     :style="{ '--sheet-drag': `${drag}px` }"
     :inert="!open"
     :aria-label="label"
   >
     <button
+      v-show="!expanded"
       class="ui-bottom-sheet__handle"
       type="button"
       :aria-label="dismissLabel"
@@ -30,6 +35,7 @@ import { useSwipeDismiss } from '@/shared/composables/useSwipeDismiss';
 
 const props = defineProps({
   open: Boolean,
+  expanded: Boolean,
   label: { type: String, default: 'Панель' },
   dismissLabel: { type: String, default: 'Свернуть панель' },
 });

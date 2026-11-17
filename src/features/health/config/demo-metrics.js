@@ -1,8 +1,8 @@
 // Presentation data from Figma. Replace this module with API data at integration.
 export const healthData = Object.freeze({
   pressure: {
-    systolic: 118,
-    diastolic: 76,
+    systolic: 115,
+    diastolic: 68,
     days: [
       { day: 'Пн', upper: null, lower: null },
       { day: 'Вт', upper: 54.545, lower: 42.545 },
@@ -13,7 +13,7 @@ export const healthData = Object.freeze({
       { day: 'Вс', upper: 40.364, lower: 30.545 },
     ],
   },
-  pulse: 62,
+  pulse: 99,
   glucose: { value: 8.1, scaleMax: 14.4, target: '5,5' },
   weight: {
     value: 76,

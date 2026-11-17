@@ -98,5 +98,58 @@
     "id": "98:1726",
     "width": 6,
     "height": 6
+  },
+  "icons/camera.svg": {
+    "id": "238:1960",
+    "width": 18,
+    "height": 18
+  },
+  "icons/plus.svg": {
+    "id": "238:1957",
+    "width": 18,
+    "height": 18
+  },
+  "icons/chevron.svg": {
+    "id": "238:1962",
+    "width": 18,
+    "height": 18
+  },
+  "icons/file.svg": {
+    "id": "238:1961",
+    "width": 22,
+    "height": 22
+  },
+  "icons/activity.svg": {
+    "id": "238:1963",
+    "width": 14,
+    "height": 14
+  },
+  "icons/heart.svg": {
+    "id": "I283:3974;279:3860;5537:22343;5535:23120",
+    "width": 76,
+    "height": 28
+  },
+  "icons/sparkles.svg": {
+    "id": "I283:3974;279:3860;5537:22344;5535:23120",
+    "width": 76,
+    "height": 28
+  },
+  "images/charts/pulse-heart.webp": {
+    "id": "269:2538",
+    "layers": "heart layers, excluding text and crossing wave",
+    "width": 402,
+    "height": 150,
+    "scale": 2,
+    "format": "lossless WebP",
+    "note": "Original Figma layers, text rendered by Vue. Rasterized at 2x to avoid shipping 1.1 MB of gradients."
+  },
+  "images/charts/pulse-wave.webp": {
+    "id": "269:2538",
+    "layers": "I269:2538;239:2881",
+    "width": 402,
+    "height": 150,
+    "scale": 2,
+    "format": "lossless WebP",
+    "note": "Original Figma layers, text rendered by Vue. Rasterized at 2x to avoid shipping 1.1 MB of gradients."
   }
 }

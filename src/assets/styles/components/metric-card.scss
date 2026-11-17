@@ -1,6 +1,7 @@
 @use '../mixins/text';
 
 .ui-metric-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -10,6 +11,22 @@
   background: var(--background-surface2);
   color: var(--foreground-default);
   overflow: hidden;
+
+  &__action {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    border-radius: inherit;
+    background: transparent;
+    cursor: pointer;
+    &:hover {
+      background: var(--control-quiet-bg-hover);
+      opacity: 0.35;
+    }
+    &:focus-visible {
+      outline-offset: -4px;
+    }
+  }
 
   &--compact {
     height: 175px;

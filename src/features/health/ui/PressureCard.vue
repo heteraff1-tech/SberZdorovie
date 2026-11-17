@@ -8,9 +8,9 @@
     </template>
     <UiMetricValue
       :value="`${data.systolic} / ${data.diastolic}`"
-      status="Повышенный результат"
-      unit="В среднем"
-      tone="elevated"
+      status="Отлично"
+      unit="Среднее за 7 дней"
+      tone="positive"
     />
     <div
       class="pressure-chart"
