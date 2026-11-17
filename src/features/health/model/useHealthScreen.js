@@ -1,10 +1,12 @@
 import { computed, onMounted, onScopeDispose, ref } from 'vue';
 import { readMotionDuration } from '@/shared/lib/motion';
 
-export function useHealthScreen(initialAssistant = false) {
+export function useHealthScreen(initialView = 'home') {
   const ready = ref(false);
-  const assistant = ref(initialAssistant);
+  const view = ref(initialView);
+  const assistant = computed(() => view.value === 'assistant');
   const chartsStarted = ref(false);
+  const pulseOpen = computed(() => view.value === 'pulse');
   const sheetOpen = computed(() => ready.value && !assistant.value);
   let frame;
   let chartTimer;
@@ -20,11 +22,20 @@ export function useHealthScreen(initialAssistant = false) {
   function openAssistant() {
     clearTimeout(chartTimer);
     chartTimer = undefined;
-    assistant.value = true;
+    view.value = 'assistant';
   }
 
   function closeAssistant() {
-    assistant.value = false;
+    view.value = 'home';
+    startCharts();
+  }
+
+  function openPulse() {
+    view.value = 'pulse';
+  }
+
+  function closePulse() {
+    view.value = 'home';
     startCharts();
   }
 
@@ -39,5 +50,15 @@ export function useHealthScreen(initialAssistant = false) {
     clearTimeout(chartTimer);
   });
 
-  return { ready, assistant, chartsStarted, sheetOpen, openAssistant, closeAssistant };
+  return {
+    ready,
+    assistant,
+    chartsStarted,
+    sheetOpen,
+    pulseOpen,
+    openAssistant,
+    closeAssistant,
+    openPulse,
+    closePulse,
+  };
 }

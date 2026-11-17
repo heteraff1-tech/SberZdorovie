@@ -8,3 +8,4 @@ export { default as UiBottomSheet } from './UiBottomSheet.vue';
 export { default as UiGlassCard } from './UiGlassCard.vue';
 export { default as UiPhoneFrame } from './UiPhoneFrame.vue';
 export { default as UiDotScale } from './UiDotScale.vue';
+export { default as UiTabBar } from './UiTabBar.vue';

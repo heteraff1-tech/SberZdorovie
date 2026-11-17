@@ -21,7 +21,11 @@ export function useAssistant() {
   function selectSuggestion(id) {
     const suggestion = assistantSuggestions.find((item) => item.id === id);
     if (!suggestion) return;
-    draft.value = suggestion.prompt;
+    compose(suggestion.prompt);
+  }
+
+  function compose(prompt) {
+    draft.value = prompt;
     focusRequest.value += 1;
   }
 
@@ -60,6 +64,7 @@ export function useAssistant() {
     listening: voice.listening,
     suggestions: assistantSuggestions,
     selectSuggestion,
+    compose,
     attach,
     send,
     closeHistory,

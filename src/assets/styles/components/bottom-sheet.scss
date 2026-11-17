@@ -8,7 +8,19 @@
   background: var(--background-surface1);
   box-shadow: var(--shadow-sheet);
   transform: translateY(calc(100% + var(--space-18)));
-  transition: transform var(--motion-sheet) var(--ease-out);
+  transition:
+    transform var(--motion-sheet) var(--ease-out),
+    height var(--motion-sheet) var(--ease-out),
+    border-radius var(--motion-sheet) var(--ease-out);
+
+  &--expanded {
+    height: 100%;
+    border-radius: 0;
+  }
+  &--expanded &__content {
+    padding: 0;
+    overflow: hidden;
+  }
 
   &--open {
     transform: translateY(var(--sheet-drag));

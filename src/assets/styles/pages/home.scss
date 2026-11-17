@@ -30,7 +30,7 @@
   }
   &__composer {
     position: absolute;
-    inset: auto var(--space-20) var(--space-44);
+    inset: auto var(--space-20) 97px;
     pointer-events: none;
     opacity: 0;
     transform: translateY(45px);
@@ -40,6 +40,22 @@
   }
   &__sheet {
     --sheet-height: 642px;
+  }
+  &__dashboard {
+    transition: opacity var(--motion-ui);
+  }
+  &--pulse &__dashboard {
+    position: absolute;
+    inset: 24px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  &__navigation {
+    position: absolute;
+    z-index: 5;
+    left: 50%;
+    bottom: 19px;
+    transform: translateX(-50%);
   }
   &__indicator {
     position: absolute;

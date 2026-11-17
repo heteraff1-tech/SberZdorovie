@@ -1,6 +1,6 @@
 <template>
   <UiMetricCard title="Вес" :class="{ 'chart-ready': animate }">
-    <UiMetricValue :value="data.value" status="Отличный результат" unit="Кг" tone="positive" />
+    <UiMetricValue :value="data.value" status="Отлично" unit="Кг" tone="positive" />
     <div
       class="weight-chart"
       role="img"

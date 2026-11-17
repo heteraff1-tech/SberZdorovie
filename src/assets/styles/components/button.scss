@@ -33,6 +33,12 @@
     border-radius: var(--radius-full);
   }
 
+  &--pill {
+    padding-inline: var(--space-12);
+    gap: var(--space-6);
+    border-radius: var(--radius-full);
+  }
+
   @each $variant in primary, secondary, quiet, destructive {
     &--#{$variant} {
       background: var(--control-#{$variant}-bg-default);

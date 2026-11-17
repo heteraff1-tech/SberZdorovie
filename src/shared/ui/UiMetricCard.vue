@@ -12,11 +12,24 @@
       <slot name="legend" />
     </header>
     <div class="ui-metric-card__body"><slot /></div>
+    <button
+      v-if="actionLabel"
+      class="ui-metric-card__action"
+      type="button"
+      :aria-label="actionLabel"
+      @click="$emit('select', $event)"
+    ></button>
   </article>
 </template>
 
 <script setup>
-defineProps({ title: { type: String, required: true }, subtitle: String, compact: Boolean });
+defineProps({
+  title: { type: String, required: true },
+  subtitle: String,
+  compact: Boolean,
+  actionLabel: String,
+});
+defineEmits(['select']);
 </script>
 
 <style scoped lang="scss" src="@/assets/styles/components/metric-card.scss"></style>

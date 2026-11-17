@@ -1,0 +1,31 @@
+@use '../../mixins/text';
+
+.pulse-insight {
+  padding: var(--space-18);
+  border-radius: var(--border-radius-card);
+  background: var(--background-surface3);
+  &__badge {
+    @include text.style('text-label');
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: var(--product-assistant-accent);
+  }
+  h2 {
+    @include text.style('heading-h4');
+    margin: 4px 0 12px;
+    white-space: nowrap;
+  }
+  p {
+    @include text.style('text-small');
+    margin: 0 0 16px;
+  }
+  button {
+    @include text.style('text-label');
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--link-default);
+    cursor: pointer;
+  }
+}
