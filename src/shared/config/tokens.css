@@ -1,5 +1,21 @@
 @font-face {
   font-family: 'SB Sans Text';
+  src: url('https://cdn-app.sberdevices.ru/shared-static/0.0.0/fonts/SBSansText.0.2.0/SBSansText-Regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SB Sans Display';
+  src: url('https://cdn-app.sberdevices.ru/shared-static/0.0.0/fonts/SBSansDisplay.0.2.0/SBSansDisplay-Semibold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SB Sans Text';
   src: url('https://cdn-app.sberdevices.ru/shared-static/0.0.0/fonts/SBSansText.0.2.0/SBSansText-Medium.woff2') format('woff2');
   font-style: normal;
   font-weight: 500;
@@ -23,6 +39,8 @@
   --action: #c60053;
   --curtain: #020003;
   --focus: #fca8c9;
+  --health-surface: #f1f5f8;
+  --health-muted: #647490;
   --font-text: 'SB Sans Text', 'Segoe UI', sans-serif;
   --font-copy: 'SB Sans Display', 'Segoe UI', sans-serif;
   --font-status: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -45,4 +63,5 @@
 body { margin: 0; background: var(--stage); color: var(--text); }
 button { font: inherit; }
 img { display: block; }
+.metric-value { font: 600 44px / 56px var(--font-copy); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }

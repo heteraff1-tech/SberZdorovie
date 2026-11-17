@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import { BeatLogo, BerryPulse } from '@/entities/beat'
 import { PullGesture } from '@/features/pulse-pull'
 import { getMotionStyle } from '@/shared/config/motion'
@@ -7,6 +7,10 @@ import { getSvg } from '@/shared/lib/asset'
 import { easeBetween } from '@/shared/lib/easing'
 import { OnboardingFlow } from '../model/OnboardingFlow'
 import './onboarding.css'
+import { homeMotion } from '@/shared/config/home-motion'
+
+const emit = defineEmits(['complete'])
+let completionTimer
 
 const state = reactive({ phase: 'blank', curtain: 'off', pull: 0, tension: 0, merge: 0, finishing: false })
 const flow = new OnboardingFlow(state, () => matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -21,7 +25,11 @@ const isFilling = computed(() => state.phase === 'pull' && fill.value > 0 && fil
 const showWave = computed(() => state.phase === 'done' || (state.phase === 'pull' && fill.value >= .8))
 
 onMounted(() => flow.start())
-onUnmounted(() => flow.dispose())
+watch(() => state.phase, phase => {
+  if (phase === 'done') completionTimer = setTimeout(() => emit('complete'),
+    matchMedia('(prefers-reduced-motion: reduce)').matches ? 100 : homeMotion.onboardingHold)
+})
+onUnmounted(() => { flow.dispose(); clearTimeout(completionTimer) })
 
 function startPull(event) {
   if (!flow.canPull) return

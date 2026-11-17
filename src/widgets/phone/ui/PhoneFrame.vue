@@ -1,6 +1,9 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { getSvg } from '@/shared/lib/asset'
+import { designAsset } from '@/shared/lib/design-asset'
+
+defineProps({ light: Boolean })
 
 const size = { width: 434, height: 906 }
 const frame = ref(null)
@@ -29,11 +32,12 @@ onUnmounted(() => observer?.disconnect())
   >
     <div class="case" :style="{ '--case-scale': scale }">
       <div class="rail" aria-hidden="true"></div>
-      <div class="screen">
+      <div class="screen" :class="{ 'screen--light': light }">
         <slot />
         <div class="status" aria-hidden="true">
-          <span>15:07</span>
-          <img :src="getSvg('status')" width="79" height="13" alt="" />
+          <span>{{ light ? '9:41' : '15:07' }}</span>
+          <div v-if="light" class="status-levels"><img v-for="asset in ['imgCellularConnection', 'imgWifi', 'imgFrame']" :key="asset" :src="designAsset(asset)" alt="" /></div>
+          <img v-else :src="getSvg('status')" width="79" height="13" alt="" />
         </div>
         <div class="island" aria-hidden="true"></div>
       </div>
@@ -115,6 +119,10 @@ onUnmounted(() => observer?.disconnect())
 
 .status span { position: absolute; top: 18.34px; left: 70.56px; transform: translateX(-50%); }
 .status img { position: absolute; top: 22px; left: 291.3px; }
+.screen--light .status { color: black; }
+.screen--light .status span { top: 23.34px; left: 73px; }
+.status-levels { position: absolute; top: 26px; left: 288px; display: flex; align-items: center; gap: 7px; }
+.status .status-levels img { position: static; }
 
 .island {
   position: absolute;

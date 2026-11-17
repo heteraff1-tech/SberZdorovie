@@ -1,0 +1,762 @@
+{
+  "imgHomeBarDefaultIOs": {
+    "id": "77:4497",
+    "width": 402,
+    "height": 34
+  },
+  "img1": {
+    "id": "77:3914",
+    "width": 236,
+    "height": 233
+  },
+  "img2": {
+    "id": "77:3916",
+    "width": 236,
+    "height": 233
+  },
+  "img3": {
+    "id": "77:3918",
+    "width": 236,
+    "height": 233
+  },
+  "img4": {
+    "id": "77:3924",
+    "width": 16,
+    "height": 16
+  },
+  "img5": {
+    "id": "77:3926",
+    "width": 16,
+    "height": 16
+  },
+  "img6": {
+    "id": "77:3928",
+    "width": 16,
+    "height": 16
+  },
+  "img7": {
+    "id": "77:3930",
+    "width": 16,
+    "height": 16
+  },
+  "imgLucideX": {
+    "id": "77:3937",
+    "width": 24,
+    "height": 24
+  },
+  "imgLucideAstroid": {
+    "id": "77:3940",
+    "width": 14,
+    "height": 14
+  },
+  "imgGroup": {
+    "id": "77:3944",
+    "width": 16.683670043945312,
+    "height": 16.13888168334961
+  },
+  "imgCellularConnection": {
+    "id": "I77:3949;5465:16812",
+    "width": 19.200000762939453,
+    "height": 12.226415634155273
+  },
+  "imgWifi": {
+    "id": "I77:3949;5465:16813",
+    "width": 17.141666412353516,
+    "height": 12.328306198120117
+  },
+  "imgFrame": {
+    "id": "I77:3949;6325:1760",
+    "width": 27.32803726196289,
+    "height": 13
+  },
+  "img8": {
+    "id": "77:3951",
+    "width": 54,
+    "height": 54
+  },
+  "imgGroup1": {
+    "id": "77:3957",
+    "width": 10,
+    "height": 15.499999046325684
+  },
+  "img9": {
+    "id": "104:1708",
+    "width": 6,
+    "height": 6
+  },
+  "img10": {
+    "id": "104:1711",
+    "width": 6,
+    "height": 6
+  },
+  "img11": {
+    "id": "101:2552",
+    "width": 139,
+    "height": 27.66720962524414
+  },
+  "img12": {
+    "id": "101:2599",
+    "width": 139,
+    "height": 35.090023040771484
+  },
+  "imgEllipse262": {
+    "id": "77:4047",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse263": {
+    "id": "77:4048",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse264": {
+    "id": "77:4049",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse265": {
+    "id": "77:4050",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse266": {
+    "id": "77:4051",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse267": {
+    "id": "77:4052",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse154": {
+    "id": "77:4053",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse155": {
+    "id": "77:4054",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse156": {
+    "id": "77:4055",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse157": {
+    "id": "77:4056",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse158": {
+    "id": "77:4057",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse159": {
+    "id": "77:4058",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse160": {
+    "id": "77:4059",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse161": {
+    "id": "77:4060",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse162": {
+    "id": "77:4061",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse163": {
+    "id": "77:4062",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse114": {
+    "id": "77:4063",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse115": {
+    "id": "77:4064",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse201": {
+    "id": "77:4065",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse202": {
+    "id": "77:4066",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse230": {
+    "id": "77:4067",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse231": {
+    "id": "77:4068",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse232": {
+    "id": "77:4069",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse233": {
+    "id": "77:4070",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse234": {
+    "id": "77:4071",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse235": {
+    "id": "77:4072",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse236": {
+    "id": "77:4073",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse237": {
+    "id": "77:4074",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse292": {
+    "id": "77:4075",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse293": {
+    "id": "77:4076",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse294": {
+    "id": "77:4077",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse304": {
+    "id": "77:4078",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse268": {
+    "id": "77:4079",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse269": {
+    "id": "77:4080",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse270": {
+    "id": "77:4081",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse271": {
+    "id": "77:4082",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse272": {
+    "id": "77:4083",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse273": {
+    "id": "77:4084",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse164": {
+    "id": "77:4085",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse165": {
+    "id": "77:4086",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse166": {
+    "id": "77:4087",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse167": {
+    "id": "77:4088",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse168": {
+    "id": "77:4089",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse169": {
+    "id": "77:4090",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse170": {
+    "id": "77:4091",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse171": {
+    "id": "77:4092",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse172": {
+    "id": "77:4093",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse173": {
+    "id": "77:4094",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse124": {
+    "id": "77:4095",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse125": {
+    "id": "77:4096",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse210": {
+    "id": "77:4097",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse211": {
+    "id": "77:4098",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse238": {
+    "id": "77:4099",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse239": {
+    "id": "77:4100",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse240": {
+    "id": "77:4101",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse241": {
+    "id": "77:4102",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse242": {
+    "id": "77:4103",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse243": {
+    "id": "77:4104",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse244": {
+    "id": "77:4105",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse245": {
+    "id": "77:4106",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse295": {
+    "id": "77:4107",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse296": {
+    "id": "77:4108",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse297": {
+    "id": "77:4109",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse305": {
+    "id": "77:4110",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse274": {
+    "id": "77:4111",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse275": {
+    "id": "77:4112",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse276": {
+    "id": "77:4113",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse277": {
+    "id": "77:4114",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse278": {
+    "id": "77:4115",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse279": {
+    "id": "77:4116",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse174": {
+    "id": "77:4117",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse175": {
+    "id": "77:4118",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse176": {
+    "id": "77:4119",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse177": {
+    "id": "77:4120",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse178": {
+    "id": "77:4121",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse179": {
+    "id": "77:4122",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse180": {
+    "id": "77:4123",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse181": {
+    "id": "77:4124",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse182": {
+    "id": "77:4125",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse183": {
+    "id": "77:4126",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse134": {
+    "id": "77:4127",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse135": {
+    "id": "77:4128",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse219": {
+    "id": "77:4129",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse220": {
+    "id": "77:4130",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse246": {
+    "id": "77:4131",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse247": {
+    "id": "77:4132",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse248": {
+    "id": "77:4133",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse249": {
+    "id": "77:4134",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse250": {
+    "id": "77:4135",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse251": {
+    "id": "77:4136",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse252": {
+    "id": "77:4137",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse253": {
+    "id": "77:4138",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse298": {
+    "id": "77:4139",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse299": {
+    "id": "77:4140",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse300": {
+    "id": "77:4141",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse306": {
+    "id": "77:4142",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse280": {
+    "id": "77:4143",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse281": {
+    "id": "77:4144",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse282": {
+    "id": "77:4145",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse283": {
+    "id": "77:4146",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse284": {
+    "id": "77:4147",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse285": {
+    "id": "77:4148",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse184": {
+    "id": "77:4149",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse185": {
+    "id": "77:4150",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse186": {
+    "id": "77:4151",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse187": {
+    "id": "77:4152",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse188": {
+    "id": "77:4153",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse189": {
+    "id": "77:4154",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse190": {
+    "id": "77:4155",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse191": {
+    "id": "77:4156",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse192": {
+    "id": "77:4157",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse193": {
+    "id": "77:4158",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse144": {
+    "id": "77:4159",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse145": {
+    "id": "77:4160",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse228": {
+    "id": "77:4161",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse229": {
+    "id": "77:4162",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse254": {
+    "id": "77:4163",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse255": {
+    "id": "77:4164",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse256": {
+    "id": "77:4165",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse257": {
+    "id": "77:4166",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse258": {
+    "id": "77:4167",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse259": {
+    "id": "77:4168",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse260": {
+    "id": "77:4169",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse261": {
+    "id": "77:4170",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse301": {
+    "id": "77:4171",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse302": {
+    "id": "77:4172",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse303": {
+    "id": "77:4173",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "imgEllipse307": {
+    "id": "77:4174",
+    "width": 3.375,
+    "height": 3.375
+  },
+  "img13": {
+    "id": "88:5186",
+    "width": 318,
+    "height": 40
+  },
+  "img14": {
+    "id": "88:5185",
+    "width": 318,
+    "height": 24.109590530395508
+  },
+  "img15": {
+    "id": "98:1723",
+    "width": 4,
+    "height": 4
+  },
+  "img16": {
+    "id": "98:1726",
+    "width": 6,
+    "height": 6
+  }
+}
