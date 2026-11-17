@@ -1,0 +1,10 @@
+@use '../mixins/text';
+
+// Optional text utilities, following the same convention as Variant/app-new.
+@each $name in heading-h1, heading-h2, heading-h3, heading-h4, text-body, text-label, text-small,
+  text-footnote, text-caption, display-metric
+{
+  .#{$name} {
+    @include text.style($name);
+  }
+}

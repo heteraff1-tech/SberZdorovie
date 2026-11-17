@@ -1,0 +1,68 @@
+@use '../mixins/text';
+
+.ui-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  min-width: 0;
+
+  &__label {
+    @include text.style('text-label');
+    color: var(--foreground-soft);
+  }
+  &__control {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-width: 0;
+    min-height: var(--size-54);
+    padding-inline: var(--padding-m) var(--space-5);
+    border: var(--border-width-default) solid var(--input-border-default);
+    border-radius: var(--radius-27);
+    background: var(--input-bg-default);
+    transition:
+      background-color var(--motion-ui),
+      border-color var(--motion-ui);
+
+    &:hover {
+      background: var(--input-bg-hover);
+      border-color: var(--input-border-hover);
+    }
+    &:focus-within {
+      background: var(--input-bg-focus);
+      border-color: var(--input-border-focus);
+    }
+  }
+  &__field {
+    @include text.style('text-body');
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--input-fg-default);
+    outline-offset: var(--space-4);
+    &::placeholder {
+      color: var(--input-fg-placeholder);
+      opacity: 1;
+    }
+  }
+  &--filled &__control {
+    background: var(--input-bg-filled);
+    border-color: var(--input-border-filled);
+  }
+  @each $status in read-only, disabled, error, warning, success {
+    $class: $status;
+    @if $status == read-only {
+      $class: readonly;
+    }
+    &--#{$class} &__control {
+      background: var(--input-bg-#{$status});
+      border-color: var(--input-border-#{$status});
+    }
+    &--#{$class} &__field {
+      color: var(--input-fg-#{$status});
+    }
+  }
+}

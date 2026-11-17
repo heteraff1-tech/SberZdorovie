@@ -1,0 +1,102 @@
+{
+  "images/home-indicator.svg": {
+    "id": "77:4497",
+    "width": 402,
+    "height": 34
+  },
+  "images/assistant/artwork-diffuse.svg": {
+    "id": "77:3914",
+    "width": 236,
+    "height": 233
+  },
+  "images/assistant/artwork-soft.svg": {
+    "id": "77:3916",
+    "width": 236,
+    "height": 233
+  },
+  "images/assistant/artwork-diagonal.svg": {
+    "id": "77:3918",
+    "width": 236,
+    "height": 233
+  },
+  "icons/at-sign.svg": {
+    "id": "77:3924",
+    "width": 16,
+    "height": 16
+  },
+  "icons/document.svg": {
+    "id": "77:3926",
+    "width": 16,
+    "height": 16
+  },
+  "icons/quote.svg": {
+    "id": "77:3928",
+    "width": 16,
+    "height": 16
+  },
+  "icons/more.svg": {
+    "id": "77:3930",
+    "width": 16,
+    "height": 16
+  },
+  "icons/close.svg": {
+    "id": "77:3937",
+    "width": 24,
+    "height": 24
+  },
+  "icons/assistant.svg": {
+    "id": "77:3940",
+    "width": 14,
+    "height": 14
+  },
+  "icons/chat.svg": {
+    "id": "77:3944",
+    "width": 16.683670043945312,
+    "height": 16.13888168334961
+  },
+  "icons/cellular.svg": {
+    "id": "I77:3949;5465:16812",
+    "width": 19.200000762939453,
+    "height": 12.226415634155273
+  },
+  "icons/wifi.svg": {
+    "id": "I77:3949;5465:16813",
+    "width": 17.141666412353516,
+    "height": 12.328306198120117
+  },
+  "icons/battery.svg": {
+    "id": "I77:3949;6325:1760",
+    "width": 27.32803726196289,
+    "height": 13
+  },
+  "icons/attachment.svg": {
+    "id": "77:3951",
+    "width": 54,
+    "height": 54
+  },
+  "icons/microphone.svg": {
+    "id": "77:3957",
+    "width": 10,
+    "height": 15.499999046325684
+  },
+  "images/charts/pulse-background.svg": {
+    "id": "101:2552",
+    "width": 139,
+    "height": 27.66720962524414
+  },
+  "images/charts/pulse-foreground.svg": {
+    "id": "101:2599",
+    "width": 139,
+    "height": 35.090023040771484
+  },
+  "images/charts/weight-point.svg": {
+    "id": "98:1723",
+    "width": 4,
+    "height": 4
+  },
+  "images/charts/weight-point-current.svg": {
+    "id": "98:1726",
+    "width": 6,
+    "height": 6
+  }
+}

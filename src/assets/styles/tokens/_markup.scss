@@ -1,0 +1,76 @@
+@use '../mixins/tokens';
+
+// Figma: Health · Dimensions. Numbers in token names are pixel values.
+$dimensions: (
+  // space
+  'space-0': 0px,
+  'space-3': 3px,
+  'space-4': 4px,
+  'space-5': 5px,
+  'space-6': 6px,
+  'space-7': 7px,
+  'space-8': 8px,
+  'space-9': 9px,
+  'space-10': 10px,
+  'space-12': 12px,
+  'space-14': 14px,
+  'space-15': 15px,
+  'space-16': 16px,
+  'space-18': 18px,
+  'space-20': 20px,
+  'space-24': 24px,
+  'space-32': 32px,
+  'space-33': 33px,
+  'space-40': 40px,
+  'space-44': 44px,
+  'space-48': 48px,
+  // radius
+  'radius-2': 2px,
+  'radius-4': 4px,
+  'radius-8': 8px,
+  'radius-9': 9px,
+  'radius-10': 10px,
+  'radius-12': 12px,
+  'radius-16': 16px,
+  'radius-18': 18px,
+  'radius-22': 22px,
+  'radius-24': 24px,
+  'radius-25': 25px,
+  'radius-27': 27px,
+  'radius-28': 28px,
+  'radius-32': 32px,
+  'radius-34': 34px,
+  'radius-40': 40px,
+  'radius-62': 62px,
+  'radius-122': 122px,
+  'radius-full': 999px,
+  // size
+  'size-14': 14px,
+  'size-16': 16px,
+  'size-18': 18px,
+  'size-20': 20px,
+  'size-22': 22px,
+  'size-24': 24px,
+  'size-36': 36px,
+  'size-44': 44px,
+  'size-54': 54px,
+);
+
+:root {
+  @include tokens.emit($dimensions);
+
+  // Semantic layout aliases, as in Variant/app-new.
+  --padding-xs: var(--space-4);
+  --padding-s: var(--space-8);
+  --padding-m: var(--space-16);
+  --padding-l: var(--space-24);
+  --padding-xl: var(--space-32);
+  --gap-compact: var(--space-4);
+  --gap-default: var(--space-12);
+  --gap-section: var(--space-24);
+  --border-radius-s: var(--radius-8);
+  --border-radius-m: var(--radius-16);
+  --border-radius-l: var(--radius-24);
+  --border-radius-card: var(--radius-28);
+  --border-radius-sheet: var(--radius-32);
+}
