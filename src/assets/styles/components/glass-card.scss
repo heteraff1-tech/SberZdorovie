@@ -1,0 +1,67 @@
+@use '../mixins/text';
+
+.glass-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  width: var(--glass-card-size, 167px);
+  height: var(--glass-card-size, 167px);
+  padding: var(--space-15) var(--space-14) var(--space-15) var(--space-15);
+  border: 0;
+  border-radius: var(--radius-25);
+  background: var(--product-glass-surface);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(var(--blur-glass));
+  text-align: left;
+  color: var(--foreground-default);
+  cursor: pointer;
+  transition:
+    background var(--motion-ui),
+    box-shadow var(--motion-ui);
+}
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--border-width-glass) solid var(--border-default);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--border-width-glass));
+  border: var(--border-width-glass) solid transparent;
+  border-radius: inherit;
+  background: linear-gradient(
+      130deg,
+      transparent 15%,
+      var(--static-white) 45%,
+      var(--static-white) 65%,
+      transparent 95%
+    )
+    border-box;
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.glass-card:hover {
+  background: var(--control-quiet-bg-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+.glass-card:active {
+  background: var(--control-quiet-bg-pressed);
+}
+.glass-card--centered {
+  justify-content: center;
+}
+.glass-card-label {
+  position: relative;
+  white-space: pre-line;
+  width: 138px;
+  @include text.style('heading-h3');
+}

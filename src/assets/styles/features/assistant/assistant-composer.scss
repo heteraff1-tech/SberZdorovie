@@ -1,0 +1,43 @@
+@use '../../mixins/text';
+
+.assistant-composer {
+  position: relative;
+
+  &__form {
+    display: flex;
+    gap: var(--space-10);
+    height: var(--size-54);
+  }
+  &__file {
+    display: none;
+  }
+  &__attachment {
+    width: var(--size-54);
+    height: var(--size-54);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: transparent;
+    cursor: pointer;
+  }
+  &__input {
+    flex: 1;
+  }
+  &__send {
+    font-family: var(--font-text);
+    font-size: var(--size-24);
+    border-radius: var(--radius-full);
+  }
+  &__notice {
+    @include text.style('text-footnote');
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: var(--space-12) var(--space-16);
+    border-radius: var(--radius-18);
+    background: var(--background-surface2);
+    color: var(--foreground-muted);
+  }
+}

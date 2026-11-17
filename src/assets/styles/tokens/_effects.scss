@@ -1,0 +1,14 @@
+// Effects belong to the product; their geometry is separate from the color palette.
+:root {
+  --shadow-card: 0 4px 11px rgb(56 71 87 / 6%);
+  --shadow-card-hover: 0 5px 18px rgb(56 71 87 / 10%);
+  --shadow-sheet: 0 -4px 4px rgb(34 138 113 / 15%);
+  --shadow-history: 0 10px 40px rgb(20 56 44 / 14%);
+  --shadow-artwork: 0 10px 22px 1px rgb(33 182 183 / 17%);
+  --blur-glass: 7px;
+  --blur-background: 10px;
+  --blur-dissolve: 150px;
+  --blur-entry: 8px;
+  --border-width-default: 1px;
+  --border-width-glass: 1.25px;
+}

@@ -1,0 +1,72 @@
+@use '../mixins/text';
+
+.design-system-page {
+  width: min(1180px, 100%);
+  margin: auto;
+  padding: var(--space-24);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24);
+
+  &__header {
+    grid-column: 1 / -1;
+    color: var(--static-white);
+    h1 {
+      @include text.style('heading-h1');
+    }
+    p,
+    a {
+      @include text.style('text-body');
+    }
+    a {
+      color: var(--palette-mint-300);
+    }
+  }
+  &__theme {
+    padding: var(--space-24);
+    border-radius: var(--radius-24);
+    background: var(--background-page);
+    color: var(--foreground-default);
+    h2 {
+      @include text.style('heading-h2');
+      margin: 0 0 var(--space-24);
+    }
+  }
+  &__swatches {
+    display: flex;
+    gap: var(--space-8);
+    margin-bottom: var(--space-24);
+    span {
+      width: var(--size-36);
+      height: var(--size-36);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-8);
+    }
+  }
+  &__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+  }
+  &__fields,
+  &__cards {
+    display: grid;
+    gap: var(--space-16);
+    margin-top: var(--space-24);
+  }
+  &__typography {
+    display: grid;
+    gap: var(--space-12);
+    margin-top: var(--space-24);
+    p {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 760px) {
+  .design-system-page {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-12);
+  }
+}

@@ -1,0 +1,54 @@
+@use 'sass:math';
+
+$case-width: 434px;
+$case-height: 906px;
+
+:root {
+  --preview-background: #101013;
+  --preview-case-width: #{$case-width};
+  --preview-case-height: #{$case-height};
+  --preview-case-ratio: #{math.div($case-width, $case-height)};
+  --preview-screen-width: 402px;
+  --preview-screen-height: 874px;
+  --preview-screen-radius: 52px;
+  --preview-gap: 12px;
+  --preview-case-gradient: linear-gradient(
+    145deg,
+    #818187,
+    #303034 13%,
+    #77777e 31%,
+    #252529 64%,
+    #55555a 89%,
+    #19191c
+  );
+  --preview-case-shadow: 0 20px 68px rgb(0 0 0 / 44%), inset 0 0 0 1px #77777c;
+  --preview-case-border: #48484d;
+  --preview-case-surface: #0c0b0e;
+  --preview-case-inset: #18171a;
+  --preview-rail-gradient: linear-gradient(90deg, #39393e, #77777c);
+  --preview-button-gradient: linear-gradient(90deg, #74747a, #37373d);
+  --preview-island: #020203;
+  --preview-lens: radial-gradient(circle at 55% 45%, #1c1925, #09080d 42%, #050507 65%);
+  --onboarding-text-size: 18px;
+  --onboarding-text-line: 23px;
+  --onboarding-copy-size: 16px;
+  --onboarding-copy-line: 20px;
+  --onboarding-action-height: 56px;
+  --onboarding-stream-color: #ffd1df;
+  --onboarding-rim-color: #fc8aaa;
+  --onboarding-background: #050006;
+  --onboarding-curtain: #020003;
+  --onboarding-foreground: rgb(255 255 255 / 90%);
+  --onboarding-status: rgb(255 255 255 / 86%);
+  --onboarding-accent: #c60053;
+  --onboarding-focus: #fca8c9;
+  --onboarding-glow-rgb: 195 0 49;
+  --artwork-gradient: linear-gradient(
+    135.366deg,
+    #aaf7bc 0%,
+    #57dcab 30%,
+    #19bba7 52%,
+    #1cb7c3 78%,
+    #3ac4d1 100%
+  );
+}

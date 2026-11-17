@@ -1,0 +1,21 @@
+.ui-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--icon-width);
+  height: var(--icon-height);
+
+  &:not(&--image) {
+    background-color: currentColor;
+    -webkit-mask: var(--icon-source) center / contain no-repeat;
+    mask: var(--icon-source) center / contain no-repeat;
+  }
+  &--inverse {
+    color: var(--static-white);
+  }
+  &--image img {
+    display: block;
+  }
+  &--image.ui-icon--inverse img {
+    filter: brightness(0) invert(1);
+  }
+}

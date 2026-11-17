@@ -1,0 +1,51 @@
+.ui-bottom-sheet {
+  position: absolute;
+  z-index: 3;
+  inset: auto 0 0;
+  height: var(--sheet-height, auto);
+  max-height: 100%;
+  border-radius: var(--border-radius-sheet) var(--border-radius-sheet) 0 0;
+  background: var(--background-surface1);
+  box-shadow: var(--shadow-sheet);
+  transform: translateY(calc(100% + var(--space-18)));
+  transition: transform var(--motion-sheet) var(--ease-out);
+
+  &--open {
+    transform: translateY(var(--sheet-drag));
+  }
+  &--dragging {
+    transition: none;
+  }
+  &__handle {
+    position: absolute;
+    top: 0;
+    display: grid;
+    place-items: start center;
+    width: 100%;
+    height: var(--size-24);
+    padding: var(--space-4) 0 0;
+    border: 0;
+    background: transparent;
+    cursor: grab;
+    touch-action: none;
+    &:active {
+      cursor: grabbing;
+    }
+    span {
+      width: 34px;
+      height: var(--space-4);
+      border-radius: var(--radius-2);
+      background: var(--product-sheet-handle);
+    }
+  }
+  &__content {
+    height: 100%;
+    padding: var(--padding-l) var(--padding-l) 35px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

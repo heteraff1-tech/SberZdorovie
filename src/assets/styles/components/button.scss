@@ -1,0 +1,69 @@
+@use '../mixins/text';
+
+.ui-button {
+  @include text.style('text-label');
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: 0 var(--padding-m);
+  border: var(--border-width-default) solid transparent;
+  border-radius: var(--border-radius-m);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color var(--motion-ui),
+    color var(--motion-ui),
+    border-color var(--motion-ui);
+
+  &--sm {
+    min-height: var(--space-32);
+  }
+  &--md {
+    min-height: var(--size-44);
+  }
+  &--lg {
+    min-height: var(--size-54);
+    padding-inline: var(--padding-l);
+  }
+  &--icon {
+    width: var(--size-44);
+    height: var(--size-44);
+    padding: 0;
+    border-radius: var(--radius-full);
+  }
+
+  @each $variant in primary, secondary, quiet, destructive {
+    &--#{$variant} {
+      background: var(--control-#{$variant}-bg-default);
+      color: var(--control-#{$variant}-fg-default);
+
+      &:hover:not(:disabled) {
+        background: var(--control-#{$variant}-bg-hover);
+        color: var(--control-#{$variant}-fg-hover);
+      }
+      &:active:not(:disabled) {
+        background: var(--control-#{$variant}-bg-pressed);
+        color: var(--control-#{$variant}-fg-pressed);
+      }
+      &:focus-visible {
+        background: var(--control-#{$variant}-bg-focus);
+        color: var(--control-#{$variant}-fg-focus);
+      }
+      &:disabled {
+        background: var(--control-#{$variant}-bg-disabled);
+        color: var(--control-#{$variant}-fg-disabled);
+        cursor: default;
+      }
+      &.ui-button--loading {
+        background: var(--control-#{$variant}-bg-loading);
+        color: var(--control-#{$variant}-fg-loading);
+        cursor: progress;
+      }
+      &[aria-pressed='true']:not(:disabled) {
+        background: var(--control-#{$variant}-bg-selected);
+        color: var(--control-#{$variant}-fg-selected);
+      }
+    }
+  }
+}

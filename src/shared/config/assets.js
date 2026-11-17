@@ -1,0 +1,26 @@
+const base = import.meta.env.BASE_URL;
+
+export const assets = {
+  background: `${base}images/health-background.png`,
+  portrait: `${base}images/assistant-portrait.jpg`,
+  artworkDiffuse: `${base}images/assistant/artwork-diffuse.svg`,
+  artworkSoft: `${base}images/assistant/artwork-soft.svg`,
+  artworkDiagonal: `${base}images/assistant/artwork-diagonal.svg`,
+  atSign: `${base}icons/at-sign.svg`,
+  document: `${base}icons/document.svg`,
+  quote: `${base}icons/quote.svg`,
+  more: `${base}icons/more.svg`,
+  close: `${base}icons/close.svg`,
+  assistant: `${base}icons/assistant.svg`,
+  chat: `${base}icons/chat.svg`,
+  cellular: `${base}icons/cellular.svg`,
+  wifi: `${base}icons/wifi.svg`,
+  battery: `${base}icons/battery.svg`,
+  attachment: `${base}icons/attachment.svg`,
+  microphone: `${base}icons/microphone.svg`,
+  pulseBackground: `${base}images/charts/pulse-background.svg`,
+  pulseForeground: `${base}images/charts/pulse-foreground.svg`,
+  weightPoint: `${base}images/charts/weight-point.svg`,
+  weightPointCurrent: `${base}images/charts/weight-point-current.svg`,
+  homeIndicator: `${base}images/home-indicator.svg`,
+};

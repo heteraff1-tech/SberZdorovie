@@ -1,0 +1,119 @@
+.assistant-scene {
+  position: absolute;
+  inset: 256px 0 180px;
+  perspective: 1000px;
+  --parallax-x: 0;
+  --parallax-y: 0;
+}
+.scene-entry {
+  position: absolute;
+  opacity: 0;
+  filter: blur(var(--blur-entry));
+  transform: translate3d(var(--entry-x), var(--entry-y), var(--entry-z));
+  transition:
+    transform var(--motion-scene) var(--ease-out),
+    opacity var(--motion-scene-opacity) ease,
+    filter var(--motion-scene-filter) ease;
+  transition-delay: 0ms;
+}
+.is-active .scene-entry {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0);
+  transition-delay: var(--entry-delay);
+}
+.scene-depth {
+  transition: transform var(--motion-parallax) var(--ease-out);
+  transform: translate3d(
+    calc(var(--parallax-x) * var(--depth)),
+    calc(var(--parallax-y) * var(--depth)),
+    0
+  );
+}
+.portrait-entry {
+  left: 256px;
+  top: 31px;
+  width: 122px;
+  height: 122px;
+  --entry-x: 45px;
+  --entry-y: 90px;
+  --entry-z: -240px;
+  --entry-delay: var(--motion-portrait-delay);
+}
+.portrait-depth {
+  --depth: 10px;
+}
+.assistant-portrait {
+  border-radius: 50%;
+  object-fit: cover;
+}
+.turquoise-entry {
+  left: 110px;
+  top: 92px;
+  width: 267px;
+  height: 264px;
+  --entry-x: 60px;
+  --entry-y: 140px;
+  --entry-z: -140px;
+  --entry-delay: var(--motion-artwork-delay);
+}
+.turquoise-depth {
+  position: relative;
+  width: 267px;
+  height: 264px;
+  --depth: 22px;
+}
+.turquoise-base {
+  position: absolute;
+  left: 15.5px;
+  top: 15.5px;
+  width: 236px;
+  height: 233px;
+  border-radius: 34px;
+  transform: rotate(8deg);
+  box-shadow: var(--shadow-artwork);
+  background: var(--artwork-gradient);
+}
+.turquoise-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.analysis-entry {
+  left: 24px;
+  top: 22px;
+  --entry-x: -55px;
+  --entry-y: 70px;
+  --entry-z: 70px;
+  --entry-delay: var(--motion-analysis-delay);
+}
+.analysis-depth {
+  --depth: 30px;
+}
+.analysis-icons {
+  display: flex;
+  gap: 9px;
+}
+.doctor-entry {
+  left: 24px;
+  top: 218px;
+  --entry-x: -35px;
+  --entry-y: 130px;
+  --entry-z: 100px;
+  --entry-delay: var(--motion-doctor-delay);
+}
+.doctor-depth {
+  --depth: 40px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene-entry {
+    transition-duration: 1ms;
+    transition-delay: 0ms;
+    transform: none;
+    filter: none;
+  }
+  .scene-depth {
+    transform: none;
+  }
+}

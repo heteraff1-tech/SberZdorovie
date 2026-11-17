@@ -1,0 +1,31 @@
+@use '../mixins/text';
+
+.ui-metric-value {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--display-metric-line);
+  white-space: nowrap;
+
+  &__number {
+    @include text.style('display-metric');
+    color: var(--foreground-default);
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+  }
+  &__status {
+    @include text.style('text-caption');
+    color: var(--foreground-default);
+  }
+  &__unit {
+    @include text.style('text-footnote');
+    color: var(--foreground-muted);
+  }
+  @each $tone in positive, elevated, critical {
+    &__status--#{$tone} {
+      color: var(--product-metric-#{$tone});
+    }
+  }
+}

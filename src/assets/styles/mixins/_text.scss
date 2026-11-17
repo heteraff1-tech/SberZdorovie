@@ -1,0 +1,8 @@
+// Pure mixin: importing this in a component never duplicates :root CSS.
+@mixin style($name) {
+  font-family: var(--#{$name}-font);
+  font-size: var(--#{$name}-size);
+  font-weight: var(--#{$name}-weight);
+  line-height: var(--#{$name}-line);
+  letter-spacing: var(--#{$name}-tracking);
+}

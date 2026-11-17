@@ -1,0 +1,16 @@
+@use 'base/fonts';
+@use 'tokens/palette';
+@use 'tokens/color';
+@use 'tokens/markup';
+@use 'tokens/text-style';
+@use 'tokens/motion';
+@use 'tokens/effects';
+@use 'tokens/preview';
+@use 'base/reset';
+@use 'base/typography';
+
+body {
+  background: var(--preview-background);
+  color: var(--foreground-default);
+  font-family: var(--font-text);
+}

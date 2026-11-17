@@ -1,0 +1,33 @@
+@use '../../mixins/text';
+
+.assistant-history {
+  @include text.style('text-body');
+  position: absolute;
+  z-index: 2;
+  inset: 115px var(--space-20) auto;
+  max-height: 600px;
+  overflow-y: auto;
+  padding: var(--space-20);
+  border-radius: var(--radius-24);
+  background: var(--background-surface1);
+  color: var(--foreground-default);
+  box-shadow: var(--shadow-history);
+
+  &__title {
+    @include text.style('heading-h3');
+    margin: 0 0 var(--space-12);
+  }
+  &__empty {
+    margin: 0;
+  }
+  &__message {
+    margin-top: var(--space-10);
+    padding: var(--space-12);
+    border-radius: var(--radius-16);
+    background: var(--background-surface2);
+    overflow-wrap: anywhere;
+    p {
+      margin: 0;
+    }
+  }
+}
