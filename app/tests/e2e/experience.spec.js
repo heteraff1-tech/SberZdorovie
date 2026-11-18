@@ -146,7 +146,7 @@ for (const viewport of [
         .evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)),
     ).toBe(true);
     expect(failed).toEqual([]);
-    await expect(page.locator('.assistant-header__greeting')).toHaveCSS('font-size', '40px');
+    await expect(page.locator('.assistant-header__greeting')).toHaveCSS('font-size', '44px');
     await page.getByRole('button', { name: 'Закрыть помощника', exact: true }).click();
     await expect(page.locator('.assistant-header__greeting')).toHaveCSS('font-size', '32px');
     await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toBeVisible();
@@ -219,19 +219,19 @@ test('375×812: assistant close works and the same heading animates in both dire
     .click();
   const opening = await sampleTransition();
   expect(opening.font).toBeGreaterThan(32);
-  expect(opening.font).toBeLessThan(40);
+  expect(opening.font).toBeLessThan(44);
   expect(opening.top).toBeGreaterThan(118);
   expect(opening.top).toBeLessThan(141);
   expect(await heading.evaluate((el, previous) => el === previous, original)).toBe(true);
   await finishTransition();
-  await expect(heading).toHaveCSS('font-size', '40px');
+  await expect(heading).toHaveCSS('font-size', '44px');
   await expect(page.getByRole('button', { name: /Высокий пульс и/ })).toHaveCount(0);
   await expect(page.locator('.assistant-safety')).toHaveCount(0);
 
   await page.getByRole('button', { name: 'Закрыть помощника', exact: true }).click();
   const closing = await sampleTransition();
   expect(closing.font).toBeGreaterThan(32);
-  expect(closing.font).toBeLessThan(40);
+  expect(closing.font).toBeLessThan(44);
   expect(closing.top).toBeGreaterThan(118);
   expect(closing.top).toBeLessThan(141);
   expect(await heading.evaluate((el, previous) => el === previous, original)).toBe(true);

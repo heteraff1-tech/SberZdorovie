@@ -154,8 +154,9 @@ function navigate(destination) {
   &__tint {
     position: absolute;
     inset: 0;
-    background: var(--effect-background-tint);
-    opacity: 0.01;
+    background: color-mix(in srgb, var(--effect-background-tint) 1%, transparent);
+    backdrop-filter: blur(10px);
+    opacity: 1;
     transition: opacity var(--motion-dissolve);
   }
   &__composer {

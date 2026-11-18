@@ -4,7 +4,7 @@
       <UiIconButton
         ref="back"
         class="pulse-overview__back"
-        icon="chevron"
+        icon="back"
         label="Вернуться к показателям здоровья"
         @click="$emit('back')"
       />
@@ -61,7 +61,7 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 44px;
+    height: 43px;
     margin-bottom: var(--spacing-5);
     h1 {
       font: 600 var(--heading-h1-size) / var(--heading-h1-line) var(--font-display);
@@ -71,10 +71,9 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   &__back {
     position: absolute;
     left: 14px;
-    transform: rotate(180deg);
   }
   &__status {
-    font: 400 var(--text-small-size) / var(--text-small-line) var(--font-text);
+    font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);
     text-align: center;
     margin: var(--spacing-2) 0 var(--spacing-3);
     color: var(--color-warning-default);
@@ -83,7 +82,7 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-1);
-    margin: 0 var(--spacing-6) var(--spacing-6);
+    margin: 0 var(--spacing-6) calc(var(--spacing-6) - var(--spacing-1) / 2);
   }
   &__widgets {
     display: grid;

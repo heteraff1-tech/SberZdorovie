@@ -46,6 +46,6 @@ defineProps({ label: { type: String, required: true }, centered: Boolean });
   position: relative;
   white-space: pre-line;
   width: 138px;
-  font: 500 var(--heading-h3-size) / var(--heading-h3-line) var(--font-system);
+  font: 400 var(--heading-h3-size) / var(--heading-h3-line) var(--font-display);
 }
 </style>

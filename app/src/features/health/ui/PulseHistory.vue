@@ -17,7 +17,7 @@
         <div class="pulse-history__plot">
           <svg
             class="pulse-history__chart"
-            viewBox="0 0 322 90"
+            viewBox="0 0 322 66"
             preserveAspectRatio="none"
             role="img"
             aria-label="История разовых замеров пульса"
@@ -26,16 +26,16 @@
               <path
                 v-for="value in [40, 80, 120]"
                 :key="value"
-                :d="`M30 ${71 - (value - 40) / 2}H318`"
+                :d="`M30 ${47 - (value - 40) / 2}H318`"
               />
-              <path v-for="tick in ticks" :key="tick.x" :d="`M${tick.x} 30V71`" />
+              <path v-for="tick in ticks" :key="tick.x" :d="`M${tick.x} 6V47`" />
             </g>
             <g class="pulse-history__labels">
               <text
                 v-for="value in [40, 80, 120]"
                 :key="value"
                 x="23"
-                :y="75 - (value - 40) / 2"
+                :y="51 - (value - 40) / 2"
                 text-anchor="end"
               >
                 {{ value }}
@@ -44,13 +44,13 @@
                 v-for="(tick, index) in ticks"
                 :key="tick.x"
                 :x="tick.x"
-                y="89"
+                y="63"
                 :text-anchor="index === 0 ? 'start' : index === 4 ? 'end' : 'middle'"
               >
                 {{ tick.label }}
               </text>
             </g>
-            <path class="pulse-history__scrubber" :d="`M${selected.x} 30V71`" />
+            <path class="pulse-history__scrubber" :d="`M${selected.x} 6V47`" />
           </svg>
           <button
             v-for="(point, index) in points"
@@ -98,7 +98,7 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
+  gap: var(--spacing-4);
   padding: var(--spacing-4);
   border-radius: var(--border-radius-xl);
   background: var(--color-bg-surface);
@@ -106,7 +106,7 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
   &__body,
   &__measurements {
     display: grid;
-    gap: var(--spacing-2);
+    gap: var(--spacing-3);
   }
   &__details {
     display: grid;
@@ -117,7 +117,7 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
     width: 318px;
     max-width: 100%;
     height: 36px;
-    padding: var(--spacing-1);
+    padding: calc(var(--spacing-3) / 4);
     border-radius: var(--border-radius-s);
     background: var(--color-bg-page);
     button {
@@ -140,12 +140,12 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
   }
   &__plot {
     position: relative;
-    height: 90px;
+    height: 66px;
   }
   &__chart {
     display: block;
     width: 100%;
-    height: 90px;
+    height: 100%;
     overflow: visible;
   }
   &__grid {
@@ -212,12 +212,11 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
     stroke-width: 1;
   }
   &__selection {
-    font: 500 var(--text-footnote-size) / var(--text-footnote-line) var(--font-text);
+    font: 500 var(--text-label-size) / var(--text-label-line) var(--font-text);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    min-height: 24px;
-    padding: 0 var(--spacing-2);
+    padding: var(--spacing-2) var(--spacing-3);
     border-radius: var(--border-radius-s);
     background: var(--color-bg-page);
     span:last-child {

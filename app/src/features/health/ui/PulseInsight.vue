@@ -1,6 +1,6 @@
 <template>
   <section class="pulse-insight" aria-label="Рекомендация ИИ">
-    <div class="pulse-insight__badge"><UiIcon name="assistant" />ИИ помощник</div>
+    <div class="pulse-insight__badge"><UiIcon name="assistant" /><span>ИИ помощник</span></div>
     <h2>Пульс покоя выше нормы в течение дня</h2>
     <p>Даже в покое (без учета тренировок и кофе) пульс держится выше вашей нормы</p>
     <button type="button" @click="$emit('discuss')">Обсудить с терапевтом онлайн</button>
@@ -22,7 +22,11 @@ defineEmits(['discuss']);
     display: flex;
     align-items: center;
     gap: var(--spacing-1);
-    color: var(--color-accent-default);
+    span:not(.ui-icon) {
+      background: var(--effect-assistant-badge);
+      background-clip: text;
+      color: transparent;
+    }
   }
   h2 {
     font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);

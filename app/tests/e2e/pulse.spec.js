@@ -14,6 +14,8 @@ test('pulse widget expands the same sheet, synchronizes its two-second loop and 
   const overview = page.getByRole('region', { name: 'Пульс — обзор' });
   await expect(overview).toBeVisible();
   await expect(sheet).toHaveCSS('height', '874px');
+  await expect(page.locator('.pulse-history__plot')).toHaveCSS('height', '66px');
+  await expect(page.locator('.pulse-history__selection')).toHaveCSS('height', '34px');
   const screen = await page.locator('.screen').boundingBox();
   const expanded = await sheet.boundingBox();
   expect(expanded.y).toBeCloseTo(screen.y, 1);

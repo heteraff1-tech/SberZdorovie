@@ -137,15 +137,19 @@ defineEmits(['open', 'close']);
   }
   &--active &__label {
     top: 77px;
-    color: var(--color-accent-default);
     cursor: default;
+
+    span:not(.ui-icon) {
+      background: var(--effect-assistant-badge);
+      background-clip: text;
+      color: transparent;
+    }
   }
   &--active &__greeting {
     top: 141px;
     height: 108px;
-    font-size: 40px;
-    line-height: 54px;
-    letter-spacing: 0;
+    font-size: var(--display-metric-size);
+    line-height: var(--display-metric-line);
     color: var(--color-fg-default);
     cursor: default;
   }

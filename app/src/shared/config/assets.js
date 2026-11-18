@@ -17,6 +17,7 @@ export const assets = {
   microphone: `${base}icons/microphone.svg`,
   camera: `${base}icons/camera.svg`,
   plus: `${base}icons/plus.svg`,
+  back: `${base}icons/back.svg`,
   chevron: `${base}icons/chevron.svg`,
   file: `${base}icons/file.svg`,
   heart: `${base}icons/heart.svg`,

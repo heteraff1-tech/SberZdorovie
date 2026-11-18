@@ -30,7 +30,7 @@
     "height": 24
   },
   "icons/assistant.svg": {
-    "id": "77:3940",
+    "id": "275:8632",
     "width": 14,
     "height": 14
   },
@@ -83,6 +83,11 @@
     "id": "238:1962",
     "width": 18,
     "height": 18
+  },
+  "icons/back.svg": {
+    "id": "275:8647",
+    "width": 24,
+    "height": 24
   },
   "icons/file.svg": {
     "id": "238:1961",

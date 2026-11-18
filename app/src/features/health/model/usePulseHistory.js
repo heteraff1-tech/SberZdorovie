@@ -13,7 +13,7 @@ export function usePulseHistory(source) {
   // Горизонтальная координата учитывает выбранный период.
   const getX = (time) => 30 + ((days.value - 1 + minutes(time) / 1440) / days.value) * 288;
   // Диапазон 40–120 уд/мин переводится в вертикальную шкалу графика.
-  const getY = (value) => 71 - ((value - 40) / 80) * 40;
+  const getY = (value) => 47 - (value - 40) / 2;
   const points = computed(() =>
     data.value.measurements.map((point) => ({
       ...point,

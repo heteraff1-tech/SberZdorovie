@@ -4,6 +4,7 @@ import { assets } from './assets';
 export const icons = {
   camera: { src: assets.camera, width: 18, height: 18 },
   plus: { src: assets.plus, width: 18, height: 18 },
+  back: { src: assets.back, width: 24, height: 24 },
   chevron: { src: assets.chevron, width: 18, height: 18 },
   file: { src: assets.file, width: 22, height: 22 },
   heart: { src: assets.heart, width: 76, height: 28 },
