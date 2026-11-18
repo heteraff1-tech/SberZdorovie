@@ -5,11 +5,18 @@ test('onboarding keeps its SVG animation and reaches the health dashboard', asyn
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
-  await page.getByRole('button', { name: 'Connect Apple Health', exact: true }).click();
+  const connect = page.getByRole('button', { name: 'Connect Apple Health', exact: true });
+  const berry = page.locator('.berry');
+  await expect(connect).toBeVisible();
+  await expect(page.locator('.mark')).toHaveCSS('opacity', '1');
+  await expect(berry).toHaveAttribute('data-ready', 'true');
+  await expect(berry).toBeHidden();
+  await connect.click();
   const gesture = page.getByRole('button', { name: 'Swipe up to connect Apple Health' });
   await expect(gesture).toHaveAttribute('aria-disabled', 'false');
-  await expect(page.locator('.berry #pulse-body')).toHaveCSS('filter', 'none');
-  await expect(page.locator('.berry #pulse-arrows path').first()).toHaveCSS(
+  await expect(berry.locator('#pulse-body')).toBeVisible();
+  await expect(berry).toHaveCSS('opacity', '1');
+  await expect(berry.locator('#pulse-arrows path').first()).toHaveCSS(
     'animation-name',
     /arrow-light/,
   );

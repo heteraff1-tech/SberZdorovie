@@ -93,34 +93,19 @@ function readContact() {
   width: 124px;
   height: 360px;
   pointer-events: none;
+  visibility: hidden;
   opacity: 0;
   transition: opacity var(--motion-action) var(--ease-out);
 }
 
-.berry[data-ready='true']:is([data-phase='connect'], [data-phase='pull'], [data-phase='done']) {
+.berry[data-ready='true']:is([data-phase='pull'], [data-phase='done']) {
+  visibility: visible;
   opacity: 1;
 }
 
 .berry :deep(svg) {
   display: block;
   overflow: visible;
-}
-.berry :deep(#pulse-body) {
-  filter: none;
-  transition: filter var(--motion-action) var(--ease-in-out);
-}
-.berry[data-phase='connect'] :deep(#pulse-body) {
-  filter: grayscale(1) brightness(1.42);
-}
-.berry:is([data-phase='blank'], [data-phase='intro'], [data-phase='welcome']) :deep(svg) {
-  transform-origin: 62px 300px;
-  transform: translateY(18px) scale(0.7);
-}
-.berry :deep(svg) {
-  transition: transform var(--motion-action) var(--ease-out);
-}
-.berry[data-phase='connect'] :deep(svg) {
-  transform: translateY(-2px);
 }
 
 .berry :deep(#pulse-arrows) {
