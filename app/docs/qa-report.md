@@ -1,13 +1,8 @@
-# Итоговый отчёт QA: помощник и переходы
+# QA: временный мобильный просмотр
 
-Проверка: 18 ноября 2026 года, ветка `codex/app-structure`.
+Дата: 18 ноября 2026 года. Ветка: `codex/app-structure`.
 
-## Изменения
-
-- По запросу пользователя удалены кнопки выбора симптомов, медицинский ответ в UI, AssistantContent и неиспользуемый useAssistantSafety. Изолированное правило HC-001 и его unit-тесты сохранены для будущей интеграции; команды в интерфейсе отсутствуют.
-- Крестик использует UiIconButton и событие close. HomePage возвращает показатели и фокус.
-- Заголовок постоянно находится в DOM: положение, размер, межстрочный и межбуквенный интервал плавно меняются в обе стороны. Метка помощника также меняет положение плавно.
-- Браузерные проверки удалённого UI заменены регрессией для текущего поведения: отсутствие команд, крестик, промежуточные значения анимации, сохранение DOM-узла и фокус. Датчики ошибок и reduced motion сохранены.
+Режим `?mobile=1` включает изолированный временный адаптер без корпуса, искусственного статус-бара, выреза и HomeBar. Явное нажатие «На весь экран» вызывает Fullscreen API; при выходе кнопка возвращается. Обычный PhonePreview и код страниц не изменены.
 
 ## Результаты
 
@@ -15,28 +10,26 @@
 | ---------------- | ------------ |
 | Unit             | 12 / 12 PASS |
 | Production build | PASS         |
-| Playwright       | 11 / 11 PASS |
+| Playwright       | 15 / 15 PASS |
 | Форматирование   | PASS         |
 | git diff --check | PASS         |
-| AGENTS.md        | 89 строк     |
 
-Полный `npm run qa` выполнен после последней правки кода с `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium`, код завершения 0. Отдельно пройден `npm run format:check`. Проверены 375×812, 360×740, console.error/pageerror, отсутствие горизонтального переполнения, переключение reduced motion, анимации онбординга и пульса, сохранение состояния графиков. Открытый и закрытый экраны просмотрены в Chromium.
+Полный npm run qa выполнен после последней правки кода с `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium`, код завершения 0. Сохранены прежние проверки; добавлены четыре мобильных сценария с isMobile/hasTouch и сенсорными нажатиями: 393×873, 412×915, уменьшение высоты до 700, fullscreen и онбординг. Проверены шторa, навигация, прокрутка нижних карточек, ошибки JS/консоли и горизонтальное переполнение. Главная и помощник просмотрены без рамки во fullscreen Chromium.
+
+Первый прогон обнаружил недоступную кнопку онбординга на низком viewport: базовые стили имели больший приоритет. Исправлена изоляция адаптера на поверхности превью. Сенсорная проверка прокрутки ожидает завершения открытия шторы и пересчёта ResizeObserver, без фиксированных задержек.
 
 ## Изменённые файлы
 
 ```text
-AGENTS.md
 README.md
-app/docs/architecture.md
 app/docs/functions.md
 app/docs/qa-report.md
-app/src/features/assistant/config/suggestions.js
-app/src/features/assistant/index.js
-app/src/features/assistant/model/useAssistantSafety.js
-app/src/features/assistant/ui/AssistantContent.vue
-app/src/features/assistant/ui/AssistantHeader.vue
-app/src/pages/home/HomePage.vue
-app/tests/e2e/experience.spec.js
+app/docs/temporary-mobile.md
+app/index.html
+app/src/App.vue
+app/src/components/temporary-mobile/TemporaryMobilePreview.vue
+app/src/components/temporary-mobile/useMobilePreview.js
+app/tests/e2e/mobilePreview.spec.js
 ```
 
-Этот отчёт относится к локальному прогону в Chromium; результат GitHub Actions отображается отдельно у коммита. Ввод, файлы, голос и история помощника остаются статичными.
+Инструкция включения и удаления: [temporary-mobile.md](temporary-mobile.md). Проверка выполнена в Chromium, на физическом Xiaomi 14T не проводилась. Полноэкранный запрос зависит от поддержки и разрешений браузера; без него остаётся режим без рамки. Результат GitHub Actions отображается отдельно у коммита.

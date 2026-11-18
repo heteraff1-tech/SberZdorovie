@@ -113,3 +113,7 @@
 | `expectNoHorizontalOverflow(page)`                          | Проверяет scrollWidth документа относительно innerWidth                                     |
 
 Внутренние helpers `blocks`, `visit`, `importPath`, `rawColors` соответственно разбирают SFC, обходят AST, разрешают Vite/relative пути и находят цветовые литералы, сохраняя ссылки на SVG.
+
+## Временное мобильное превью
+
+`components/temporary-mobile/useMobilePreview.js` — `useMobilePreview(viewport)` возвращает масштаб, высоту поверхности, доступность fullscreen, состояние и сообщение об отказе. `measure()` адаптирует область через ResizeObserver, `enterFullscreen()` обрабатывает явное нажатие, `updateFullscreen()` реагирует на системный выход. Подробности и удаление: [temporary-mobile.md](temporary-mobile.md).
