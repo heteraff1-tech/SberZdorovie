@@ -71,9 +71,12 @@ for (const viewport of [
   });
 }
 
-test('temporary mobile supports explicit fullscreen entry and exit', async ({ page }) => {
+test('temporary mobile supports fullscreen before reaching home', async ({ page }) => {
   await page.setViewportSize({ width: 393, height: 873 });
-  await page.goto('/?mobile=1#home');
+  await page.goto('/?mobile=1');
+  await expect(page.getByRole('region', { name: 'Daybeat', exact: true })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toHaveCount(0);
+  await expectViewportFilled(page);
   await page.getByRole('button', { name: 'На весь экран', exact: true }).tap();
   await expect.poll(() => page.evaluate(() => Boolean(document.fullscreenElement))).toBe(true);
   await expect(page.getByRole('button', { name: 'На весь экран', exact: true })).toHaveCount(0);
