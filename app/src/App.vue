@@ -8,13 +8,14 @@
           :initial-view="initialView"
           :pulse-measurements="measurements"
           :save-pulse="savePulse"
+          :reset-pulse="resetPulse"
           @dashboard-ready="dashboardVisited = true"
         />
         <Transition name="onboarding-exit" @after-leave="onboardingExit = false">
           <OnboardingPage v-if="!home" @complete="finishOnboarding" />
         </Transition>
       </component>
-      <PulseEntry v-if="showPulseEntry" :save="savePulse" />
+      <PulseEntry v-if="showPulseEntry" :save="savePulse" :reset="resetPulse" />
     </div>
   </main>
 </template>
@@ -36,7 +37,7 @@ const initialView = computed(() => views[hash.value] || 'home');
 const home = ref(Boolean(views[hash.value]));
 const dashboardVisited = ref(false);
 const onboardingExit = ref(false);
-const { measurements, savePulse } = usePulseMeasurements();
+const { measurements, savePulse, resetPulse } = usePulseMeasurements();
 const showPulseEntry = computed(
   () => !mobilePreview && home.value && dashboardVisited.value && !onboardingExit.value,
 );

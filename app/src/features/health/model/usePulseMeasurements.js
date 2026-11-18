@@ -1,7 +1,7 @@
 import { onScopeDispose, ref } from 'vue';
 
 const storageKey = 'daybeat.pulse-measurements.v1';
-export const pulseInputMax = 999;
+export const pulseInputMax = 250;
 
 /** Проверяет формат числового поля и сохранённого значения. */
 function isPulseValue(value) {
@@ -68,9 +68,20 @@ export function usePulseMeasurements() {
     }
   }
 
+  /** Удаляет только ручные замеры пульса из браузера. */
+  function resetPulse() {
+    try {
+      window.localStorage.removeItem(storageKey);
+      measurements.value = [];
+      return '';
+    } catch {
+      return 'Не удалось сбросить замеры.';
+    }
+  }
+
   refresh();
   window.addEventListener('storage', handleStorage);
   onScopeDispose(() => window.removeEventListener('storage', handleStorage));
 
-  return { measurements, savePulse };
+  return { measurements, savePulse, resetPulse };
 }

@@ -4,6 +4,7 @@
     <div class="health-dashboard-pair">
       <PulseCard
         :value="pulse"
+        :demo="demoPulse"
         :animate="animate"
         @select="$emit('open-pulse', $event)"
       /><GlucoseCard :data="data.glucose" :animate="animate" />
@@ -21,6 +22,7 @@ defineProps({
   data: { type: Object, required: true },
   pulse: { type: Number, default: null },
   animate: Boolean,
+  demoPulse: Boolean,
 });
 defineEmits(['open-pulse']);
 </script>

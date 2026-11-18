@@ -37,16 +37,18 @@
         <HealthDashboard
           :data="demoMetrics"
           :pulse="latestPulse"
+          :demo-pulse="!pulseMeasurements.length"
           :animate="chartsStarted"
           @open-pulse="showPulse"
         />
       </div>
       <PulseOverview
         v-if="pulseOpen"
-        :value="latestPulse"
+        :value="averagePulse"
         :measurements="pulseHistory"
         :demo="!pulseMeasurements.length"
         :save="savePulse"
+        :reset="resetPulse"
         @back="hidePulse"
         @discuss="showAssistant"
       />
@@ -80,9 +82,15 @@ const props = defineProps({
   name: { type: String, default: 'Анна' },
   pulseMeasurements: { type: Array, default: () => [] },
   savePulse: { type: Function, required: true },
+  resetPulse: { type: Function, required: true },
 });
 const emit = defineEmits(['dashboard-ready']);
 const latestPulse = computed(() => props.pulseMeasurements.at(-1)?.value ?? demoPulseValue);
+const averagePulse = computed(() => {
+  const entries = props.pulseMeasurements;
+  if (!entries.length) return demoPulseValue;
+  return Math.round(entries.reduce((sum, entry) => sum + entry.value, 0) / entries.length);
+});
 const pulseHistory = computed(() =>
   [...demoPulseMeasurements, ...props.pulseMeasurements].sort(
     (first, second) => first.recordedAt - second.recordedAt,

@@ -4,7 +4,8 @@
       <MetricValue
         :value="value ?? '—'"
         :unit="value === null ? undefined : 'уд/мин'"
-        :status="value === null ? 'Нет замеров' : undefined"
+        :status="status.label"
+        :tone="status.tone"
       />
       <div class="pulse-card__wave" aria-hidden="true">
         <img class="pulse-card__background" :src="assets.pulseBackground" alt="" />
@@ -15,11 +16,18 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { pulseStatus } from '../model/measurementStatus';
 import MetricCard from './MetricCard.vue';
 import MetricValue from './MetricValue.vue';
 import { assets } from '@/shared/config/assets';
-defineProps({ value: { type: Number, default: null }, animate: { type: Boolean, default: true } });
+const props = defineProps({
+  demo: Boolean,
+  value: { type: Number, default: null },
+  animate: { type: Boolean, default: true },
+});
 defineEmits(['select']);
+const status = computed(() => pulseStatus(props.value, props.demo));
 </script>
 
 <style scoped lang="scss">

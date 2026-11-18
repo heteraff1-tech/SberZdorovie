@@ -28,6 +28,7 @@
       />
       <p :id="hintId">Если оставить поле пустым, используем текущее время.</p>
       <UiButton type="submit">Сохранить замер</UiButton>
+      <UiButton variant="quiet" @click="resetMeasurements">Сбросить замеры</UiButton>
       <p role="status">{{ message }}</p>
     </form>
   </aside>
@@ -38,7 +39,11 @@ import { ref, useId } from 'vue';
 import { UiButton } from '@/shared/ui';
 import { pulseInputMax } from '../model/usePulseMeasurements';
 
-const props = defineProps({ save: { type: Function, required: true }, compact: Boolean });
+const props = defineProps({
+  save: { type: Function, required: true },
+  reset: { type: Function, required: true },
+  compact: Boolean,
+});
 const valueId = useId();
 const timeId = useId();
 const hintId = useId();
@@ -49,6 +54,16 @@ const message = ref('');
 function submit() {
   const error = props.save(value.value, localTime.value);
   message.value = error || `Сохранено: ${value.value} уд/мин`;
+  if (!error) {
+    value.value = '';
+    localTime.value = '';
+  }
+}
+
+function resetMeasurements() {
+  if (!window.confirm('Удалить все ручные замеры пульса и восстановить демо-данные?')) return;
+  const error = props.reset();
+  message.value = error || 'Ручные замеры сброшены';
   if (!error) {
     value.value = '';
     localTime.value = '';

@@ -158,7 +158,7 @@ test('the side form saves manual pulse readings and history filters them by loca
   await page.reload();
   await expect(card).toContainText('132');
   await page.getByRole('button', { name: 'Открыть пульс', exact: true }).click();
-  await expect(page.getByRole('img', { name: 'Пульс 132 ударов в минуту' })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Пульс 98 ударов в минуту' })).toBeVisible();
   const history = page.getByRole('region', { name: 'История пульса' });
   await expect(history.getByRole('heading')).toHaveText('132 уд/мин');
   await expect(history.getByRole('button', { name: /— 64 уд\/мин/ })).toHaveCount(0);
@@ -166,6 +166,12 @@ test('the side form saves manual pulse readings and history filters them by loca
   await expect(history.getByRole('heading')).toHaveText('64–132 уд/мин');
   await history.getByRole('button', { name: /— 64 уд\/мин/ }).click();
   await expect(history.locator('.pulse-history__selection')).toContainText('64 уд/мин');
+  page.once('dialog', (dialog) => dialog.accept());
+  await panel.getByRole('button', { name: 'Сбросить замеры' }).click();
+  await expect(page.getByRole('img', { name: 'Пульс 99 ударов в минуту' })).toBeVisible();
+  await page.reload();
+  await expect(card).toContainText('99');
+  await expect(card).toContainText('Повышенный');
 });
 
 test('pulse overview restores demo history and accepts a backdated manual reading', async ({

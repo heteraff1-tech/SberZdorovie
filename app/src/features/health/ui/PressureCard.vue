@@ -12,9 +12,9 @@
     </template>
     <MetricValue
       :value="`${data.systolic} / ${data.diastolic}`"
-      status="Отлично"
+      :status="pressureStatus(data).label"
       unit="Среднее за 7 дней"
-      tone="positive"
+      :tone="pressureStatus(data).tone"
     />
     <div
       class="pressure-chart"
@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+import { pressureStatus } from '../model/measurementStatus';
 import MetricCard from './MetricCard.vue';
 import MetricValue from './MetricValue.vue';
 defineProps({ data: { type: Object, required: true }, animate: { type: Boolean, default: true } });

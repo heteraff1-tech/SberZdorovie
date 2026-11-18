@@ -11,7 +11,12 @@
       <h1>Пульс</h1>
     </header>
     <PulseHeart :value="value" />
-    <p class="pulse-overview__status">{{ demo ? 'Демо-показатель' : 'Последний замер' }}</p>
+    <p class="pulse-overview__status" :data-tone="status.tone">
+      {{ status.label ? `${status.label} пульс` : 'Средний пульс' }}
+    </p>
+    <p class="pulse-overview__summary">
+      {{ demo ? 'Демо · средний пульс' : 'Среднее по ручным замерам' }}
+    </p>
     <div class="pulse-overview__actions">
       <UiButton variant="secondary" pill aria-disabled="true"
         ><UiIcon name="camera" />Замер по камере</UiButton
@@ -21,7 +26,7 @@
       >
     </div>
     <div class="pulse-overview__widgets">
-      <PulseEntry v-if="entryOpen" :save="save" compact />
+      <PulseEntry v-if="entryOpen" :save="save" :reset="reset" compact />
       <PulseInsight @discuss="$emit('discuss')" />
       <PulseHistory :measurements="measurements" />
       <div class="pulse-overview__report">
@@ -33,19 +38,22 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { UiButton, UiIcon, UiIconButton } from '@/shared/ui';
+import { pulseStatus } from '../model/measurementStatus';
 import PulseEntry from './PulseEntry.vue';
 import PulseHeart from './PulseHeart.vue';
 import PulseHistory from './PulseHistory.vue';
 import PulseInsight from './PulseInsight.vue';
-defineProps({
+const props = defineProps({
   value: { type: Number, default: null },
   measurements: { type: Array, required: true },
   demo: Boolean,
   save: { type: Function, required: true },
+  reset: { type: Function, required: true },
 });
 defineEmits(['back', 'discuss']);
+const status = computed(() => pulseStatus(props.value, props.demo));
 const entryOpen = ref(false);
 const back = ref(null);
 // При раскрытии шторы первым доступным действием становится возврат.
@@ -84,7 +92,18 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
     font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);
     text-align: center;
     margin: var(--spacing-2) 0 var(--spacing-3);
-    color: var(--color-warning-default);
+    color: var(--color-fg-default);
+    &[data-tone='elevated'] {
+      color: var(--color-warning-default);
+    }
+    &[data-tone='critical'] {
+      color: var(--color-error-default);
+    }
+  }
+  &__summary {
+    text-align: center;
+    margin: 0 0 var(--spacing-3);
+    color: var(--color-neutral-default);
   }
   &__actions {
     display: grid;
