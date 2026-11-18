@@ -1,1 +1,0 @@
-2026-11-18 | INGEST | Обработан обзор AI-превенции СберЗдоровья. Исходный DOCX помещён в 00-context/ и сохранён в 01-raw/ как источник вики. Обновлены 02-wiki/metrics-dynamics.md, 02-wiki/domain-rules.md и 02-wiki/user-pains.md. Раздела 03-hypotheses/ в проекте нет; статусы не менялись.
