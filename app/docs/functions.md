@@ -8,7 +8,7 @@
 | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | `features/health/model/useHealthScreen.js` — `useHealthScreen(initialView, screen)` | Возвращает состояние экрана и действия перехода. `screen` — ref корня для чтения локальной задержки графиков |
 | `startCharts()`                                                                     | Планирует один запуск графиков; готовую анимацию не повторяет                                                |
-| `openAssistant() / closeAssistant()`                                                | Переключает статический помощник и показатели                                                                |
+| `openAssistant() / closeAssistant()`                                                | Переключает помощника и показатели                                                                           |
 | `openPulse() / closePulse()`                                                        | Раскрывает и сворачивает обзор в существующей шторе                                                          |
 | `useGlucoseScale(data)`                                                             | Получает функцию чтения данных и возвращает форматированное число и долю заполнения                          |
 | `buildWeightChart(days, options)`                                                   | Возвращает точки, линию и заливку. Параметры задают область графика и диапазон значений                      |
@@ -89,3 +89,31 @@
 | `shared/lib/easing.js — easeBetween(start, end, value)`                      | Преобразует диапазон в плавный прогресс 0…1                |
 | `shared/lib/asset.js — getSvg(name)`                                         | Возвращает адрес локального SVG с учётом BASE_URL          |
 | `UiButton / UiIconButton — focus(options)`                                   | Передаёт фокус на нативную кнопку                          |
+
+## Медицинский сценарий HC-001
+
+| Файл / функция                                                                       | Назначение и контракт                                                                                                                           |
+| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `features/assistant/model/healthcareGuardrail.js` — `getAssistantResponse(symptoms)` | Возвращает предупреждение только при highPulse=true и discomfort=true либо dizziness=true. Иначе null. Не ставит диагноз и не назначает лечение |
+| `useAssistantSafety()`                                                               | Возвращает response, select и reset для локального выбора из suggestions.js                                                                     |
+| `select(id)`                                                                         | Выбирает известный вариант симптомов; неизвестный ID сбрасывает выбор                                                                           |
+| `AssistantContent.vue — chooseSymptoms(id)`                                          | Выбирает сценарий и фокусирует заголовок предупреждения после nextTick                                                                          |
+| `returnToSymptoms()`                                                                 | Закрывает предупреждение и возвращает фокус на выбор симптомов                                                                                  |
+| `reset()`                                                                            | Возвращает выбор симптомов без истории и отправки данных                                                                                        |
+| `shared/ui/UiButton.vue` — `handleClick(event)`                                      | Не открывает заблокированную ссылку и не испускает click; href включает нативный anchor                                                         |
+
+## Датчики QA
+
+Пути в этой таблице отсчитываются от `app/`.
+
+| Файл / функция                                              | Назначение                                                                                  |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `tests/lib/source-inspection.js` — `sourceFiles(directory)` | Собирает исходники без симлинков                                                            |
+| `importsIn(source, file)`                                   | Извлекает зависимости JS/TS/Vue/SCSS, включая export-from, require и literal dynamic import |
+| `architectureViolations(source, file)`                      | Разрешает пути и возвращает нарушения границ FSD с инструкциями                             |
+| `tokenNames()`                                              | Читает общие переменные tokens для проверки spacing                                         |
+| `styleViolations(source, file, names)`                      | Возвращает сырые цвета и отступы вне общей шкалы с номерами строк                           |
+| `tests/e2e/fixtures.js` — `observeBrowserErrors(page)`      | Подписывается на pageerror/console.error; возвращает список и dispose                       |
+| `expectNoHorizontalOverflow(page)`                          | Проверяет scrollWidth документа относительно innerWidth                                     |
+
+Внутренние helpers `blocks`, `visit`, `importPath`, `rawColors` соответственно разбирают SFC, обходят AST, разрешают Vite/relative пути и находят цветовые литералы, сохраняя ссылки на SVG.

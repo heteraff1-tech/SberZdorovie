@@ -3,6 +3,7 @@ import { defineConfig } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
+  forbidOnly: true,
   timeout: 30_000,
   use: {
     baseURL: 'http://localhost:4173',
@@ -15,6 +16,6 @@ export default defineConfig({
   webServer: {
     command: 'npm run preview -- --host 0.0.0.0 --port 4173 --strictPort',
     url: 'http://localhost:4173',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 });

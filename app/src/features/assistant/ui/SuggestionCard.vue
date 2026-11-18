@@ -21,7 +21,7 @@ defineProps({ label: { type: String, required: true }, centered: Boolean });
   border: 0;
   border-radius: var(--border-radius-xl);
   background: color-mix(in srgb, var(--color-bg-page) 5%, transparent);
-  box-shadow: 0 4px 11px rgb(56 71 87 / 6.5%);
+  box-shadow: var(--effect-glass-shadow);
   backdrop-filter: blur(1.5px);
   text-align: left;
   color: var(--color-fg-default);
@@ -32,17 +32,10 @@ defineProps({ label: { type: String, required: true }, centered: Boolean });
   inset: 0;
   border: 1.25px solid transparent;
   border-radius: inherit;
-  background: linear-gradient(
-      135deg,
-      rgb(142 156 168 / 42%),
-      rgb(246 255 255 / 90%) 34%,
-      rgb(255 255 255 / 94%) 67%,
-      rgb(108 141 150 / 31%)
-    )
-    border-box;
+  background: var(--effect-glass-border) border-box;
   mask:
-    linear-gradient(#fff 0 0) padding-box,
-    linear-gradient(#fff 0 0);
+    linear-gradient(var(--effect-mask-opaque) 0 0) padding-box,
+    linear-gradient(var(--effect-mask-opaque) 0 0);
   mask-composite: exclude;
   pointer-events: none;
 }

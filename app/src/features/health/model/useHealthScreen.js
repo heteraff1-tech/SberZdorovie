@@ -24,7 +24,7 @@ export function useHealthScreen(initialView = 'home', screen) {
     );
   }
 
-  /** Убирает панель показателей и открывает статический экран помощника. */
+  /** Убирает панель показателей и открывает помощника. */
   function openAssistant() {
     clearTimeout(chartTimer);
     chartTimer = undefined;

@@ -1,6 +1,7 @@
 <template>
   <div
     class="pulse-heart"
+    :data-reduced-motion="reducedMotion"
     role="img"
     :aria-label="`Пульс ${value} ударов в минуту`"
     :style="{ '--pulse-wave-mask': `url('${waveUrl}')` }"
@@ -15,7 +16,9 @@
 
 <script setup>
 import { assets } from '@/shared/config/assets';
+import { useReducedMotion } from '@/shared/composables/useReducedMotion';
 defineProps({ value: { type: Number, required: true } });
+const reducedMotion = useReducedMotion();
 const waveUrl = new URL(assets.pulseWave, document.baseURI).href;
 </script>
 
@@ -112,7 +115,7 @@ const waveUrl = new URL(assets.pulseWave, document.baseURI).href;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
+.pulse-heart[data-reduced-motion='true'] {
   .pulse-heart__heart,
   .pulse-heart__light {
     animation: none;
@@ -121,8 +124,6 @@ const waveUrl = new URL(assets.pulseWave, document.baseURI).href;
     display: none;
   }
 
-  .pulse-heart {
-    --motion-heartbeat: 1ms;
-  }
+  --motion-heartbeat: 1ms;
 }
 </style>

@@ -22,7 +22,7 @@
       :inert="pulseOpen"
       @open="showAssistant"
     />
-    <AssistantScene :active="assistant && ready" />
+    <AssistantContent :active="assistant && ready" />
     <div class="home-page__composer" :inert="!assistant || pulseOpen"><AssistantComposer /></div>
     <UiBottomSheet
       class="home-page__sheet"
@@ -57,7 +57,7 @@ import { nextTick, ref } from 'vue';
 import { UiBottomSheet, UiTabBar } from '@/shared/ui';
 import { assets } from '@/shared/config/assets';
 import { HealthDashboard, PulseOverview, useHealthScreen, demoMetrics } from '@/features/health';
-import { AssistantHeader, AssistantScene, AssistantComposer } from '@/features/assistant';
+import { AssistantHeader, AssistantContent, AssistantComposer } from '@/features/assistant';
 
 const props = defineProps({
   initialView: { type: String, default: 'home' },
@@ -81,7 +81,7 @@ const navigation = [
 ];
 let pulseTrigger;
 
-/** Открывает статический экран помощника и сохраняет работу Escape. */
+/** Открывает помощника и сохраняет работу Escape. */
 async function showAssistant() {
   openAssistant();
   await nextTick();
@@ -91,7 +91,10 @@ async function showAssistant() {
 /** Закрывает текущий вложенный экран по Escape. */
 function handleEscape() {
   if (pulseOpen.value) hidePulse();
-  else if (assistant.value) closeAssistant();
+  else if (assistant.value) {
+    closeAssistant();
+    screen.value?.focus({ preventScroll: true });
+  }
 }
 
 /** Запоминает карточку, чтобы вернуть на неё фокус после обзора. */
@@ -147,7 +150,7 @@ function navigate(destination) {
   &__tint {
     position: absolute;
     inset: 0;
-    background: #d9d9d9;
+    background: var(--effect-background-tint);
     opacity: 0.01;
     transition: opacity var(--motion-dissolve);
   }

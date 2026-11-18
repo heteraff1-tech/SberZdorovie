@@ -1,5 +1,6 @@
 <template>
-  <button
+  <component
+    :is="href ? 'a' : 'button'"
     ref="element"
     class="ui-button"
     :class="[
@@ -7,20 +8,23 @@
       `ui-button--${size}`,
       { 'ui-button--loading': loading, 'ui-button--pill': pill },
     ]"
-    :type="type"
-    :disabled="disabled || loading"
+    :href="disabled || loading ? undefined : href"
+    :type="href ? undefined : type"
+    :disabled="href ? undefined : disabled || loading"
+    :aria-disabled="href && (disabled || loading) ? true : undefined"
     :aria-busy="loading || undefined"
-    @click="$emit('click', $event)"
+    @click="handleClick"
   >
     <slot />
-  </button>
+  </component>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 
-defineProps({
+const props = defineProps({
   type: { type: String, default: 'button' },
+  href: { type: String, default: undefined },
   variant: {
     type: String,
     default: 'primary',
@@ -35,8 +39,17 @@ defineProps({
   pill: Boolean,
   loading: Boolean,
 });
-defineEmits(['click']);
+const emit = defineEmits(['click']);
 const element = ref(null);
+
+/** Заблокированная ссылка не открывает адрес и не испускает действие. */
+function handleClick(event) {
+  if (props.disabled || props.loading) {
+    event.preventDefault();
+    return;
+  }
+  emit('click', event);
+}
 /** Передаёт фокус на нативную кнопку для клавиатурной навигации. */
 function focus(options) {
   element.value?.focus(options);
@@ -58,6 +71,7 @@ defineExpose({ focus });
   cursor: pointer;
   transition: opacity var(--motion-ui);
   white-space: nowrap;
+  text-decoration: none;
   &--sm {
     min-height: var(--spacing-7);
   }

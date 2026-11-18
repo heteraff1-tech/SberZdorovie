@@ -98,7 +98,7 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--spacing-3);
   padding: var(--spacing-4);
   border-radius: var(--border-radius-xl);
   background: var(--color-bg-surface);
@@ -110,7 +110,7 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
   }
   &__details {
     display: grid;
-    gap: 6px;
+    gap: var(--spacing-2);
   }
   &__periods {
     display: flex;
@@ -227,12 +227,12 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
   &__legend {
     font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
     display: flex;
-    gap: 12px;
+    gap: var(--spacing-3);
     color: var(--color-neutral-default);
     span {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: var(--spacing-1);
     }
     i {
       width: 6px;

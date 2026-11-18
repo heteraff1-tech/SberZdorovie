@@ -4,6 +4,7 @@
     class="berry"
     :data-phase="phase"
     :data-ready="ready"
+    :data-reduced-motion="reducedMotion"
     :style="pulseStyle"
     aria-hidden="true"
   ></div>
@@ -13,6 +14,7 @@
 import { computed, onMounted, onUnmounted, ref, watchEffect } from 'vue';
 import { getSvg } from '@/shared/lib/asset';
 import { easeBetween } from '@/shared/lib/easing';
+import { useReducedMotion } from '@/shared/composables/useReducedMotion';
 import { PulseShape } from '../lib/PulseShape';
 
 const props = defineProps({
@@ -23,6 +25,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['contact']);
+const reducedMotion = useReducedMotion();
 const host = ref(null);
 const ready = ref(false);
 const request = new AbortController();
@@ -133,7 +136,7 @@ function readContact() {
 }
 
 .berry :deep(.pulse-stream) {
-  stroke: #ffd1df;
+  stroke: var(--effect-onboarding-stream);
   stroke-width: 0.85;
   stroke-dasharray: 8 92;
 }
@@ -155,7 +158,7 @@ function readContact() {
 
 .berry :deep(.pulse-light) {
   fill: none;
-  stroke: #fc8aaa;
+  stroke: var(--effect-onboarding-rim);
   stroke-width: 0.66;
   stroke-linecap: round;
   stroke-dasharray: 17 83;
@@ -203,10 +206,10 @@ function readContact() {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .berry[data-phase='pull'] :deep(#pulse-arrows path),
-  .berry[data-phase='pull'] :deep(.pulse-light),
-  .berry[data-phase='pull'] :deep(:is(#pulse-outer, #pulse-inner) > g) {
+.berry[data-reduced-motion='true'][data-phase='pull'] {
+  :deep(#pulse-arrows path),
+  :deep(.pulse-light),
+  :deep(:is(#pulse-outer, #pulse-inner) > g) {
     animation: none;
   }
 }

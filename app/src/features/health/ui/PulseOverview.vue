@@ -51,7 +51,7 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
-  padding: 55px 0 100px;
+  padding: var(--spacing-10) 0 calc(var(--spacing-9) * 2);
   background: var(--color-bg-page);
   &::-webkit-scrollbar {
     display: none;
@@ -62,7 +62,7 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
     justify-content: center;
     align-items: center;
     height: 44px;
-    margin-bottom: 20px;
+    margin-bottom: var(--spacing-5);
     h1 {
       font: 600 var(--heading-h1-size) / var(--heading-h1-line) var(--font-display);
       margin: 0;
@@ -76,26 +76,26 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   &__status {
     font: 400 var(--text-small-size) / var(--text-small-line) var(--font-text);
     text-align: center;
-    margin: 8px 0 12px;
+    margin: var(--spacing-2) 0 var(--spacing-3);
     color: var(--color-warning-default);
   }
   &__actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px;
-    margin: 0 24px 24px;
+    gap: var(--spacing-1);
+    margin: 0 var(--spacing-6) var(--spacing-6);
   }
   &__widgets {
     display: grid;
-    gap: 4px;
-    padding: 0 24px;
+    gap: var(--spacing-1);
+    padding: 0 var(--spacing-6);
   }
   &__report {
     font: 500 var(--text-label-size) / var(--text-label-line) var(--font-text);
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 16px 18px;
+    gap: var(--spacing-1);
+    padding: var(--spacing-4);
     border-radius: var(--border-radius-xl);
     background: var(--color-bg-surface);
     &-label {

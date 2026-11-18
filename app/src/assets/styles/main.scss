@@ -2,6 +2,7 @@
 @use 'tokens/color';
 @use 'tokens/markup';
 @use 'tokens/text-style';
+@use 'tokens/effects';
 
 :root {
   --motion-ui: 200ms;

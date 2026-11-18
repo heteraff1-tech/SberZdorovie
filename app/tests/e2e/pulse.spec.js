@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, expectNoHorizontalOverflow } from './fixtures';
 
 test('pulse widget expands the same sheet, synchronizes its two-second loop and restores focus', async ({
   page,
@@ -79,33 +79,45 @@ test('pulse widget expands the same sheet, synchronizes its two-second loop and 
   await expect(page.locator('.assistant-composer input')).toHaveCount(0);
 });
 
-test('pulse overview fits a narrow phone, scrolls below navigation and honors reduced motion', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 360, height: 740 });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  const failures = [];
-  page.on('requestfailed', (request) => failures.push(request.url()));
-  await page.route('**/*', (route) =>
-    route.request().url().startsWith('http://localhost:4173') ? route.continue() : route.abort(),
-  );
-  await page.goto('/#pulse');
-  await expect(page.locator('.ui-bottom-sheet')).toHaveCSS('height', '874px');
-  await expect(page.locator('.pulse-heart__heart')).toHaveCSS('animation-name', 'none');
-  await expect(page.locator('.pulse-heart__light')).toHaveCSS('display', 'none');
-  expect(
-    await page.locator('.pulse-overview').evaluate((el) => el.scrollWidth <= el.clientWidth),
-  ).toBe(true);
-  await page.locator('.pulse-overview').evaluate((el) => {
-    el.scrollTop = el.scrollHeight;
+for (const viewport of [
+  { width: 360, height: 740 },
+  { width: 375, height: 812 },
+]) {
+  test(`pulse overview ${viewport.width}×${viewport.height}: fits, scrolls and honors live reduced motion`, async ({
+    page,
+  }) => {
+    await page.setViewportSize(viewport);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const failures = [];
+    page.on('requestfailed', (request) => failures.push(request.url()));
+    await page.route('**/*', (route) =>
+      route.request().url().startsWith('http://localhost:4173') ? route.continue() : route.abort(),
+    );
+    await page.goto('/#pulse');
+    await expectNoHorizontalOverflow(page);
+    await expect(page.locator('.pulse-heart')).toHaveAttribute('data-reduced-motion', 'true');
+    await expect(page.locator('.ui-bottom-sheet')).toHaveCSS('height', '874px');
+    await expect(page.locator('.pulse-heart__heart')).toHaveCSS('animation-name', 'none');
+    await expect(page.locator('.pulse-heart__light')).toHaveCSS('display', 'none');
+    expect(
+      await page.locator('.pulse-overview').evaluate((el) => el.scrollWidth <= el.clientWidth),
+    ).toBe(true);
+    await page.locator('.pulse-overview').evaluate((el) => {
+      el.scrollTop = el.scrollHeight;
+    });
+    const report = await page.locator('.pulse-overview__report').boundingBox();
+    const nav = await page.getByRole('navigation', { name: 'Основная навигация' }).boundingBox();
+    expect(report.y + report.height).toBeLessThanOrEqual(nav.y);
+    expect(
+      await page
+        .locator('.pulse-heart img')
+        .evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)),
+    ).toBe(true);
+    expect(failures).toEqual([]);
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
+    await expect(page.locator('.pulse-heart')).toHaveAttribute('data-reduced-motion', 'false');
+    await expect(page.locator('.pulse-heart__heart')).toHaveCSS('animation-name', /heartbeat/);
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await expect(page.locator('.pulse-heart__heart')).toHaveCSS('animation-name', 'none');
   });
-  const report = await page.locator('.pulse-overview__report').boundingBox();
-  const nav = await page.getByRole('navigation', { name: 'Основная навигация' }).boundingBox();
-  expect(report.y + report.height).toBeLessThanOrEqual(nav.y);
-  expect(
-    await page
-      .locator('.pulse-heart img')
-      .evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)),
-  ).toBe(true);
-  expect(failures).toEqual([]);
-});
+}

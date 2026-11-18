@@ -114,9 +114,9 @@ const {
   --onboarding-copy-line: 20px;
   --onboarding-action-height: 56px;
 
-  color: rgb(255 255 255 / 90%);
+  color: var(--effect-onboarding-text);
   :focus-visible {
-    outline-color: #fca8c9;
+    outline-color: var(--effect-onboarding-focus);
   }
   position: absolute;
   inset: 0;
@@ -124,7 +124,7 @@ const {
   user-select: none;
   -webkit-user-select: none;
   font: 500 var(--onboarding-text-size) / var(--onboarding-text-line) var(--font-text);
-  background: #050006;
+  background: var(--effect-onboarding-bg);
 }
 
 .onboarding .glow {
@@ -241,8 +241,8 @@ const {
   overflow: hidden;
   border: 0;
   border-radius: var(--border-radius-full);
-  color: rgb(255 255 255 / 90%);
-  background: #c60053;
+  color: var(--effect-onboarding-text);
+  background: var(--effect-onboarding-button);
   cursor: pointer;
   transition:
     left var(--motion-action) var(--ease-out),
@@ -297,7 +297,7 @@ const {
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  background: #020003;
+  background: var(--effect-onboarding-bg);
   transition: opacity var(--motion-curtain) var(--ease-in-out);
 }
 .curtain[data-state='closed'] {
@@ -322,19 +322,8 @@ const {
   width: 1340px;
   height: 1340px;
   translate: -50% -50%;
-  background: radial-gradient(
-    closest-side,
-    transparent 26%,
-    rgb(195 0 49 / 0.035) 37%,
-    rgb(195 0 49 / 0.12) 50%,
-    rgb(195 0 49 / 0.27) 61%,
-    rgb(195 0 49 / 0.41) 72%,
-    rgb(195 0 49 / 0.34) 81%,
-    rgb(195 0 49 / 0.16) 89%,
-    rgb(195 0 49 / 0.04) 96%,
-    transparent 100%
-  );
-  mask-image: conic-gradient(from 26deg, #000, #000b 24%, #000 57%, #000c 79%, #000);
+  background: var(--effect-onboarding-wave-fill);
+  mask-image: var(--effect-onboarding-wave-mask);
   animation: screen-wave var(--motion-wave) cubic-bezier(0.34, 0.18, 0.38, 1) both;
 }
 

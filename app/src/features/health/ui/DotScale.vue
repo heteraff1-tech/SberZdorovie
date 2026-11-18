@@ -40,7 +40,7 @@ const activeColumns = computed(() =>
   display: grid;
   grid-template-columns: repeat(var(--scale-columns), minmax(0, 1fr));
   grid-template-rows: repeat(var(--scale-rows), minmax(0, 1fr));
-  gap: 1px;
+  gap: calc(var(--spacing-1) / 4);
   height: 18px;
   border-radius: var(--border-radius-full);
   overflow: hidden;

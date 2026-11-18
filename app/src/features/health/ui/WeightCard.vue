@@ -9,7 +9,7 @@
       <div class="weight-lines" aria-hidden="true">
         <i v-for="day in data.days" :key="day.day"></i>
       </div>
-      <svg class="weight-drawing" viewBox="0 0 333 58" width="333" height="58" aria-hidden="true">
+      <svg class="weight-drawing" viewBox="0 0 318 58" width="318" height="58" aria-hidden="true">
         <defs>
           <linearGradient :id="gradientId" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="var(--color-accent-default)" stop-opacity=".32" />
@@ -45,7 +45,7 @@ const props = defineProps({
   data: { type: Object, required: true },
   animate: { type: Boolean, default: true },
 });
-const chart = computed(() => buildWeightChart(props.data.days));
+const chart = computed(() => buildWeightChart(props.data.days, { width: 318, padding: 0 }));
 const gradientId = useId();
 </script>
 
@@ -59,15 +59,15 @@ const gradientId = useId();
 
   position: relative;
   height: 76px;
-  width: 333px;
-  margin-top: 4px;
-  margin-left: -7.5px;
+  width: 318px;
+  max-width: 100%;
+  margin-top: var(--spacing-1);
 }
 .weight-lines {
   position: absolute;
   height: 58px;
-  left: 7.5px;
-  right: 7.5px;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
 }

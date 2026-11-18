@@ -24,11 +24,11 @@ defineEmits(['open-pulse']);
 <style scoped lang="scss">
 .health-dashboard {
   display: grid;
-  gap: 4px;
+  gap: var(--spacing-1);
 }
 .health-dashboard-pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px;
+  gap: var(--spacing-1);
 }
 </style>

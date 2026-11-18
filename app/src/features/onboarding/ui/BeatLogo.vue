@@ -77,7 +77,14 @@ const mask = computed(() => {
 }
 
 .heart-glow {
-  filter: drop-shadow(0 0 12px rgb(195 0 49 / calc(0.5 * var(--heart-contact))))
+  filter: drop-shadow(
+      0 0 12px
+        color-mix(
+          in srgb,
+          var(--effect-onboarding-wave-ink) calc(50% * var(--heart-contact)),
+          transparent
+        )
+    )
     brightness(calc(1 + 0.25 * var(--heart-contact)));
   transition: filter var(--motion-contact) ease-out;
 }
@@ -92,7 +99,7 @@ const mask = computed(() => {
 .mark-fill {
   mask-image: linear-gradient(
     to top,
-    #000 calc(var(--fill-level) - var(--fill-edge)),
+    var(--effect-mask-opaque) calc(var(--fill-level) - var(--fill-edge)),
     transparent calc(var(--fill-level) + var(--fill-edge))
   );
   transition: opacity var(--motion-action) var(--ease-in-out);

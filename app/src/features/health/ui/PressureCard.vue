@@ -70,7 +70,7 @@ defineProps({ data: { type: Object, required: true }, animate: { type: Boolean, 
 .pressure-legend span {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-1);
 }
 .pressure-legend span:first-child {
   width: 53px;
@@ -81,7 +81,7 @@ defineProps({ data: { type: Object, required: true }, animate: { type: Boolean, 
 .pressure-chart {
   position: relative;
   height: 76px;
-  margin-top: 4px;
+  margin-top: var(--spacing-1);
 }
 .pressure-axis {
   position: absolute;
