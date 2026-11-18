@@ -21,16 +21,10 @@
   &__light {
     -webkit-mask: var(--pulse-wave-mask) center / 100% 100% no-repeat;
     mask: var(--pulse-wave-mask) center / 100% 100% no-repeat;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        var(--static-white) 45%,
-        var(--static-white) 55%,
-        transparent
-      )
+    background: linear-gradient(90deg, transparent, var(--bg) 45%, var(--bg) 55%, transparent)
       no-repeat;
     background-size: 44px 100%;
-    filter: drop-shadow(0 0 3px var(--static-white));
+    filter: drop-shadow(0 0 3px var(--bg));
     animation: pulse-light var(--motion-heartbeat) linear infinite;
   }
   &__value {
@@ -40,7 +34,7 @@
     left: 0;
     width: 100%;
     text-align: center;
-    color: var(--product-artwork-text);
+    color: var(--bg);
   }
   &__unit {
     @include text.style('text-small');
@@ -49,7 +43,7 @@
     left: 0;
     width: 100%;
     text-align: center;
-    color: var(--product-artwork-text);
+    color: var(--bg);
   }
 }
 

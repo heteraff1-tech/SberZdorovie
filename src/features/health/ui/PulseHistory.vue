@@ -16,6 +16,7 @@
       <svg
         class="pulse-history__chart"
         viewBox="0 0 318 90"
+        preserveAspectRatio="none"
         role="img"
         aria-label="Разовые замеры пульса и периоды активности"
       >

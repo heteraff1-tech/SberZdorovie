@@ -18,7 +18,7 @@
 .weight-lines i {
   width: 1px;
   height: 58px;
-  background: var(--chart-grid-subtle);
+  background: var(--border);
 }
 .weight-drawing {
   position: absolute;
@@ -26,16 +26,20 @@
   clip-path: inset(0 100% 0 0);
 }
 .weight-line {
-  stroke: var(--chart-weight);
+  stroke: var(--accent);
   stroke-width: 1;
 }
 .weight-point {
   position: absolute;
   opacity: 0;
   @include text.style('text-caption');
-  color: var(--foreground-soft);
+  color: var(--neutral);
 }
-.weight-point img {
+.weight-point__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
   position: absolute;
   left: -2px;
   top: -2px;
@@ -50,9 +54,13 @@
   transform: translateX(-50%);
 }
 .weight-point.is-last {
-  color: var(--chart-weight-label);
+  color: var(--neutral);
 }
-.weight-point.is-last img {
+.weight-point.is-last .weight-point__dot {
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--accent);
+  background: var(--bg);
   left: -3px;
   top: -3px;
 }
@@ -65,7 +73,7 @@
   inset-inline: 0;
   display: flex;
   justify-content: space-between;
-  color: var(--chart-label);
+  color: var(--neutral);
   @include text.style('text-caption');
 }
 .weight-days span {

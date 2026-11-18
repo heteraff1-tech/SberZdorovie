@@ -22,18 +22,28 @@
   border-radius: 68px;
   transform: scale(var(--case-scale));
   transform-origin: top left;
-  background: var(--preview-case-gradient);
-  box-shadow: var(--preview-case-shadow);
+  background: linear-gradient(
+    145deg,
+    #818187,
+    #303034 13%,
+    #77777e 31%,
+    #252529 64%,
+    #55555a 89%,
+    #19191c
+  );
+  box-shadow:
+    0 20px 68px rgb(0 0 0 / 44%),
+    inset 0 0 0 1px #77777c;
 }
 
 .case::before {
   content: '';
   position: absolute;
   inset: 4px;
-  border: 1px solid var(--preview-case-border);
+  border: 1px solid #48484d;
   border-radius: 64px;
-  background: var(--preview-case-surface);
-  box-shadow: inset 0 0 0 3px var(--preview-case-inset);
+  background: #0c0b0e;
+  box-shadow: inset 0 0 0 3px #18171a;
 }
 
 .rail,
@@ -42,7 +52,7 @@
   position: absolute;
   width: 3px;
   border-radius: 3px;
-  background: var(--preview-rail-gradient);
+  background: linear-gradient(90deg, #39393e, #77777c);
 }
 
 .rail {
@@ -71,7 +81,7 @@
   width: 3px;
   height: 89px;
   border-radius: 3px;
-  background: var(--preview-button-gradient);
+  background: linear-gradient(90deg, #74747a, #37373d);
 }
 
 .screen {
@@ -82,7 +92,7 @@
   overflow: clip;
   isolation: isolate;
   border-radius: var(--preview-screen-radius);
-  background: var(--onboarding-background);
+  background: #050006;
 }
 
 .status {
@@ -92,7 +102,7 @@
   inset-inline: 0;
   height: 56px;
   pointer-events: none;
-  color: var(--onboarding-status);
+  color: rgb(255 255 255 / 86%);
   @include text.style('text-body');
 }
 
@@ -108,7 +118,7 @@
   left: 291.3px;
 }
 .screen--light .status {
-  color: var(--static-black);
+  color: var(--fg);
 }
 .screen--light .status span {
   top: 23.34px;
@@ -135,7 +145,7 @@
   top: 13px;
   left: 145px;
   border-radius: 20px;
-  background: var(--preview-island);
+  background: #020203;
 }
 
 .island::after {
@@ -146,5 +156,5 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--preview-lens);
+  background: radial-gradient(circle at 55% 45%, #1c1925, #09080d 42%, #050507 65%);
 }

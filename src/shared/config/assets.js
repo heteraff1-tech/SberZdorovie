@@ -29,7 +29,5 @@ export const assets = {
   pulseWave: `${base}images/charts/pulse-wave.webp`,
   pulseBackground: `${base}images/charts/pulse-background.svg`,
   pulseForeground: `${base}images/charts/pulse-foreground.svg`,
-  weightPoint: `${base}images/charts/weight-point.svg`,
-  weightPointCurrent: `${base}images/charts/weight-point-current.svg`,
   homeIndicator: `${base}images/home-indicator.svg`,
 };

@@ -69,10 +69,17 @@
   top: 15.5px;
   width: 236px;
   height: 233px;
-  border-radius: 34px;
+  border-radius: var(--radius-32);
   transform: rotate(8deg);
   box-shadow: var(--shadow-artwork);
-  background: var(--artwork-gradient);
+  background: linear-gradient(
+    135.366deg,
+    #aaf7bc 0%,
+    #57dcab 30%,
+    #19bba7 52%,
+    #1cb7c3 78%,
+    #3ac4d1 100%
+  );
 }
 .turquoise-light {
   position: absolute;
@@ -93,7 +100,7 @@
 }
 .analysis-icons {
   display: flex;
-  gap: 9px;
+  gap: var(--space-8);
 }
 .doctor-entry {
   left: 24px;

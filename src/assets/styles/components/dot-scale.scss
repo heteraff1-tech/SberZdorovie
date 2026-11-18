@@ -7,7 +7,7 @@
   grid-template-columns: repeat(var(--scale-columns), minmax(0, 1fr));
   grid-template-rows: repeat(var(--scale-rows), minmax(0, 1fr));
   gap: var(--border-width-default);
-  height: var(--size-18);
+  height: 18px;
   border-radius: var(--radius-full);
   overflow: hidden;
 
@@ -16,11 +16,11 @@
     aspect-ratio: 1;
     align-self: center;
     border-radius: var(--radius-full);
-    background: var(--chart-inactive);
+    background: color-mix(in srgb, var(--neutral) 25%, transparent);
     opacity: 0;
   }
   &__dot--active {
-    background: var(--chart-glucose);
+    background: var(--accent);
   }
   &--animated &__dot {
     animation: show-dot var(--motion-dot) var(--ease-out)

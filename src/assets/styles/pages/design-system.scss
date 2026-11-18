@@ -10,7 +10,7 @@
 
   &__header {
     grid-column: 1 / -1;
-    color: var(--static-white);
+    color: var(--bg);
     h1 {
       @include text.style('heading-h1');
     }
@@ -19,14 +19,14 @@
       @include text.style('text-body');
     }
     a {
-      color: var(--palette-mint-300);
+      color: var(--accent);
     }
   }
   &__theme {
     padding: var(--space-24);
     border-radius: var(--radius-24);
-    background: var(--background-page);
-    color: var(--foreground-default);
+    background: var(--bg);
+    color: var(--fg);
     h2 {
       @include text.style('heading-h2');
       margin: 0 0 var(--space-24);
@@ -37,9 +37,9 @@
     gap: var(--space-8);
     margin-bottom: var(--space-24);
     span {
-      width: var(--size-36);
-      height: var(--size-36);
-      border: 1px solid var(--border-default);
+      width: var(--size-32);
+      height: var(--size-32);
+      border: 1px solid var(--border);
       border-radius: var(--radius-8);
     }
   }

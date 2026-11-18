@@ -12,8 +12,8 @@
       <svg class="weight-drawing" viewBox="0 0 333 58" width="333" height="58" aria-hidden="true">
         <defs>
           <linearGradient :id="gradientId" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="var(--chart-weight)" stop-opacity=".32" />
-            <stop offset="100%" stop-color="var(--chart-weight)" stop-opacity="0" />
+            <stop offset="0%" stop-color="var(--accent)" stop-opacity=".32" />
+            <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
           </linearGradient>
         </defs>
         <path :d="chart.area" :fill="`url(#${gradientId})`" />
@@ -27,9 +27,7 @@
         :style="{ left: `${day.x}px`, top: `${day.y}px`, '--point-index': index }"
         aria-hidden="true"
       >
-        <img :src="index === 6 ? assets.weightPointCurrent : assets.weightPoint" alt="" /><span>{{
-          day.value
-        }}</span>
+        <i class="weight-point__dot"></i><span>{{ day.value }}</span>
       </div>
       <div class="weight-days" aria-hidden="true">
         <span v-for="day in data.days" :key="day.day">{{ day.day }}</span>
@@ -42,7 +40,6 @@
 import { computed, useId } from 'vue';
 import { UiMetricCard, UiMetricValue } from '@/shared/ui';
 import { buildWeightChart } from '../model/weightChart';
-import { assets } from '@/shared/config/assets';
 const props = defineProps({
   data: { type: Object, required: true },
   animate: { type: Boolean, default: true },

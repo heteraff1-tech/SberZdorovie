@@ -6,7 +6,7 @@
   overscroll-behavior: contain;
   scrollbar-width: none;
   padding: 55px 0 100px;
-  background: var(--background-surface1);
+  background: var(--bg);
   &::-webkit-scrollbar {
     display: none;
   }
@@ -31,7 +31,7 @@
     @include text.style('text-small');
     text-align: center;
     margin: 8px 0 13px;
-    color: var(--product-metric-elevated);
+    color: var(--warning);
   }
   &__actions {
     display: grid;
@@ -50,8 +50,8 @@
     align-items: center;
     gap: 4px;
     padding: 16px 18px;
-    border-radius: var(--border-radius-card);
-    background: var(--background-surface3);
+    border-radius: var(--radius-24);
+    background: var(--bg-elevated);
     &-label {
       flex: 1;
     }

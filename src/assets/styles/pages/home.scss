@@ -5,8 +5,8 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: var(--background-page);
-  color: var(--foreground-default);
+  background: var(--bg);
+  color: var(--fg);
 
   &__background {
     position: absolute;
@@ -25,12 +25,13 @@
   &__tint {
     position: absolute;
     inset: 0;
-    background: var(--product-artwork-veil);
+    background: var(--fg);
+    opacity: 0.08;
     transition: opacity var(--motion-dissolve);
   }
   &__composer {
     position: absolute;
-    inset: auto var(--space-20) 97px;
+    inset: auto var(--space-16) 97px;
     pointer-events: none;
     opacity: 0;
     transform: translateY(45px);

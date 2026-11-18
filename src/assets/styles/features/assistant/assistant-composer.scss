@@ -5,15 +5,15 @@
 
   &__form {
     display: flex;
-    gap: var(--space-10);
-    height: var(--size-54);
+    gap: var(--space-8);
+    height: var(--size-56);
   }
   &__file {
     display: none;
   }
   &__attachment {
-    width: var(--size-54);
-    height: var(--size-54);
+    width: var(--size-56);
+    height: var(--size-56);
     padding: 0;
     border: 0;
     border-radius: var(--radius-full);
@@ -36,8 +36,8 @@
     right: 0;
     margin: 0;
     padding: var(--space-12) var(--space-16);
-    border-radius: var(--radius-18);
-    background: var(--background-surface2);
-    color: var(--foreground-muted);
+    border-radius: var(--radius-16);
+    background: var(--bg-elevated);
+    color: var(--neutral);
   }
 }

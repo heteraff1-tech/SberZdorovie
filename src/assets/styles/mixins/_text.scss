@@ -1,8 +1,22 @@
-// Pure mixin: importing this in a component never duplicates :root CSS.
+@use 'sass:map';
+
+// Weight belongs to the text style, not to the public variable system.
+$weights: (
+  'heading-h1': 600,
+  'heading-h2': 600,
+  'heading-h3': 500,
+  'heading-h4': 600,
+  'display-metric': 600,
+  'text-body': 400,
+  'text-label': 500,
+  'text-small': 400,
+  'text-footnote': 500,
+  'text-caption': 400,
+);
 @mixin style($name) {
   font-family: var(--#{$name}-font);
   font-size: var(--#{$name}-size);
-  font-weight: var(--#{$name}-weight);
+  font-weight: map.get($weights, $name);
   line-height: var(--#{$name}-line);
   letter-spacing: var(--#{$name}-tracking);
 }

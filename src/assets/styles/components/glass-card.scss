@@ -8,14 +8,14 @@
   align-items: start;
   width: var(--glass-card-size, 167px);
   height: var(--glass-card-size, 167px);
-  padding: var(--space-15) var(--space-14) var(--space-15) var(--space-15);
+  padding: var(--space-16) var(--space-12) var(--space-16) var(--space-16);
   border: 0;
-  border-radius: var(--radius-25);
-  background: var(--product-glass-surface);
+  border-radius: var(--radius-24);
+  background: color-mix(in srgb, var(--bg) 5%, transparent);
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(var(--blur-glass));
   text-align: left;
-  color: var(--foreground-default);
+  color: var(--fg);
   cursor: pointer;
   transition:
     background var(--motion-ui),
@@ -25,7 +25,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  border: var(--border-width-glass) solid var(--border-default);
+  border: var(--border-width-glass) solid var(--border);
   border-radius: inherit;
   pointer-events: none;
 }
@@ -38,8 +38,8 @@
   background: linear-gradient(
       130deg,
       transparent 15%,
-      var(--static-white) 45%,
-      var(--static-white) 65%,
+      var(--bg) 45%,
+      var(--bg) 65%,
       transparent 95%
     )
     border-box;
@@ -50,11 +50,11 @@
   pointer-events: none;
 }
 .glass-card:hover {
-  background: var(--control-quiet-bg-hover);
+  background: color-mix(in srgb, var(--bg) 5%, transparent);
   box-shadow: var(--shadow-card-hover);
 }
 .glass-card:active {
-  background: var(--control-quiet-bg-pressed);
+  background: color-mix(in srgb, var(--bg) 5%, transparent);
 }
 .glass-card--centered {
   justify-content: center;
