@@ -14,9 +14,7 @@
     <p class="pulse-overview__status" :data-tone="status.tone">
       {{ status.label ? `${status.label} пульс` : 'Средний пульс' }}
     </p>
-    <p class="pulse-overview__summary">
-      {{ demo ? 'Демо · средний пульс' : 'Среднее по ручным замерам' }}
-    </p>
+    <p v-if="!demo" class="pulse-overview__summary">Среднее по ручным замерам</p>
     <div class="pulse-overview__actions">
       <UiButton variant="secondary" pill aria-disabled="true"
         ><UiIcon name="camera" />Замер по камере</UiButton
