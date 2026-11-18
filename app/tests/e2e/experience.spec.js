@@ -4,6 +4,8 @@ test('onboarding keeps its SVG animation and reaches the health dashboard', asyn
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/');
+  const pulseEntry = page.getByRole('complementary', { name: 'Ручной ввод пульса' });
+  await expect(pulseEntry).toHaveCount(0);
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   const connect = page.getByRole('button', { name: 'Connect Apple Health', exact: true });
   const berry = page.locator('.berry');
@@ -24,6 +26,8 @@ test('onboarding keeps its SVG animation and reaches the health dashboard', asyn
   await gesture.press('ArrowUp');
   await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toBeVisible();
   await expect(page.getByRole('article', { name: 'Артериальное давление' })).toBeVisible();
+  await expect(pulseEntry).toBeVisible();
+  await expect(page).toHaveURL(/#home$/);
   expect(errors).toEqual([]);
 });
 
@@ -126,6 +130,10 @@ for (const viewport of [
     const phone = await page.locator('.phone').boundingBox();
     expect(phone.width).toBeGreaterThan(0);
     expect(phone.x + phone.width).toBeLessThanOrEqual(viewport.width);
+    const entry = await page
+      .getByRole('complementary', { name: 'Ручной ввод пульса' })
+      .boundingBox();
+    expect(entry.y).toBeGreaterThan(phone.y + phone.height);
     await page.getByRole('button', { name: 'Помощник', exact: true }).click();
     await expect(page.locator('.scene-entry').first()).toHaveCSS('transform', 'none');
     await expect(page.locator('.home-page__background')).toHaveCSS('opacity', '0');

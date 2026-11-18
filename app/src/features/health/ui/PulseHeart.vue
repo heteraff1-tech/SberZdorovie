@@ -3,21 +3,21 @@
     class="pulse-heart"
     :data-reduced-motion="reducedMotion"
     role="img"
-    :aria-label="`Пульс ${value} ударов в минуту`"
+    :aria-label="value === null ? 'Пульс' : `Пульс ${value} ударов в минуту`"
     :style="{ '--pulse-wave-mask': `url('${waveUrl}')` }"
   >
     <img class="pulse-heart__heart" :src="assets.pulseHeart" width="402" height="150" alt="" />
     <img class="pulse-heart__wave" :src="assets.pulseWave" width="402" height="150" alt="" />
     <span class="pulse-heart__light" aria-hidden="true"></span>
-    <strong class="pulse-heart__value" aria-hidden="true">{{ value }}</strong>
-    <span class="pulse-heart__unit" aria-hidden="true">уд/мин</span>
+    <strong class="pulse-heart__value" aria-hidden="true">{{ value ?? '—' }}</strong>
+    <span v-if="value !== null" class="pulse-heart__unit" aria-hidden="true">уд/мин</span>
   </div>
 </template>
 
 <script setup>
 import { assets } from '@/shared/config/assets';
 import { useReducedMotion } from '@/shared/composables/useReducedMotion';
-defineProps({ value: { type: Number, required: true } });
+defineProps({ value: { type: Number, default: null } });
 const reducedMotion = useReducedMotion();
 const waveUrl = new URL(assets.pulseWave, document.baseURI).href;
 </script>

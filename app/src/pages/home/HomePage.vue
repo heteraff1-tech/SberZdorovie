@@ -34,11 +34,17 @@
       @dismiss="showAssistant"
     >
       <div class="home-page__dashboard" :inert="pulseOpen" :aria-hidden="pulseOpen || undefined">
-        <HealthDashboard :data="demoMetrics" :animate="chartsStarted" @open-pulse="showPulse" />
+        <HealthDashboard
+          :data="demoMetrics"
+          :pulse="latestPulse"
+          :animate="chartsStarted"
+          @open-pulse="showPulse"
+        />
       </div>
       <PulseOverview
         v-if="pulseOpen"
-        :value="demoMetrics.pulse"
+        :value="latestPulse"
+        :measurements="pulseMeasurements"
         @back="hidePulse"
         @discuss="showAssistant"
       />
@@ -54,7 +60,7 @@
 </template>
 
 <script setup>
-import { nextTick, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { UiBottomSheet, UiTabBar } from '@/shared/ui';
 import { assets } from '@/shared/config/assets';
 import { HealthDashboard, PulseOverview, useHealthScreen, demoMetrics } from '@/features/health';
@@ -63,7 +69,10 @@ import { AssistantHeader, AssistantScene, AssistantComposer } from '@/features/a
 const props = defineProps({
   initialView: { type: String, default: 'home' },
   name: { type: String, default: 'Анна' },
+  pulseMeasurements: { type: Array, default: () => [] },
 });
+const emit = defineEmits(['dashboard-ready']);
+const latestPulse = computed(() => props.pulseMeasurements.at(-1)?.value ?? null);
 const screen = ref(null);
 const {
   ready,
@@ -76,6 +85,12 @@ const {
   openPulse,
   closePulse,
 } = useHealthScreen(props.initialView, screen);
+watch(
+  () => sheetOpen.value && !pulseOpen.value,
+  (dashboardOpen) => {
+    if (dashboardOpen) emit('dashboard-ready');
+  },
+);
 const navigation = [
   { id: 'health', label: 'Здоровье', icon: 'heart' },
   { id: 'assistant', label: 'Помощник', icon: 'sparkles' },

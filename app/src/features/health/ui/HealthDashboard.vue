@@ -3,7 +3,7 @@
     <PressureCard :data="data.pressure" :animate="animate" />
     <div class="health-dashboard-pair">
       <PulseCard
-        :value="data.pulse"
+        :value="pulse"
         :animate="animate"
         @select="$emit('open-pulse', $event)"
       /><GlucoseCard :data="data.glucose" :animate="animate" />
@@ -17,7 +17,11 @@ import PressureCard from './PressureCard.vue';
 import PulseCard from './PulseCard.vue';
 import GlucoseCard from './GlucoseCard.vue';
 import WeightCard from './WeightCard.vue';
-defineProps({ data: { type: Object, required: true }, animate: Boolean });
+defineProps({
+  data: { type: Object, required: true },
+  pulse: { type: Number, default: null },
+  animate: Boolean,
+});
 defineEmits(['open-pulse']);
 </script>
 

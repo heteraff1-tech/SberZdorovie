@@ -13,7 +13,6 @@ export const healthData = Object.freeze({
       { day: 'Вс', upper: 40.364, lower: 30.545 },
     ],
   },
-  pulse: 99,
   glucose: { value: 8.1, scaleMax: 14.4, target: '5,5' },
   weight: {
     value: 76,

@@ -28,6 +28,7 @@ for (const viewport of [
     await page.goto('/?mobile=1#home');
     await expectViewportFilled(page);
     await expect(page.locator('.case, .island, .status')).toHaveCount(0);
+    await expect(page.getByRole('complementary', { name: 'Ручной ввод пульса' })).toHaveCount(0);
     await expect(page.locator('.home-page__indicator')).toBeHidden();
     await page.getByRole('button', { name: 'Открыть пульс', exact: true }).tap();
     await expect(page.getByRole('region', { name: 'Пульс — обзор' })).toBeVisible();

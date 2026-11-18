@@ -1,8 +1,12 @@
 <template>
   <MetricCard title="Пульс" compact action-label="Открыть пульс" @select="$emit('select', $event)">
     <div class="pulse-card" :class="{ 'pulse-card--animated': animate }">
-      <MetricValue :value="value" unit="уд/мин" status="Повышенный" tone="elevated" />
-      <div class="pulse-card__wave" role="img" aria-label="График пульса">
+      <MetricValue
+        :value="value ?? '—'"
+        :unit="value === null ? undefined : 'уд/мин'"
+        :status="value === null ? 'Нет замеров' : undefined"
+      />
+      <div class="pulse-card__wave" aria-hidden="true">
         <img class="pulse-card__background" :src="assets.pulseBackground" alt="" />
         <img class="pulse-card__foreground" :src="assets.pulseForeground" alt="" />
       </div>
@@ -14,7 +18,7 @@
 import MetricCard from './MetricCard.vue';
 import MetricValue from './MetricValue.vue';
 import { assets } from '@/shared/config/assets';
-defineProps({ value: { type: Number, required: true }, animate: { type: Boolean, default: true } });
+defineProps({ value: { type: Number, default: null }, animate: { type: Boolean, default: true } });
 defineEmits(['select']);
 </script>
 

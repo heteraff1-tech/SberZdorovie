@@ -11,9 +11,9 @@
         {{ item.label }}
       </button>
     </div>
-    <div class="pulse-history__body">
+    <div v-if="selected" class="pulse-history__body">
       <div class="pulse-history__measurements">
-        <h2>{{ data.range[0] }}–{{ data.range[1] }} уд/мин</h2>
+        <h2>{{ range.min === range.max ? range.min : `${range.min}–${range.max}` }} уд/мин</h2>
         <div class="pulse-history__plot">
           <svg
             class="pulse-history__chart"
@@ -23,21 +23,11 @@
             aria-label="История разовых замеров пульса"
           >
             <g class="pulse-history__grid">
-              <path
-                v-for="value in [40, 80, 120]"
-                :key="value"
-                :d="`M30 ${47 - (value - 40) / 2}H318`"
-              />
+              <path v-for="{ value, y } in axis" :key="value" :d="`M30 ${y}H318`" />
               <path v-for="tick in ticks" :key="tick.x" :d="`M${tick.x} 6V47`" />
             </g>
             <g class="pulse-history__labels">
-              <text
-                v-for="value in [40, 80, 120]"
-                :key="value"
-                x="23"
-                :y="51 - (value - 40) / 2"
-                text-anchor="end"
-              >
+              <text v-for="{ value, y } in axis" :key="value" x="23" :y="y + 4" text-anchor="end">
                 {{ value }}
               </text>
               <text
@@ -54,43 +44,36 @@
           </svg>
           <button
             v-for="(point, index) in points"
-            :key="point.time"
+            :key="point.recordedAt"
             type="button"
             class="pulse-history__point"
-            :class="[
-              `pulse-history__phase--${point.phase}`,
-              { 'pulse-history__point--latest': index === points.length - 1 },
-            ]"
+            :class="{ 'pulse-history__point--latest': index === points.length - 1 }"
             :style="{ left: `${(point.x / 322) * 100}%`, top: `${point.y}px` }"
             :aria-label="`${point.time} — ${point.value} уд/мин`"
-            :aria-pressed="selectedTime === point.time"
-            @click="selectedTime = point.time"
+            :aria-pressed="selected.recordedAt === point.recordedAt"
+            @click="selectedAt = point.recordedAt"
           ></button>
         </div>
       </div>
       <div class="pulse-history__details">
         <div class="pulse-history__selection" aria-live="polite">
           <span>{{ selected.time }} · {{ selected.value }} уд/мин</span>
-          <span>{{
-            selected.label || pulsePhases.find((item) => item.id === selected.phase)?.label
-          }}</span>
-        </div>
-        <div class="pulse-history__legend" aria-hidden="true">
-          <span v-for="phase in pulsePhases" :key="phase.id"
-            ><i :class="`pulse-history__phase--${phase.id}`"></i>{{ phase.label }}</span
-          >
+          <span>Ручной ввод</span>
         </div>
       </div>
     </div>
+    <p v-else class="pulse-history__empty">За этот период замеров нет</p>
   </section>
 </template>
 
 <script setup>
 import { toRef } from 'vue';
-import { pulsePeriods, pulsePhases } from '../config/pulse-history';
+import { pulsePeriods } from '../config/pulse-history';
 import { usePulseHistory } from '../model/usePulseHistory';
-const props = defineProps({ data: { type: Object, required: true } });
-const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(props, 'data'));
+const props = defineProps({ measurements: { type: Array, required: true } });
+const { period, selectedAt, points, selected, ticks, range, axis } = usePulseHistory(
+  toRef(props, 'measurements'),
+);
 </script>
 
 <style scoped lang="scss">
@@ -157,18 +140,6 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
     font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
     fill: var(--color-neutral-default);
   }
-  &__phase--rest {
-    --phase-color: var(--color-neutral-default);
-  }
-  &__phase--stress {
-    --phase-color: var(--color-error-default);
-  }
-  &__phase--activity {
-    --phase-color: var(--color-warning-default);
-  }
-  &__phase--coffee {
-    --phase-color: var(--color-blue);
-  }
   &__point {
     position: absolute;
     width: 20px;
@@ -188,14 +159,14 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
       height: 6px;
       border: 1px solid var(--color-bg-page);
       border-radius: 50%;
-      background: var(--phase-color);
+      background: var(--color-accent-default);
     }
     &--latest::after {
       top: 7.25px;
       left: 7.25px;
       width: 5.5px;
       height: 5.5px;
-      border-color: var(--phase-color);
+      border-color: var(--color-accent-default);
       background: var(--color-bg-page);
     }
     &[aria-pressed='true']::after {
@@ -223,22 +194,9 @@ const { period, selectedTime, points, selected, ticks } = usePulseHistory(toRef(
       color: var(--color-neutral-default);
     }
   }
-  &__legend {
-    font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
-    display: flex;
-    gap: var(--spacing-3);
+  &__empty {
+    margin: 0;
     color: var(--color-neutral-default);
-    span {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-1);
-    }
-    i {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--phase-color);
-    }
   }
 }
 </style>

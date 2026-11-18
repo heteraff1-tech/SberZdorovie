@@ -4,6 +4,8 @@ test('pulse widget expands the same sheet, synchronizes its two-second loop and 
   page,
 }) => {
   await page.goto('/#home');
+  await page.getByLabel('Пульс, уд/мин', { exact: true }).fill('67');
+  await page.getByRole('button', { name: 'Сохранить замер' }).click();
   await page.waitForTimeout(2300);
   const sheet = page.locator('.ui-bottom-sheet');
   const initial = await sheet.boundingBox();
@@ -62,8 +64,8 @@ test('pulse widget expands the same sheet, synchronizes its two-second loop and 
   expect(right.scale).toBeCloseTo(1);
   expect(repeated).toEqual(impact);
 
-  await page.getByRole('button', { name: '16:40 — 67 уд/мин' }).click();
-  await expect(page.locator('.pulse-history__selection')).toContainText('16:40 · 67 уд/мин');
+  await page.getByRole('button', { name: /— 67 уд\/мин/ }).click();
+  await expect(page.locator('.pulse-history__selection')).toContainText('67 уд/мин');
   await page.getByRole('button', { name: 'Неделя', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Неделя', exact: true })).toHaveAttribute(
     'aria-pressed',
@@ -123,3 +125,44 @@ for (const viewport of [
     await expect(page.locator('.pulse-heart__heart')).toHaveCSS('animation-name', 'none');
   });
 }
+
+test('the side form saves manual pulse readings and history filters them by local day', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.clock.setFixedTime(new Date(2026, 10, 18, 14, 20));
+  await page.goto('/#home');
+  const panel = page.getByRole('complementary', { name: 'Ручной ввод пульса' });
+  const phone = await page.locator('.phone').boundingBox();
+  const form = await panel.boundingBox();
+  expect(form.x).toBeGreaterThan(phone.x + phone.width);
+
+  const card = page.getByRole('article', { name: 'Пульс', exact: true });
+  await expect(card).toContainText('Нет замеров');
+  const input = panel.getByLabel('Пульс, уд/мин', { exact: true });
+  const save = panel.getByRole('button', { name: 'Сохранить замер' });
+  await input.fill('0');
+  await save.click();
+  await expect(card).toContainText('Нет замеров');
+
+  await input.fill('64');
+  await save.click();
+  await expect(card).toContainText('64');
+  await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
+  await input.fill('132');
+  await save.click();
+  await expect(panel.getByRole('status')).toHaveText('Сохранено: 132 уд/мин');
+  await expect(card).toContainText('132');
+
+  await page.reload();
+  await expect(card).toContainText('132');
+  await page.getByRole('button', { name: 'Открыть пульс', exact: true }).click();
+  await expect(page.getByRole('img', { name: 'Пульс 132 ударов в минуту' })).toBeVisible();
+  const history = page.getByRole('region', { name: 'История пульса' });
+  await expect(history.getByRole('heading')).toHaveText('132 уд/мин');
+  await expect(history.getByRole('button', { name: /— 64 уд\/мин/ })).toHaveCount(0);
+  await history.getByRole('button', { name: 'Неделя', exact: true }).click();
+  await expect(history.getByRole('heading')).toHaveText('64–132 уд/мин');
+  await history.getByRole('button', { name: /— 64 уд\/мин/ }).click();
+  await expect(history.locator('.pulse-history__selection')).toContainText('64 уд/мин');
+});
