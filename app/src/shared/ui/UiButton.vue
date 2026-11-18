@@ -24,7 +24,7 @@ defineProps({
   variant: {
     type: String,
     default: 'primary',
-    validator: (value) => ['primary', 'secondary', 'quiet', 'destructive'].includes(value),
+    validator: (value) => ['primary', 'secondary', 'quiet'].includes(value),
   },
   size: {
     type: String,
@@ -51,10 +51,10 @@ defineExpose({ focus });
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-2);
-  padding: 0 var(--padding-m);
+  gap: var(--spacing-1);
+  padding: 0 var(--spacing-3);
   border: 1px solid transparent;
-  border-radius: var(--border-radius-l);
+  border-radius: var(--border-radius-xl);
   cursor: pointer;
   transition: opacity var(--motion-ui);
   white-space: nowrap;
@@ -81,43 +81,40 @@ defineExpose({ focus });
   }
   &--primary {
     background: var(--color-accent-default);
-    color: var(--color-accent-on-accent);
+    color: var(--color-bg-page);
   }
   &--secondary {
-    background: var(--color-neutral-container-default);
-    color: var(--color-neutral-on-container);
-  }
-  &--quiet {
-    background: transparent;
+    background: var(--color-bg-surface);
     color: var(--color-fg-default);
   }
-  &--destructive {
-    background: var(--color-error-default);
-    color: var(--color-error-on-error);
+  &--quiet {
+    background: var(--color-bg-page);
+    color: var(--color-fg-default);
   }
   &--primary:hover:not(:disabled) {
     background: var(--color-accent-hover);
   }
   &--primary:active:not(:disabled) {
-    background: var(--color-accent-active);
+    background: var(--color-accent-soft);
   }
   &--secondary:hover:not(:disabled) {
-    background: var(--color-neutral-container-hover);
+    background: var(--color-bg-surface);
   }
   &--secondary:active:not(:disabled) {
-    background: var(--color-neutral-container-active);
+    background: var(--color-bg-surface);
   }
   &--quiet:hover:not(:disabled) {
-    background: var(--color-neutral-container-soft);
-  }
-  &--destructive:hover:not(:disabled) {
-    background: var(--color-error-hover);
-  }
-  &--destructive:active:not(:disabled) {
-    background: var(--color-error-active);
+    background: var(--color-bg-page);
   }
   &:disabled {
-    opacity: 0.45;
+    background: var(--color-bg-surface);
+    color: var(--color-neutral-muted);
+    cursor: default;
+  }
+  &--quiet:disabled {
+    background: var(--color-bg-page);
+  }
+  &[aria-disabled='true'] {
     cursor: default;
   }
   &--loading {

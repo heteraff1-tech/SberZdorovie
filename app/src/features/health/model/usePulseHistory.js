@@ -4,7 +4,6 @@ import { pulsePeriods } from '../config/pulse-history';
 // Переводит HH:MM в число минут от начала дня.
 const minutes = (time) => time.split(':').reduce((hours, value) => hours * 60 + Number(value), 0);
 
-// Chart geometry belongs to the feature model, independently of the renderer.
 /** Готовит геометрию истории, выбранный замер и подписи периода. */
 export function usePulseHistory(source) {
   const period = ref('day');
@@ -20,13 +19,6 @@ export function usePulseHistory(source) {
       ...point,
       x: getX(point.time),
       y: getY(point.value),
-    })),
-  );
-  const bands = computed(() =>
-    data.value.phases.map((phase) => ({
-      ...phase,
-      x: getX(phase.from),
-      width: getX(phase.to) - getX(phase.from),
     })),
   );
   const selected = computed(
@@ -46,5 +38,5 @@ export function usePulseHistory(source) {
           );
     return labels.map((label, i) => ({ label, x: 30 + i * 72 }));
   });
-  return { period, selectedTime, points, bands, selected, ticks };
+  return { period, selectedTime, points, selected, ticks };
 }

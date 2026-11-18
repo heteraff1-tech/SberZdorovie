@@ -24,27 +24,51 @@ defineEmits(['update:modelValue']);
 
 <style scoped lang="scss">
 .ui-tab-bar {
+  position: relative;
   display: flex;
-  width: 190px;
-  height: 64px;
-  padding: var(--spacing-1) var(--spacing-3);
-  border: 1px solid color-mix(in srgb, var(--color-fg-default) 15%, transparent);
+  width: 188px;
+  height: 62px;
+  padding: var(--spacing-1);
   border-radius: var(--border-radius-full);
-  background: color-mix(in srgb, var(--color-bg-surface) 65%, transparent);
-  backdrop-filter: blur(14px);
+  background: linear-gradient(
+    color-mix(in srgb, var(--color-bg-surface) 45%, transparent),
+    color-mix(in srgb, var(--color-bg-surface) 85%, transparent)
+  );
+  backdrop-filter: blur(6px);
   box-shadow:
-    inset 0 1px 4px var(--color-bg-page),
-    0 5px 16px color-mix(in srgb, var(--color-fg-default) 4%, transparent);
+    inset 0 1px 4px color-mix(in srgb, var(--color-bg-page) 90%, transparent),
+    inset 0 -1px 4px color-mix(in srgb, var(--color-fg-default) 8%, transparent),
+    0 8px 15px rgb(0 0 0 / 2%);
+
+  // Градиентная кромка не меняет внутреннюю ширину двух вкладок.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    border-radius: inherit;
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-bg-page) 90%, transparent),
+        color-mix(in srgb, var(--color-fg-default) 25%, transparent)
+      )
+      border-box;
+    mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
   button {
-    font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
+    font: 600 10px / 12px var(--font-system);
     display: flex;
     flex: 1;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 4px;
-    padding: 0;
+    gap: 0.5px;
+    padding: 6px 0 0;
     border: 0;
     border-radius: var(--border-radius-full);
     background: transparent;

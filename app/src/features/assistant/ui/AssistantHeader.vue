@@ -49,7 +49,7 @@ defineEmits(['open']);
   &__label {
     font: 500 var(--text-label-size) / var(--text-label-line) var(--font-text);
     position: absolute;
-    top: 81px;
+    top: 92px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -82,9 +82,9 @@ defineEmits(['open']);
   &__greeting {
     position: absolute;
     left: 0;
-    top: 122px;
+    top: 118px;
     width: 100%;
-    height: 52px;
+    height: 60px;
     padding: 0;
     margin: 0;
     border: 0;
@@ -96,8 +96,9 @@ defineEmits(['open']);
     color: var(--color-bg-page);
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: var(--heading-h2-size);
-    line-height: var(--heading-h2-line);
+    font-size: 32px;
+    line-height: var(--heading-h1-line);
+    letter-spacing: -1.6px;
     cursor: pointer;
     transform-origin: center top;
     transition:
@@ -119,6 +120,7 @@ defineEmits(['open']);
     height: 108px;
     font-size: 40px;
     line-height: 54px;
+    letter-spacing: 0;
     color: var(--color-fg-default);
     cursor: default;
   }

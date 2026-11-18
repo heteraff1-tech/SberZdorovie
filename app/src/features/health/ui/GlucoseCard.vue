@@ -31,7 +31,7 @@ const { formattedValue, fill } = useGlucoseScale(() => props.data);
   &__goal {
     font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
     margin: 0;
-    color: var(--color-success-default);
+    color: var(--color-accent-default);
   }
 }
 </style>

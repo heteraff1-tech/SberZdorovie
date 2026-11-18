@@ -13,8 +13,12 @@
     <PulseHeart :value="value" />
     <p class="pulse-overview__status">У вас повышенный пульс</p>
     <div class="pulse-overview__actions">
-      <UiButton variant="secondary" pill disabled><UiIcon name="camera" />Замер по камере</UiButton>
-      <UiButton variant="secondary" pill disabled><UiIcon name="plus" />Добавить замер</UiButton>
+      <UiButton variant="secondary" pill aria-disabled="true"
+        ><UiIcon name="camera" />Замер по камере</UiButton
+      >
+      <UiButton variant="secondary" pill aria-disabled="true"
+        ><UiIcon name="plus" />Добавить замер</UiButton
+      >
     </div>
     <div class="pulse-overview__widgets">
       <PulseInsight @discuss="$emit('discuss')" />
@@ -72,7 +76,7 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   &__status {
     font: 400 var(--text-small-size) / var(--text-small-line) var(--font-text);
     text-align: center;
-    margin: 8px 0 13px;
+    margin: 8px 0 12px;
     color: var(--color-warning-default);
   }
   &__actions {

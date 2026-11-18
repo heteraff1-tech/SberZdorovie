@@ -5,7 +5,7 @@
     ></span>
     <div class="assistant-composer__field">
       <span>Введите сообщение</span>
-      <UiIcon name="microphone" />
+      <span class="assistant-composer__voice" aria-hidden="true"><UiIcon name="microphone" /></span>
     </div>
   </div>
 </template>
@@ -17,12 +17,14 @@ import { UiIcon } from '@/shared/ui';
 <style scoped lang="scss">
 .assistant-composer {
   display: flex;
+  align-items: center;
   gap: var(--spacing-2);
-  height: var(--size-56);
+  height: 54px;
   &__attachment {
     display: grid;
     place-items: center;
     flex: 0 0 var(--size-56);
+    height: var(--size-56);
     border-radius: var(--border-radius-full);
     background: var(--color-bg-surface);
   }
@@ -50,11 +52,20 @@ import { UiIcon } from '@/shared/ui';
     justify-content: space-between;
     flex: 1;
     min-width: 0;
-    padding-inline: var(--padding-m);
-    border-radius: var(--border-radius-full);
+    height: 100%;
+    padding-left: var(--padding-m);
+    padding-right: var(--spacing-1);
+    border-radius: var(--border-radius-xl);
     background: var(--color-bg-surface);
     color: var(--color-fg-default);
     font: 400 var(--text-body-size) / var(--text-body-line) var(--font-text);
+  }
+  &__voice {
+    display: grid;
+    place-items: center;
+    width: var(--size-44);
+    height: var(--size-44);
+    flex-shrink: 0;
   }
 }
 </style>

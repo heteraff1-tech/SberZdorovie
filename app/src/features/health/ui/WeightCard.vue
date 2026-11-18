@@ -88,7 +88,7 @@ const gradientId = useId();
 .weight-point {
   position: absolute;
   opacity: 0;
-  font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
+  font: 500 var(--text-footnote-size) / var(--text-footnote-line) var(--font-text);
   color: var(--color-neutral-default);
 }
 .weight-point__dot {

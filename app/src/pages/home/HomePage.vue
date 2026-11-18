@@ -134,8 +134,8 @@ function navigate(destination) {
     position: absolute;
     inset: 0;
     opacity: 1;
-    filter: blur(10px);
-    transform: scale(1.06);
+    filter: blur(0);
+    transform: scale(1);
     transition:
       filter var(--motion-dissolve) var(--ease-dissolve),
       opacity var(--motion-dissolve) var(--ease-dissolve-opacity),
@@ -147,13 +147,13 @@ function navigate(destination) {
   &__tint {
     position: absolute;
     inset: 0;
-    background: var(--color-fg-default);
-    opacity: 0.08;
+    background: #d9d9d9;
+    opacity: 0.01;
     transition: opacity var(--motion-dissolve);
   }
   &__composer {
     position: absolute;
-    inset: auto var(--spacing-4) 97px;
+    inset: auto var(--spacing-5) 97px;
     pointer-events: none;
     opacity: 0;
     transform: translateY(45px);
@@ -177,7 +177,7 @@ function navigate(destination) {
     position: absolute;
     z-index: 5;
     left: 50%;
-    bottom: 19px;
+    bottom: 21px;
     transform: translateX(-50%);
   }
   &__indicator {

@@ -89,7 +89,7 @@ npm.cmd run preview -- --host 0.0.0.0
 | Функция / класс                                                             | Назначение                                                            |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | [useHealthScreen](app/src/features/health/model/useHealthScreen.js)         | Переключает показатели, пульс и помощника; запускает графики один раз |
-| [usePulseHistory](app/src/features/health/model/usePulseHistory.js)         | Рассчитывает точки истории, интервалы активности и подписи периода    |
+| [usePulseHistory](app/src/features/health/model/usePulseHistory.js)         | Рассчитывает точки истории и подписи периода                          |
 | [buildWeightChart](app/src/features/health/model/weightChart.js)            | Превращает измерения веса в точки и SVG-пути                          |
 | [useGlucoseScale](app/src/features/health/model/useGlucoseScale.js)         | Форматирует значение глюкозы и считает заполнение шкалы               |
 | [useOnboardingFlow](app/src/features/onboarding/model/useOnboardingFlow.js) | Связывает этапы онбординга с жестом и Vue                             |

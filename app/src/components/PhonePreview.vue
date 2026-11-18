@@ -162,6 +162,7 @@ const scale = useElementScale(frame, '--preview-case-width');
 }
 .screen--light .status {
   color: var(--color-fg-default);
+  font: 600 17px / 22px var(--font-system);
 }
 .screen--light .status span {
   top: 23.34px;

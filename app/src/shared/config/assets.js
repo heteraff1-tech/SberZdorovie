@@ -3,9 +3,7 @@ const base = import.meta.env.BASE_URL;
 export const assets = {
   background: `${base}images/health-background.png`,
   portrait: `${base}images/assistant-portrait.jpg`,
-  artworkDiffuse: `${base}images/assistant/artwork-diffuse.svg`,
-  artworkSoft: `${base}images/assistant/artwork-soft.svg`,
-  artworkDiagonal: `${base}images/assistant/artwork-diagonal.svg`,
+  artwork: `${base}images/assistant/artwork.svg`,
   atSign: `${base}icons/at-sign.svg`,
   document: `${base}icons/document.svg`,
   quote: `${base}icons/quote.svg`,
@@ -21,7 +19,6 @@ export const assets = {
   plus: `${base}icons/plus.svg`,
   chevron: `${base}icons/chevron.svg`,
   file: `${base}icons/file.svg`,
-  activity: `${base}icons/activity.svg`,
   heart: `${base}icons/heart.svg`,
   sparkles: `${base}icons/sparkles.svg`,
   pulseHeart: `${base}images/charts/pulse-heart.webp`,

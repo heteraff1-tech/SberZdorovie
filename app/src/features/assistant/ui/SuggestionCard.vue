@@ -21,8 +21,8 @@ defineProps({ label: { type: String, required: true }, centered: Boolean });
   border: 0;
   border-radius: var(--border-radius-xl);
   background: color-mix(in srgb, var(--color-bg-page) 5%, transparent);
-  box-shadow: 0 4px 11px rgb(56 71 87 / 6%);
-  backdrop-filter: blur(7px);
+  box-shadow: 0 4px 11px rgb(56 71 87 / 6.5%);
+  backdrop-filter: blur(1.5px);
   text-align: left;
   color: var(--color-fg-default);
 }
@@ -30,22 +30,14 @@ defineProps({ label: { type: String, required: true }, centered: Boolean });
   content: '';
   position: absolute;
   inset: 0;
-  border: 1.25px solid var(--color-border-default);
-  border-radius: inherit;
-  pointer-events: none;
-}
-.glass-card::after {
-  content: '';
-  position: absolute;
-  inset: calc(-1 * 1.25px);
   border: 1.25px solid transparent;
   border-radius: inherit;
   background: linear-gradient(
-      130deg,
-      transparent 15%,
-      var(--color-bg-page) 45%,
-      var(--color-bg-page) 65%,
-      transparent 95%
+      135deg,
+      rgb(142 156 168 / 42%),
+      rgb(246 255 255 / 90%) 34%,
+      rgb(255 255 255 / 94%) 67%,
+      rgb(108 141 150 / 31%)
     )
     border-box;
   mask:

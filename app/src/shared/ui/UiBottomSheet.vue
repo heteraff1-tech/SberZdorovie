@@ -98,7 +98,6 @@ const { drag, dragging, start, move, release, click } = useSwipeDismiss(toRef(pr
       height: var(--spacing-1);
       border-radius: var(--border-radius-xs);
       background: var(--color-fg-default);
-      opacity: 0.3;
     }
   }
   &__content {

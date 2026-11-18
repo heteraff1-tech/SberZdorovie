@@ -44,7 +44,7 @@ defineProps({
     flex-direction: column;
   }
   &__status {
-    font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
+    font: 500 var(--text-footnote-size) / var(--text-footnote-line) var(--font-text);
     color: var(--color-fg-default);
   }
   &__unit {
@@ -52,13 +52,13 @@ defineProps({
     color: var(--color-neutral-default);
   }
   &__status--positive {
-    color: var(--color-success-default);
+    color: var(--color-accent-default);
   }
   &__status--elevated {
-    color: var(--color-warning-on-container);
+    color: var(--color-warning-default);
   }
   &__status--critical {
-    color: var(--color-error-on-container);
+    color: var(--color-error-default);
   }
 }
 </style>

@@ -4,16 +4,7 @@
       <img class="assistant-portrait" :src="assets.portrait" alt="" width="122" height="122" />
     </div>
     <div class="scene-entry turquoise-entry">
-      <div class="turquoise-artwork">
-        <div class="turquoise-base"></div>
-        <img
-          v-for="asset in ['artworkDiffuse', 'artworkSoft', 'artworkDiagonal']"
-          :key="asset"
-          class="turquoise-light"
-          :src="assets[asset]"
-          alt=""
-        />
-      </div>
+      <img class="turquoise-artwork" :src="assets.artwork" width="313" height="310" alt="" />
     </div>
     <div
       v-for="suggestion in assistantSuggestions"
@@ -84,43 +75,14 @@ defineProps({ active: Boolean });
   object-fit: cover;
 }
 .turquoise-entry {
-  left: 110px;
-  top: 92px;
-  width: 267px;
-  height: 264px;
+  left: 87px;
+  top: 79px;
+  width: 313px;
+  height: 310px;
   --entry-x: 60px;
   --entry-y: 140px;
   --entry-z: -140px;
   --entry-delay: var(--motion-artwork-delay);
-}
-.turquoise-artwork {
-  position: relative;
-  width: 267px;
-  height: 264px;
-}
-.turquoise-base {
-  position: absolute;
-  left: 15.5px;
-  top: 15.5px;
-  width: 236px;
-  height: 233px;
-  border-radius: var(--border-radius-xxl);
-  transform: rotate(8deg);
-  box-shadow: 0 10px 22px 1px rgb(33 182 183 / 17%);
-  background: linear-gradient(
-    135.366deg,
-    #aaf7bc 0%,
-    #57dcab 30%,
-    #19bba7 52%,
-    #1cb7c3 78%,
-    #3ac4d1 100%
-  );
-}
-.turquoise-light {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
 }
 .analysis-entry {
   left: 24px;
