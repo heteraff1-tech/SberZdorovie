@@ -50,6 +50,7 @@
             :class="{
               'pulse-history__point--latest': index === points.length - 1,
               'pulse-history__point--manual': !point.demo,
+              [`pulse-history__phase--${point.phase}`]: point.demo,
             }"
             :style="{ left: `${(point.x / 322) * 100}%`, top: `${point.y}px` }"
             :aria-label="`${point.time} — ${point.value} уд/мин`"
@@ -61,7 +62,16 @@
       <div class="pulse-history__details">
         <div class="pulse-history__selection" aria-live="polite">
           <span>{{ selected.time }} · {{ selected.value }} уд/мин</span>
-          <span>{{ selected.demo ? `Демо · ${selected.label}` : 'Ручной ввод' }}</span>
+          <span>{{
+            selected.demo
+              ? selected.label || pulsePhases.find((phase) => phase.id === selected.phase)?.label
+              : 'Ручной ввод'
+          }}</span>
+        </div>
+        <div class="pulse-history__legend" aria-hidden="true">
+          <span v-for="phase in pulsePhases" :key="phase.id"
+            ><i :class="`pulse-history__phase--${phase.id}`"></i>{{ phase.label }}</span
+          >
         </div>
       </div>
     </div>
@@ -71,7 +81,7 @@
 
 <script setup>
 import { toRef } from 'vue';
-import { pulsePeriods } from '../config/pulse-history';
+import { pulsePeriods, pulsePhases } from '../config/pulse-history';
 import { usePulseHistory } from '../model/usePulseHistory';
 const props = defineProps({ measurements: { type: Array, required: true } });
 const { period, selectedId, points, selected, ticks, range, axis } = usePulseHistory(
@@ -143,6 +153,18 @@ const { period, selectedId, points, selected, ticks, range, axis } = usePulseHis
     font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
     fill: var(--color-neutral-default);
   }
+  &__phase--rest {
+    --phase-color: var(--color-neutral-default);
+  }
+  &__phase--stress {
+    --phase-color: var(--color-error-default);
+  }
+  &__phase--activity {
+    --phase-color: var(--color-warning-default);
+  }
+  &__phase--coffee {
+    --phase-color: var(--color-blue);
+  }
   &__point {
     position: absolute;
     width: 20px;
@@ -162,7 +184,7 @@ const { period, selectedId, points, selected, ticks, range, axis } = usePulseHis
       height: 6px;
       border: 1px solid var(--color-bg-page);
       border-radius: 50%;
-      background: var(--color-accent-default);
+      background: var(--phase-color, var(--color-accent-default));
     }
     &--manual {
       z-index: 1;
@@ -175,7 +197,7 @@ const { period, selectedId, points, selected, ticks, range, axis } = usePulseHis
       left: 7.25px;
       width: 5.5px;
       height: 5.5px;
-      border-color: var(--color-accent-default);
+      border-color: var(--phase-color, var(--color-accent-default));
       background: var(--color-bg-page);
     }
     &[aria-pressed='true']::after {
@@ -201,6 +223,23 @@ const { period, selectedId, points, selected, ticks, range, axis } = usePulseHis
     background: var(--color-bg-page);
     span:last-child {
       color: var(--color-neutral-default);
+    }
+  }
+  &__legend {
+    font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
+    display: flex;
+    gap: var(--spacing-3);
+    color: var(--color-neutral-default);
+    span {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-1);
+    }
+    i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--phase-color);
     }
   }
   &__empty {
