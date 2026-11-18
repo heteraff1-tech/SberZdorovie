@@ -21,8 +21,9 @@
       :ready="ready"
       :inert="pulseOpen"
       @open="showAssistant"
+      @close="hideAssistant"
     />
-    <AssistantContent :active="assistant && ready" />
+    <AssistantScene :active="assistant && ready" />
     <div class="home-page__composer" :inert="!assistant || pulseOpen"><AssistantComposer /></div>
     <UiBottomSheet
       class="home-page__sheet"
@@ -57,7 +58,7 @@ import { nextTick, ref } from 'vue';
 import { UiBottomSheet, UiTabBar } from '@/shared/ui';
 import { assets } from '@/shared/config/assets';
 import { HealthDashboard, PulseOverview, useHealthScreen, demoMetrics } from '@/features/health';
-import { AssistantHeader, AssistantContent, AssistantComposer } from '@/features/assistant';
+import { AssistantHeader, AssistantScene, AssistantComposer } from '@/features/assistant';
 
 const props = defineProps({
   initialView: { type: String, default: 'home' },
@@ -88,13 +89,16 @@ async function showAssistant() {
   screen.value?.focus({ preventScroll: true });
 }
 
+/** Возвращает показатели и переносит фокус с исчезающего крестика на экран. */
+function hideAssistant() {
+  closeAssistant();
+  screen.value?.focus({ preventScroll: true });
+}
+
 /** Закрывает текущий вложенный экран по Escape. */
 function handleEscape() {
   if (pulseOpen.value) hidePulse();
-  else if (assistant.value) {
-    closeAssistant();
-    screen.value?.focus({ preventScroll: true });
-  }
+  else if (assistant.value) hideAssistant();
 }
 
 /** Запоминает карточку, чтобы вернуть на неё фокус после обзора. */
@@ -114,7 +118,7 @@ async function hidePulse() {
 function navigate(destination) {
   if (destination === 'assistant') showAssistant();
   else if (pulseOpen.value) hidePulse();
-  else closeAssistant();
+  else hideAssistant();
 }
 </script>
 

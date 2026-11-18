@@ -139,6 +139,10 @@ for (const viewport of [
         .evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0)),
     ).toBe(true);
     expect(failed).toEqual([]);
+    await expect(page.locator('.assistant-header__greeting')).toHaveCSS('font-size', '40px');
+    await page.getByRole('button', { name: 'Закрыть помощника', exact: true }).click();
+    await expect(page.locator('.assistant-header__greeting')).toHaveCSS('font-size', '32px');
+    await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toBeVisible();
   });
 }
 
@@ -169,41 +173,64 @@ test('375×812: BerryPulse follows live reduced-motion changes and onboarding co
   await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toBeVisible();
 });
 
-for (const symptom of ['головокружение', 'дискомфорт']) {
-  test(`375×812: HC-001 escalates high pulse and ${symptom} without a diagnosis`, async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/#assistant');
-    await page.getByRole('button', { name: `Высокий пульс и ${symptom}`, exact: true }).click();
-    const warning = page.getByRole('alert');
-    await expect(warning).toHaveAttribute('data-rule', 'HC-001');
-    await expect(warning.getByRole('heading', { name: 'Нужна оценка врача' })).toBeFocused();
-    await expect(warning).toContainText('Это не диагноз. Ассистент не заменяет врача');
-    await expect(warning).toContainText('103 или 112');
-    await expect(warning).not.toContainText(/у вас тахикардия|примите|назначаю|диагноз:/i);
-    await expect(
-      warning.getByRole('link', { name: 'Обратиться к врачу', exact: true }),
-    ).toBeVisible();
-    await expect(
-      warning.getByRole('link', { name: 'Обратиться к врачу', exact: true }),
-    ).toHaveAttribute('href', 'tel:103');
-    await expect(warning).toContainText('Кнопка откроет звонок в скорую медицинскую помощь');
-    await expect(page.locator('.assistant-composer input')).toHaveCount(0);
-    await expectNoHorizontalOverflow(page);
-    // Экстренный номер не набираем: проверяем адрес, доступность и возврат.
-    await warning.getByRole('button', { name: 'Вернуться к выбору симптомов' }).click();
-    await expect(page.getByRole('alert')).toHaveCount(0);
-    await expect(
-      page.getByRole('button', { name: `Высокий пульс и ${symptom}`, exact: true }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole('button', { name: 'Высокий пульс и головокружение', exact: true }),
-    ).toBeFocused();
-    await page.getByRole('button', { name: `Высокий пульс и ${symptom}`, exact: true }).click();
-    await page.keyboard.press('Escape');
-    await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toBeVisible();
-    await expect(page.locator('.home-page')).toBeFocused();
-  });
-}
+test('375×812: assistant close works and the same heading animates in both directions', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/#home');
+  const heading = page.locator('.assistant-header__greeting');
+  await expect
+    .poll(() =>
+      heading.evaluate((el) => el.getAnimations().filter((a) => a.playState === 'running').length),
+    )
+    .toBe(0);
+  const original = await heading.elementHandle();
+
+  // Управляем временем реальных CSS-переходов, чтобы исключить случайные задержки машины.
+  const sampleTransition = async () => {
+    await expect
+      .poll(() =>
+        heading.evaluate((el) =>
+          el.getAnimations().some((a) => a.transitionProperty === 'font-size'),
+        ),
+      )
+      .toBe(true);
+    return heading.evaluate((el) => {
+      el.getAnimations().forEach((animation) => {
+        animation.pause();
+        animation.currentTime = 450;
+      });
+      const style = getComputedStyle(el);
+      return { font: parseFloat(style.fontSize), top: parseFloat(style.top) };
+    });
+  };
+  const finishTransition = () =>
+    heading.evaluate((el) => el.getAnimations().forEach((animation) => animation.finish()));
+
+  await page
+    .getByRole('button', { name: 'Привет, Анна! Открыть ИИ-помощника', exact: true })
+    .click();
+  const opening = await sampleTransition();
+  expect(opening.font).toBeGreaterThan(32);
+  expect(opening.font).toBeLessThan(40);
+  expect(opening.top).toBeGreaterThan(118);
+  expect(opening.top).toBeLessThan(141);
+  expect(await heading.evaluate((el, previous) => el === previous, original)).toBe(true);
+  await finishTransition();
+  await expect(heading).toHaveCSS('font-size', '40px');
+  await expect(page.getByRole('button', { name: /Высокий пульс и/ })).toHaveCount(0);
+  await expect(page.locator('.assistant-safety')).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Закрыть помощника', exact: true }).click();
+  const closing = await sampleTransition();
+  expect(closing.font).toBeGreaterThan(32);
+  expect(closing.font).toBeLessThan(40);
+  expect(closing.top).toBeGreaterThan(118);
+  expect(closing.top).toBeLessThan(141);
+  expect(await heading.evaluate((el, previous) => el === previous, original)).toBe(true);
+  await finishTransition();
+  await expect(heading).toHaveCSS('font-size', '32px');
+  await expect(page.getByRole('region', { name: 'Главная — показатели здоровья' })).toBeVisible();
+  await expect(page.locator('.home-page')).toBeFocused();
+  await expectNoHorizontalOverflow(page);
+});

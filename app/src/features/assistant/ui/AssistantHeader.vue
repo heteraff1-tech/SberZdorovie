@@ -3,34 +3,41 @@
     class="assistant-header"
     :class="{ 'assistant-header--active': active, 'assistant-header--ready': ready }"
   >
-    <template v-if="active">
-      <span class="assistant-header__close" aria-hidden="true"><UiIcon name="close" /></span>
-      <div class="assistant-header__label"><UiIcon name="assistant" /><span>ИИ помощник</span></div>
-      <span class="assistant-header__history" aria-hidden="true"><UiIcon name="chat" /></span>
-      <h1 class="assistant-header__greeting">
-        <span>Привет, {{ name }}!</span><span>Чем могу помочь</span>
-      </h1>
-    </template>
-    <template v-else>
-      <button class="assistant-header__label" type="button" @click="$emit('open')">
-        <UiIcon name="assistant" inverse /><span>ИИ помощник</span>
-      </button>
-      <button
-        class="assistant-header__greeting"
-        type="button"
+    <UiIconButton
+      v-if="active"
+      class="assistant-header__close"
+      icon="close"
+      label="Закрыть помощника"
+      @click="$emit('close')"
+    />
+    <UiButton
+      class="assistant-header__label"
+      variant="quiet"
+      :aria-disabled="active || undefined"
+      @click="!active && $emit('open')"
+    >
+      <UiIcon name="assistant" :inverse="!active" /><span>ИИ помощник</span>
+    </UiButton>
+    <span v-if="active" class="assistant-header__history" aria-hidden="true"
+      ><UiIcon name="chat"
+    /></span>
+    <h1 class="assistant-header__greeting">
+      <span>Привет, {{ name }}!</span><span>Чем могу помочь</span>
+      <UiButton
+        v-if="!active"
+        class="assistant-header__open"
+        variant="quiet"
         :aria-label="`Привет, ${name}! Открыть ИИ-помощника`"
         @click="$emit('open')"
-      >
-        <span>Привет, {{ name }}!</span><span>Чем могу помочь</span>
-      </button>
-    </template>
+      />
+    </h1>
   </header>
 </template>
 
 <script setup>
-import { UiIcon } from '@/shared/ui';
+import { UiButton, UiIcon, UiIconButton } from '@/shared/ui';
 defineProps({ name: { type: String, required: true }, active: Boolean, ready: Boolean });
-defineEmits(['open']);
+defineEmits(['open', 'close']);
 </script>
 
 <style scoped lang="scss">
@@ -61,7 +68,13 @@ defineEmits(['open']);
     color: var(--color-bg-page);
     white-space: nowrap;
     cursor: pointer;
-    transition: color var(--motion-label);
+    min-height: 0;
+    transition:
+      color var(--motion-label),
+      top var(--motion-label) var(--ease-out);
+    &:hover:not(:disabled) {
+      background: transparent;
+    }
   }
   &__close,
   &__history {
@@ -106,9 +119,21 @@ defineEmits(['open']);
       height var(--motion-scene-filter) var(--ease-out),
       font-size var(--motion-scene-filter) var(--ease-out),
       line-height var(--motion-scene-filter) var(--ease-out),
+      letter-spacing var(--motion-scene-filter) var(--ease-out),
       transform var(--motion-scene-filter) var(--ease-out),
       color var(--motion-color),
       opacity var(--motion-color);
+  }
+  &__open {
+    position: absolute;
+    inset: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    &:hover:not(:disabled) {
+      background: transparent;
+    }
   }
   &--active &__label {
     top: 77px;
