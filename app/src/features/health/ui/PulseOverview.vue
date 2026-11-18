@@ -71,6 +71,7 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   &__back {
     position: absolute;
     left: 14px;
+    transform: rotate(180deg);
   }
   &__status {
     font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);
