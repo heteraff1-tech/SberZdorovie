@@ -1,10 +1,14 @@
 <template>
-  <aside class="pulse-entry" aria-label="Ручной ввод пульса">
-    <h2>Добавить замер пульса</h2>
+  <aside
+    class="pulse-entry"
+    :class="{ 'pulse-entry--compact': compact }"
+    aria-label="Ручной ввод пульса"
+  >
+    <h2 v-if="!compact">Добавить замер пульса</h2>
     <form @submit.prevent="submit">
-      <label for="pulse-entry-value">Пульс, уд/мин</label>
+      <label :for="valueId">Пульс, уд/мин</label>
       <input
-        id="pulse-entry-value"
+        :id="valueId"
         v-model.number="value"
         type="number"
         inputmode="numeric"
@@ -14,6 +18,15 @@
         required
         @input="message = ''"
       />
+      <label :for="timeId">Дата и время замера</label>
+      <input
+        :id="timeId"
+        v-model="localTime"
+        type="datetime-local"
+        :aria-describedby="hintId"
+        @input="message = ''"
+      />
+      <p :id="hintId">Если оставить поле пустым, используем текущее время.</p>
       <UiButton type="submit">Сохранить замер</UiButton>
       <p role="status">{{ message }}</p>
     </form>
@@ -21,18 +34,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, useId } from 'vue';
 import { UiButton } from '@/shared/ui';
 import { pulseInputMax } from '../model/usePulseMeasurements';
 
-const props = defineProps({ save: { type: Function, required: true } });
+const props = defineProps({ save: { type: Function, required: true }, compact: Boolean });
+const valueId = useId();
+const timeId = useId();
+const hintId = useId();
 const value = ref('');
+const localTime = ref('');
 const message = ref('');
 
 function submit() {
-  const error = props.save(value.value);
+  const error = props.save(value.value, localTime.value);
   message.value = error || `Сохранено: ${value.value} уд/мин`;
-  if (!error) value.value = '';
+  if (!error) {
+    value.value = '';
+    localTime.value = '';
+  }
 }
 </script>
 
@@ -46,6 +66,9 @@ function submit() {
   color: var(--color-fg-default);
   font: 500 var(--text-label-size) / var(--text-label-line) var(--font-text);
 
+  &--compact {
+    width: 100%;
+  }
   h2 {
     margin: 0 0 var(--spacing-4);
     font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);

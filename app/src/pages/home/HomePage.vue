@@ -44,7 +44,9 @@
       <PulseOverview
         v-if="pulseOpen"
         :value="latestPulse"
-        :measurements="pulseMeasurements"
+        :measurements="pulseHistory"
+        :demo="!pulseMeasurements.length"
+        :save="savePulse"
         @back="hidePulse"
         @discuss="showAssistant"
       />
@@ -63,16 +65,29 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { UiBottomSheet, UiTabBar } from '@/shared/ui';
 import { assets } from '@/shared/config/assets';
-import { HealthDashboard, PulseOverview, useHealthScreen, demoMetrics } from '@/features/health';
+import {
+  HealthDashboard,
+  PulseOverview,
+  useHealthScreen,
+  demoMetrics,
+  demoPulseMeasurements,
+  demoPulseValue,
+} from '@/features/health';
 import { AssistantHeader, AssistantScene, AssistantComposer } from '@/features/assistant';
 
 const props = defineProps({
   initialView: { type: String, default: 'home' },
   name: { type: String, default: 'Анна' },
   pulseMeasurements: { type: Array, default: () => [] },
+  savePulse: { type: Function, required: true },
 });
 const emit = defineEmits(['dashboard-ready']);
-const latestPulse = computed(() => props.pulseMeasurements.at(-1)?.value ?? null);
+const latestPulse = computed(() => props.pulseMeasurements.at(-1)?.value ?? demoPulseValue);
+const pulseHistory = computed(() =>
+  [...demoPulseMeasurements, ...props.pulseMeasurements].sort(
+    (first, second) => first.recordedAt - second.recordedAt,
+  ),
+);
 const screen = ref(null);
 const {
   ready,

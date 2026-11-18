@@ -7,6 +7,7 @@
           :key="hash"
           :initial-view="initialView"
           :pulse-measurements="measurements"
+          :save-pulse="savePulse"
           @dashboard-ready="dashboardVisited = true"
         />
         <Transition name="onboarding-exit" @after-leave="onboardingExit = false">

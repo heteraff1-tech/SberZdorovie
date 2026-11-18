@@ -12,11 +12,11 @@ const dateTimeFormat = new Intl.DateTimeFormat('ru-RU', {
 /** Фильтрует записи по местным календарным дням и рассчитывает геометрию графика. */
 export function usePulseHistory(source) {
   const period = ref('day');
-  const selectedAt = ref(null);
+  const selectedId = ref(null);
   const interval = computed(() => {
     const measurements = toValue(source);
     const days = pulsePeriods.find((item) => item.id === period.value).days;
-    const start = new Date();
+    const start = new Date(measurements.at(-1)?.recordedAt ?? Date.now());
     start.setHours(0, 0, 0, 0);
     const end = new Date(start);
     end.setDate(end.getDate() + 1);
@@ -51,14 +51,14 @@ export function usePulseHistory(source) {
     const formatter = period.value === 'day' ? timeFormat : dateTimeFormat;
     return visible.value.map((point) => ({
       ...point,
+      id: `${point.demo ? 'demo' : 'manual'}-${point.recordedAt}`,
       time: formatter.format(point.recordedAt),
       x: 30 + ((point.recordedAt - start) / (end - start)) * 288,
       y: 47 - ((point.value - min) / (max - min)) * 40,
     }));
   });
   const selected = computed(
-    () =>
-      points.value.find((point) => point.recordedAt === selectedAt.value) ?? points.value.at(-1),
+    () => points.value.find((point) => point.id === selectedId.value) ?? points.value.at(-1),
   );
   const ticks = computed(() => {
     const { start, end } = interval.value;
@@ -76,5 +76,5 @@ export function usePulseHistory(source) {
       return { label, x: 30 + index * 72 };
     });
   });
-  return { period, selectedAt, points, selected, ticks, range, axis };
+  return { period, selectedId, points, selected, ticks, range, axis };
 }

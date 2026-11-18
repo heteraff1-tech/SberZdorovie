@@ -11,16 +11,17 @@
       <h1>Пульс</h1>
     </header>
     <PulseHeart :value="value" />
-    <p class="pulse-overview__status">{{ value === null ? 'Нет замеров' : 'Последний замер' }}</p>
+    <p class="pulse-overview__status">{{ demo ? 'Демо-показатель' : 'Последний замер' }}</p>
     <div class="pulse-overview__actions">
       <UiButton variant="secondary" pill aria-disabled="true"
         ><UiIcon name="camera" />Замер по камере</UiButton
       >
-      <UiButton variant="secondary" pill aria-disabled="true"
+      <UiButton variant="secondary" pill :aria-expanded="entryOpen" @click="entryOpen = !entryOpen"
         ><UiIcon name="plus" />Добавить замер</UiButton
       >
     </div>
     <div class="pulse-overview__widgets">
+      <PulseEntry v-if="entryOpen" :save="save" compact />
       <PulseInsight @discuss="$emit('discuss')" />
       <PulseHistory :measurements="measurements" />
       <div class="pulse-overview__report">
@@ -34,14 +35,18 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { UiButton, UiIcon, UiIconButton } from '@/shared/ui';
+import PulseEntry from './PulseEntry.vue';
 import PulseHeart from './PulseHeart.vue';
 import PulseHistory from './PulseHistory.vue';
 import PulseInsight from './PulseInsight.vue';
 defineProps({
   value: { type: Number, default: null },
   measurements: { type: Array, required: true },
+  demo: Boolean,
+  save: { type: Function, required: true },
 });
 defineEmits(['back', 'discuss']);
+const entryOpen = ref(false);
 const back = ref(null);
 // При раскрытии шторы первым доступным действием становится возврат.
 onMounted(() => back.value?.focus({ preventScroll: true }));

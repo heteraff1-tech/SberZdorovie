@@ -46,6 +46,9 @@ test('sheet gestures and background dissolve preserve the first-entry chart stat
       ),
     )
     .toBe(true);
+  await expect
+    .poll(() => bars.first().evaluate((element) => element.getAnimations()[0]?.startTime))
+    .not.toBeNull();
   const started = await bars.first().evaluate((element) => element.getAnimations()[0].startTime);
   const handle = page.getByRole('button', { name: 'Открыть ИИ-помощника — свернуть показатели' });
   await page.waitForTimeout(1100);

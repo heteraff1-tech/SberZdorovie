@@ -3,6 +3,7 @@ import { test, expect, expectNoHorizontalOverflow } from './fixtures';
 test('pulse widget expands the same sheet, synchronizes its two-second loop and restores focus', async ({
   page,
 }) => {
+  await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
   await page.goto('/#home');
   await page.getByLabel('Пульс, уд/мин', { exact: true }).fill('67');
   await page.getByRole('button', { name: 'Сохранить замер' }).click();
@@ -130,7 +131,7 @@ test('the side form saves manual pulse readings and history filters them by loca
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.clock.setFixedTime(new Date(2026, 10, 18, 14, 20));
+  await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
   await page.goto('/#home');
   const panel = page.getByRole('complementary', { name: 'Ручной ввод пульса' });
   const phone = await page.locator('.phone').boundingBox();
@@ -138,17 +139,17 @@ test('the side form saves manual pulse readings and history filters them by loca
   expect(form.x).toBeGreaterThan(phone.x + phone.width);
 
   const card = page.getByRole('article', { name: 'Пульс', exact: true });
-  await expect(card).toContainText('Нет замеров');
+  await expect(card).toContainText('99');
   const input = panel.getByLabel('Пульс, уд/мин', { exact: true });
   const save = panel.getByRole('button', { name: 'Сохранить замер' });
   await input.fill('0');
   await save.click();
-  await expect(card).toContainText('Нет замеров');
+  await expect(card).toContainText('99');
 
+  await panel.getByLabel('Дата и время замера').fill('2026-11-18T14:25');
   await input.fill('64');
   await save.click();
   await expect(card).toContainText('64');
-  await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
   await input.fill('132');
   await save.click();
   await expect(panel.getByRole('status')).toHaveText('Сохранено: 132 уд/мин');
@@ -165,4 +166,26 @@ test('the side form saves manual pulse readings and history filters them by loca
   await expect(history.getByRole('heading')).toHaveText('64–132 уд/мин');
   await history.getByRole('button', { name: /— 64 уд\/мин/ }).click();
   await expect(history.locator('.pulse-history__selection')).toContainText('64 уд/мин');
+});
+
+test('pulse overview restores demo history and accepts a backdated manual reading', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
+  await page.goto('/?mobile=1#pulse');
+  const overview = page.getByRole('region', { name: 'Пульс — обзор' });
+  await expect(overview.getByRole('img', { name: 'Пульс 99 ударов в минуту' })).toBeVisible();
+  await expect(overview.getByText('Пульс покоя выше нормы в течение дня')).toBeVisible();
+  await expect(overview.getByRole('button', { name: '16:40 — 67 уд/мин' })).toBeVisible();
+  await overview.getByRole('button', { name: 'Добавить замер', exact: true }).click();
+  await overview.getByLabel('Дата и время замера').fill('2026-11-20T12:25');
+  await overview.getByLabel('Пульс, уд/мин').fill('78');
+  await overview.getByRole('button', { name: 'Сохранить замер' }).click();
+  await expect(overview.getByRole('status')).toContainText('которые уже наступили');
+  await overview.getByLabel('Дата и время замера').fill('2026-11-19T12:25');
+  await overview.getByRole('button', { name: 'Сохранить замер' }).click();
+  await expect(overview.getByRole('button', { name: '12:25 — 78 уд/мин' })).toBeVisible();
+  await overview.getByRole('button', { name: 'Неделя', exact: true }).click();
+  await expect(overview.getByRole('button', { name: /16:40 — 67 уд\/мин/ })).toBeVisible();
 });

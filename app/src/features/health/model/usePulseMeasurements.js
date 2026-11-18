@@ -45,12 +45,17 @@ export function usePulseMeasurements() {
     if (event.key === storageKey || event.key === null) refresh();
   }
 
-  /** Сохраняет новый замер с текущим временем. Возвращает ошибку для формы. */
-  function savePulse(value) {
+  /** Сохраняет новый замер с указанным или текущим временем. Возвращает ошибку для формы. */
+  function savePulse(value, localTime = '') {
     if (!isPulseValue(value)) return `Введите целое число от 1 до ${pulseInputMax}.`;
 
+    const now = Date.now();
+    const recordedAt = localTime ? new Date(localTime).getTime() : now;
+    if (localTime && (!Number.isFinite(recordedAt) || recordedAt > now)) {
+      return 'Укажите дату и время замера, которые уже наступили.';
+    }
+
     try {
-      const recordedAt = Date.now();
       const entries = readMeasurements().filter((entry) => entry.recordedAt !== recordedAt);
       const updated = [...entries, { value, recordedAt }].sort(
         (first, second) => first.recordedAt - second.recordedAt,

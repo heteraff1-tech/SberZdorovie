@@ -44,21 +44,24 @@
           </svg>
           <button
             v-for="(point, index) in points"
-            :key="point.recordedAt"
+            :key="point.id"
             type="button"
             class="pulse-history__point"
-            :class="{ 'pulse-history__point--latest': index === points.length - 1 }"
+            :class="{
+              'pulse-history__point--latest': index === points.length - 1,
+              'pulse-history__point--manual': !point.demo,
+            }"
             :style="{ left: `${(point.x / 322) * 100}%`, top: `${point.y}px` }"
             :aria-label="`${point.time} — ${point.value} уд/мин`"
-            :aria-pressed="selected.recordedAt === point.recordedAt"
-            @click="selectedAt = point.recordedAt"
+            :aria-pressed="selected.id === point.id"
+            @click="selectedId = point.id"
           ></button>
         </div>
       </div>
       <div class="pulse-history__details">
         <div class="pulse-history__selection" aria-live="polite">
           <span>{{ selected.time }} · {{ selected.value }} уд/мин</span>
-          <span>Ручной ввод</span>
+          <span>{{ selected.demo ? `Демо · ${selected.label}` : 'Ручной ввод' }}</span>
         </div>
       </div>
     </div>
@@ -71,7 +74,7 @@ import { toRef } from 'vue';
 import { pulsePeriods } from '../config/pulse-history';
 import { usePulseHistory } from '../model/usePulseHistory';
 const props = defineProps({ measurements: { type: Array, required: true } });
-const { period, selectedAt, points, selected, ticks, range, axis } = usePulseHistory(
+const { period, selectedId, points, selected, ticks, range, axis } = usePulseHistory(
   toRef(props, 'measurements'),
 );
 </script>
@@ -160,6 +163,12 @@ const { period, selectedAt, points, selected, ticks, range, axis } = usePulseHis
       border: 1px solid var(--color-bg-page);
       border-radius: 50%;
       background: var(--color-accent-default);
+    }
+    &--manual {
+      z-index: 1;
+    }
+    &:focus-visible {
+      z-index: 2;
     }
     &--latest::after {
       top: 7.25px;
