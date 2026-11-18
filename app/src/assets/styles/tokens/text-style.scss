@@ -1,0 +1,66 @@
+:root {
+  --font-text: 'SB Sans Text', 'Segoe UI', sans-serif;
+  --font-display: 'SB Sans Display', 'Segoe UI', sans-serif;
+  --font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --heading-h1-size: 24px;
+  --heading-h1-line: 30px;
+  --heading-h2-size: 20px;
+  --heading-h2-line: 26px;
+  --heading-h3-size: 18px;
+  --heading-h3-line: 22px;
+  --heading-h4-size: 16px;
+  --heading-h4-line: 20px;
+  --text-body-size: 16px;
+  --text-body-line: 21px;
+  --text-label-size: 14px;
+  --text-label-line: 18px;
+  --text-caption-size: 11px;
+  --text-caption-line: 13px;
+  --text-small-size: 13px;
+  --text-small-line: 18px;
+  --text-footnote-size: 12px;
+  --text-footnote-line: 16px;
+  --display-metric-size: 44px;
+  --display-metric-line: 54px;
+}
+
+.heading-h1 {
+  font: 600 var(--heading-h1-size) / var(--heading-h1-line) var(--font-display);
+}
+
+.heading-h2 {
+  font: 600 var(--heading-h2-size) / var(--heading-h2-line) var(--font-display);
+}
+
+.heading-h3 {
+  font: 500 var(--heading-h3-size) / var(--heading-h3-line) var(--font-system);
+}
+
+.heading-h4 {
+  font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);
+}
+
+.display-metric {
+  font: 600 var(--display-metric-size) / var(--display-metric-line) var(--font-display);
+  letter-spacing: -1.6px;
+}
+
+.text-body {
+  font: 400 var(--text-body-size) / var(--text-body-line) var(--font-text);
+}
+
+.text-label {
+  font: 500 var(--text-label-size) / var(--text-label-line) var(--font-text);
+}
+
+.text-caption {
+  font: 400 var(--text-caption-size) / var(--text-caption-line) var(--font-text);
+}
+
+.text-small {
+  font: 400 var(--text-small-size) / var(--text-small-line) var(--font-text);
+}
+
+.text-footnote {
+  font: 500 var(--text-footnote-size) / var(--text-footnote-line) var(--font-text);
+}

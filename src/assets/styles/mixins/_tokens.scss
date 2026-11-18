@@ -1,6 +1,0 @@
-// Emit CSS custom properties once from a readable Sass map.
-@mixin emit($tokens, $prefix: '') {
-  @each $name, $value in $tokens {
-    --#{$prefix}#{$name}: #{$value};
-  }
-}

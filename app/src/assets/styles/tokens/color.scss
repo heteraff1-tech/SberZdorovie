@@ -1,0 +1,149 @@
+// Значения и имена взяты из текущих переменных Figma.
+:root,
+[data-theme='light'] {
+  // Bg
+  --color-bg-page: #ffffff;
+  --color-bg-surface: #f1f5f8;
+
+  // Fg
+  --color-fg-default: #222227;
+
+  // Border
+  --color-border-default: #dce2ec;
+
+  // Accent
+  --color-accent-default: #2da889;
+  --color-accent-soft: #5abda4;
+  --color-accent-muted: #89baae;
+  --color-accent-hover: #11644f;
+  --color-accent-active: #0e5341;
+  --color-accent-on-accent: #ffffff;
+  --color-accent-container-default: #e7f1ef;
+  --color-accent-container-soft: #f3f8f7;
+  --color-accent-container-muted: #f8fbfa;
+  --color-accent-container-hover: #d0e4df;
+  --color-accent-container-active: #b8d6ce;
+  --color-accent-on-container: #14765d;
+
+  // Neutral
+  --color-neutral-default: #46576b;
+  --color-neutral-soft: #6b7989;
+  --color-neutral-muted: #acb3bc;
+  --color-neutral-hover: #3e4d5f;
+  --color-neutral-active: #374556;
+  --color-neutral-on-neutral: #ffffff;
+  --color-neutral-container-default: #edeef0;
+  --color-neutral-container-soft: #f6f7f8;
+  --color-neutral-container-muted: #f9fafb;
+  --color-neutral-container-hover: #dadde1;
+  --color-neutral-container-active: #c7cdd3;
+  --color-neutral-on-container: #46576b;
+
+  // Success
+  --color-success-default: #0acb5b;
+
+  // Warning
+  --color-warning-default: #fda610;
+  --color-warning-soft: #fdb840;
+  --color-warning-muted: #fed387;
+  --color-warning-hover: #d78d0e;
+  --color-warning-active: #b1740b;
+  --color-warning-on-warning: #000000;
+  --color-warning-container-default: #fff6e7;
+  --color-warning-container-soft: #fffbf3;
+  --color-warning-container-muted: #fffcf8;
+  --color-warning-container-hover: #ffedcf;
+  --color-warning-container-active: #fee4b7;
+  --color-warning-on-container: #8d5d09;
+
+  // Error
+  --color-error-default: #ff2626;
+  --color-error-soft: #ff5151;
+  --color-error-muted: #ff9292;
+  --color-error-hover: #d92020;
+  --color-error-active: #b21b1b;
+  --color-error-on-error: #000000;
+  --color-error-container-default: #ffe9e9;
+  --color-error-container-soft: #fff4f4;
+  --color-error-container-muted: #fff8f8;
+  --color-error-container-hover: #ffd4d4;
+  --color-error-container-active: #ffbebe;
+  --color-error-on-container: #cf1f1f;
+
+  // Blue
+  --color-blue: #2579e5;
+}
+
+[data-theme='dark'] {
+  // Bg
+  --color-bg-page: #121820;
+  --color-bg-surface: #1b2430;
+
+  // Fg
+  --color-fg-default: #ffffff;
+
+  // Border
+  --color-border-default: #3b4b60;
+
+  // Accent
+  --color-accent-default: #69ddbb;
+  --color-accent-soft: #50be9f;
+  --color-accent-muted: #369f83;
+  --color-accent-hover: #b4eedd;
+  --color-accent-active: #e1f8f1;
+  --color-accent-on-accent: #000000;
+  --color-accent-container-default: #193334;
+  --color-accent-container-soft: #16262a;
+  --color-accent-container-muted: #141f25;
+  --color-accent-container-hover: #1d413e;
+  --color-accent-container-active: #204e47;
+  --color-accent-on-container: #69ddbb;
+
+  // Neutral
+  --color-neutral-default: #cbd3e1;
+  --color-neutral-soft: #a3aebe;
+  --color-neutral-muted: #7b899a;
+  --color-neutral-hover: #e5e9f0;
+  --color-neutral-active: #f5f6f9;
+  --color-neutral-on-neutral: #000000;
+  --color-neutral-container-default: #272f38;
+  --color-neutral-container-soft: #1d232c;
+  --color-neutral-container-muted: #171e26;
+  --color-neutral-container-hover: #323a45;
+  --color-neutral-container-active: #3c4551;
+  --color-neutral-on-container: #cbd3e1;
+
+  // Success
+  --color-success-default: #85e5ad;
+
+  // Warning
+  --color-warning-default: #fed388;
+  --color-warning-soft: #fec564;
+  --color-warning-muted: #fdb840;
+  --color-warning-hover: #ffe9c3;
+  --color-warning-active: #fff6e7;
+  --color-warning-on-warning: #000000;
+  --color-warning-container-default: #413826;
+  --color-warning-container-soft: #2a2823;
+  --color-warning-container-muted: #1e2022;
+  --color-warning-container-hover: #59482a;
+  --color-warning-container-active: #70582d;
+  --color-warning-on-container: #fed388;
+
+  // Error
+  --color-error-default: #ff9393;
+  --color-error-soft: #ff7272;
+  --color-error-muted: #ff5252;
+  --color-error-hover: #ffc9c9;
+  --color-error-active: #ffe9e9;
+  --color-error-on-error: #000000;
+  --color-error-container-default: #41242a;
+  --color-error-container-soft: #2a1e25;
+  --color-error-container-muted: #1e1b22;
+  --color-error-container-hover: #59292f;
+  --color-error-container-active: #712f34;
+  --color-error-on-container: #ff9393;
+
+  // Blue
+  --color-blue: #2579e5;
+}

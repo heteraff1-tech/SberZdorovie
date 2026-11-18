@@ -1,0 +1,38 @@
+:root {
+  // Базовая шкала отступов, как в Variant/app-new.
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
+  --spacing-9: 48px;
+  --spacing-10: 56px;
+
+  // Скругления и высоты контролов из Figma.
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-32: 32px;
+  --radius-full: 999px;
+  --size-44: 44px;
+  --size-56: 56px;
+
+  // Назначение размера задаётся понятным алиасом.
+  --padding-xs: var(--spacing-1);
+  --padding-s: var(--spacing-2);
+  --padding-m: var(--spacing-4);
+  --padding-l: var(--spacing-6);
+  --padding-xl: var(--spacing-7);
+  --border-radius-xs: var(--radius-4);
+  --border-radius-s: var(--radius-8);
+  --border-radius-m: var(--radius-12);
+  --border-radius-l: var(--radius-16);
+  --border-radius-xl: var(--radius-24);
+  --border-radius-xxl: var(--radius-32);
+  --border-radius-full: var(--radius-full);
+}

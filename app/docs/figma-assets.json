@@ -1,0 +1,136 @@
+{
+  "images/home-indicator.svg": {
+    "id": "77:4497",
+    "width": 402,
+    "height": 34
+  },
+  "icons/at-sign.svg": {
+    "id": "77:3924",
+    "width": 16,
+    "height": 16
+  },
+  "icons/document.svg": {
+    "id": "77:3926",
+    "width": 16,
+    "height": 16
+  },
+  "icons/quote.svg": {
+    "id": "77:3928",
+    "width": 16,
+    "height": 16
+  },
+  "icons/more.svg": {
+    "id": "77:3930",
+    "width": 16,
+    "height": 16
+  },
+  "icons/close.svg": {
+    "id": "77:3937",
+    "width": 24,
+    "height": 24
+  },
+  "icons/assistant.svg": {
+    "id": "275:8632",
+    "width": 14,
+    "height": 14
+  },
+  "icons/chat.svg": {
+    "id": "77:3944",
+    "width": 16.683670043945312,
+    "height": 16.13888168334961
+  },
+  "icons/cellular.svg": {
+    "id": "I77:3949;5465:16812",
+    "width": 19.200000762939453,
+    "height": 12.226415634155273
+  },
+  "icons/wifi.svg": {
+    "id": "I77:3949;5465:16813",
+    "width": 17.141666412353516,
+    "height": 12.328306198120117
+  },
+  "icons/battery.svg": {
+    "id": "I77:3949;6325:1760",
+    "width": 27.32803726196289,
+    "height": 13
+  },
+  "icons/microphone.svg": {
+    "id": "77:3957",
+    "width": 10,
+    "height": 15.499999046325684
+  },
+  "images/charts/pulse-background.svg": {
+    "id": "101:2552",
+    "width": 139,
+    "height": 27.66720962524414
+  },
+  "images/charts/pulse-foreground.svg": {
+    "id": "101:2599",
+    "width": 139,
+    "height": 35.090023040771484
+  },
+  "icons/camera.svg": {
+    "id": "238:1960",
+    "width": 18,
+    "height": 18
+  },
+  "icons/plus.svg": {
+    "id": "238:1957",
+    "width": 18,
+    "height": 18
+  },
+  "icons/chevron.svg": {
+    "id": "238:1962",
+    "width": 18,
+    "height": 18
+  },
+  "icons/back.svg": {
+    "id": "275:8647",
+    "width": 24,
+    "height": 24
+  },
+  "icons/file.svg": {
+    "id": "238:1961",
+    "width": 22,
+    "height": 22
+  },
+  "icons/heart.svg": {
+    "id": "I283:3974;279:3860;5537:22343;5535:23120",
+    "width": 76,
+    "height": 28
+  },
+  "icons/sparkles.svg": {
+    "id": "I283:3974;279:3860;5537:22344;5535:23120",
+    "width": 76,
+    "height": 28
+  },
+  "images/charts/pulse-heart.webp": {
+    "id": "269:2538",
+    "layers": "heart layers, excluding text and crossing wave",
+    "width": 402,
+    "height": 150,
+    "scale": 2,
+    "format": "lossless WebP",
+    "note": "Original Figma layers, text rendered by Vue. Rasterized at 2x to avoid shipping 1.1 MB of gradients."
+  },
+  "images/charts/pulse-wave.webp": {
+    "id": "269:2538",
+    "layers": "I269:2538;239:2881",
+    "width": 402,
+    "height": 150,
+    "scale": 2,
+    "format": "lossless WebP",
+    "note": "Original Figma layers, text rendered by Vue. Rasterized at 2x to avoid shipping 1.1 MB of gradients."
+  },
+  "images/assistant/artwork.svg": {
+    "id": "334:7073",
+    "width": 313,
+    "height": 310,
+    "note": "Complete decorative artwork exported from Figma, including gradients, highlights and shadow."
+  },
+  "images/health-background.png": {
+    "id": "77:3964",
+    "width": 402,
+    "height": 874
+  }
+}
