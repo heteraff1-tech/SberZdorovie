@@ -1,15 +1,15 @@
 @use '../../mixins/text';
 
 .pulse-insight {
-  padding: var(--space-18);
-  border-radius: var(--border-radius-card);
-  background: var(--background-surface3);
+  padding: var(--space-16);
+  border-radius: var(--radius-24);
+  background: var(--bg-elevated);
   &__badge {
     @include text.style('text-label');
     display: flex;
     align-items: center;
-    gap: 3px;
-    color: var(--product-assistant-accent);
+    gap: var(--space-4);
+    color: var(--accent);
   }
   h2 {
     @include text.style('heading-h4');
@@ -25,7 +25,7 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: var(--link-default);
+    color: var(--accent);
     cursor: pointer;
   }
 }

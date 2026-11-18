@@ -10,7 +10,7 @@
     mask: var(--icon-source) center / contain no-repeat;
   }
   &--inverse {
-    color: var(--static-white);
+    color: var(--bg);
   }
   &--image img {
     display: block;

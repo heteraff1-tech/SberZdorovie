@@ -40,7 +40,7 @@ export function useAssistant() {
     messages.value.push({ text, file: file.value?.name });
     draft.value = '';
     file.value = null;
-    notice.value = 'Сообщение сохранено в прототипе. ИИ-ответы пока не подключены.';
+    notice.value = 'Сообщение сохранено.';
   }
 
   function closeHistory() {

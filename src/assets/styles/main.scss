@@ -1,5 +1,4 @@
 @use 'base/fonts';
-@use 'tokens/palette';
 @use 'tokens/color';
 @use 'tokens/markup';
 @use 'tokens/text-style';
@@ -10,7 +9,7 @@
 @use 'base/typography';
 
 body {
-  background: var(--preview-background);
-  color: var(--foreground-default);
+  background: #101013;
+  color: var(--fg);
   font-family: var(--font-text);
 }

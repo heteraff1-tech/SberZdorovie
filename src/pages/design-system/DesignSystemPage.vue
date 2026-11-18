@@ -69,13 +69,16 @@ import {
 
 const examples = reactive({ light: '', dark: '' });
 const colorRoles = [
-  'background-surface2',
-  'foreground-default',
-  'accent-default',
-  'success-default',
-  'warning-default',
-  'error-default',
-  'info-default',
+  'fg',
+  'bg',
+  'bg-elevated',
+  'border',
+  'accent',
+  'neutral',
+  'success',
+  'warning',
+  'error',
+  'info',
 ];
 </script>
 

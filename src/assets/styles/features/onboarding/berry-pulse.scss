@@ -48,7 +48,7 @@
 }
 
 .berry :deep(.pulse-stream) {
-  stroke: var(--onboarding-stream-color);
+  stroke: #ffd1df;
   stroke-width: 0.85;
   stroke-dasharray: 8 92;
 }
@@ -70,7 +70,7 @@
 
 .berry :deep(.pulse-light) {
   fill: none;
-  stroke: var(--onboarding-rim-color);
+  stroke: #fc8aaa;
   stroke-width: 0.66;
   stroke-linecap: round;
   stroke-dasharray: 17 83;

@@ -2,9 +2,9 @@
 
 .pressure-legend {
   display: flex;
-  gap: 9px;
+  gap: var(--space-8);
   @include text.style('text-caption');
-  color: var(--foreground-soft);
+  color: var(--neutral);
 }
 .pressure-legend span {
   display: flex;
@@ -27,10 +27,10 @@
   top: 8px;
   left: 0;
   width: 19px;
-  color: var(--chart-label);
+  color: var(--neutral);
   @include text.style('text-caption');
   display: grid;
-  gap: 5px;
+  gap: var(--space-4);
   text-align: right;
 }
 .pressure-grid {
@@ -39,11 +39,11 @@
   left: 26px;
   right: 0;
   display: grid;
-  gap: 14px;
+  gap: var(--space-16);
 }
 .pressure-grid i {
   height: 1px;
-  background: var(--chart-grid-subtle);
+  background: var(--border);
 }
 .pressure-days {
   position: absolute;
@@ -55,26 +55,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  color: var(--chart-label);
+  gap: var(--space-4);
+  color: var(--neutral);
   @include text.style('text-caption');
 }
 .pressure-bars {
   display: flex;
   align-items: end;
-  gap: 3px;
+  gap: var(--space-4);
   width: 23px;
   height: 58px;
 }
 .pressure-bars i {
   width: 10px;
-  border-radius: 60px 60px 0 0;
-  background: var(--chart-systolic);
+  border-radius: var(--radius-full) var(--radius-full) 0 0;
+  background: var(--accent);
   transform: scaleY(0);
   transform-origin: bottom;
 }
 .pressure-bars i + i {
-  background: var(--chart-diastolic);
+  background: var(--info);
 }
 .chart-ready .pressure-bars i {
   animation: grow-bar var(--motion-chart) var(--ease-out)
@@ -99,8 +99,8 @@
   flex-shrink: 0;
 }
 .pressure-legend__upper {
-  background: var(--chart-systolic);
+  background: var(--accent);
 }
 .pressure-legend__lower {
-  background: var(--chart-diastolic);
+  background: var(--info);
 }

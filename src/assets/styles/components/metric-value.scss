@@ -9,7 +9,7 @@
 
   &__number {
     @include text.style('display-metric');
-    color: var(--foreground-default);
+    color: var(--fg);
   }
   &__details {
     display: flex;
@@ -17,15 +17,15 @@
   }
   &__status {
     @include text.style('text-caption');
-    color: var(--foreground-default);
+    color: var(--fg);
   }
   &__unit {
     @include text.style('text-footnote');
-    color: var(--foreground-muted);
+    color: var(--neutral);
   }
-  @each $tone in positive, elevated, critical {
+  @each $tone, $role in (positive: success, elevated: warning, critical: error) {
     &__status--#{$tone} {
-      color: var(--product-metric-#{$tone});
+      color: var(--#{$role});
     }
   }
 }

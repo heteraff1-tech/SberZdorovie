@@ -1,13 +1,15 @@
 .onboarding {
-  color: var(--onboarding-foreground);
-  --focus-ring: var(--onboarding-focus);
+  color: rgb(255 255 255 / 90%);
+  :focus-visible {
+    outline-color: #fca8c9;
+  }
   position: absolute;
   inset: 0;
   /* Штора перекрывает иконки статус-бара, когда закрыта. */
   user-select: none;
   -webkit-user-select: none;
   font: 500 var(--onboarding-text-size) / var(--onboarding-text-line) var(--font-text);
-  background: var(--onboarding-background);
+  background: #050006;
 }
 
 .onboarding .glow {
@@ -124,8 +126,8 @@
   overflow: hidden;
   border: 0;
   border-radius: var(--radius-full);
-  color: var(--onboarding-foreground);
-  background: var(--onboarding-accent);
+  color: rgb(255 255 255 / 90%);
+  background: #c60053;
   cursor: pointer;
   transition:
     left var(--motion-action) var(--ease-out),
@@ -180,7 +182,7 @@
   inset: 0;
   pointer-events: none;
   opacity: 0;
-  background: var(--onboarding-curtain);
+  background: #020003;
   transition: opacity var(--motion-curtain) var(--ease-in-out);
 }
 .curtain[data-state='closed'] {
@@ -208,13 +210,13 @@
   background: radial-gradient(
     closest-side,
     transparent 26%,
-    rgb(var(--onboarding-glow-rgb) / 0.035) 37%,
-    rgb(var(--onboarding-glow-rgb) / 0.12) 50%,
-    rgb(var(--onboarding-glow-rgb) / 0.27) 61%,
-    rgb(var(--onboarding-glow-rgb) / 0.41) 72%,
-    rgb(var(--onboarding-glow-rgb) / 0.34) 81%,
-    rgb(var(--onboarding-glow-rgb) / 0.16) 89%,
-    rgb(var(--onboarding-glow-rgb) / 0.04) 96%,
+    rgb(195 0 49 / 0.035) 37%,
+    rgb(195 0 49 / 0.12) 50%,
+    rgb(195 0 49 / 0.27) 61%,
+    rgb(195 0 49 / 0.41) 72%,
+    rgb(195 0 49 / 0.34) 81%,
+    rgb(195 0 49 / 0.16) 89%,
+    rgb(195 0 49 / 0.04) 96%,
     transparent 100%
   );
   mask-image: conic-gradient(from 26deg, #000, #000b 24%, #000 57%, #000c 79%, #000);

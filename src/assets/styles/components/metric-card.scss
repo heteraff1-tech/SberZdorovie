@@ -6,10 +6,10 @@
   flex-direction: column;
   min-width: 0;
   height: 200px;
-  padding: var(--space-18);
-  border-radius: var(--border-radius-card);
-  background: var(--background-surface2);
-  color: var(--foreground-default);
+  padding: var(--space-16);
+  border-radius: var(--radius-24);
+  background: var(--bg-elevated);
+  color: var(--fg);
   overflow: hidden;
 
   &__action {
@@ -20,7 +20,7 @@
     background: transparent;
     cursor: pointer;
     &:hover {
-      background: var(--control-quiet-bg-hover);
+      background: var(--bg);
       opacity: 0.35;
     }
     &:focus-visible {
@@ -46,7 +46,7 @@
   &__subtitle {
     @include text.style('text-footnote');
     margin: 0;
-    color: var(--foreground-muted);
+    color: var(--neutral);
   }
   &__body {
     margin-top: var(--space-12);
