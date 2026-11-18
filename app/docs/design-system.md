@@ -1,0 +1,46 @@
+# Дизайн-система
+
+Основа организации — `Variant/app-new`: понятные группы переменных, единая шкала размеров, текстовые стили и scoped SCSS рядом с компонентом.
+
+## Источник значений
+
+Текущая Figma: [макеты](https://www.figma.com/design/u0EdPHQOmvdQuc7158uN5C/Untitled?node-id=77-4755), [переменные](https://www.figma.com/design/u0EdPHQOmvdQuc7158uN5C/Untitled?node-id=250-2290).
+
+[figma-tokens.json](figma-tokens.json) хранит прочитанные имена, ID и значения для Light/Dark. SCSS содержит этот актуальный набор, включая исправленные Foreground и Accent, состояния основных цветов и Blue. Набор цветов повторяет существующие переменные файла; новые оттенки код самостоятельно не рассчитывает.
+
+## Три файла токенов
+
+| Файл                                       | Что менять                                       |
+| ------------------------------------------ | ------------------------------------------------ |
+| `src/assets/styles/tokens/color.scss`      | Цвета Light/Dark, сгруппированные по Figma       |
+| `src/assets/styles/tokens/markup.scss`     | Шкала spacing, радиусы, высоты и понятные алиасы |
+| `src/assets/styles/tokens/text-style.scss` | Размеры, строки, семейства и текстовые классы    |
+
+Это прямые CSS custom properties в SCSS. Генераторов, Sass-карт и mixin для выпуска переменных нет.
+
+Цветовые имена соответствуют WEB code syntax Figma, например `fg/default → --color-fg-default` и `accent/hover → --color-accent-hover`. Для Blue без WEB syntax используется `--color-blue`.
+
+Скругления `radius/4…32/full`, высоты `size/44` и `size/56`, размеры и строки текста повторяют текущие переменные. Шкала spacing и алиасы padding организованы по примеру `app-new`; в Figma дополнительные переменные не создаются.
+
+## Использование
+
+```scss
+.card {
+  padding: var(--padding-m);
+  border-radius: var(--border-radius-xl);
+  background: var(--color-bg-surface);
+  color: var(--color-fg-default);
+}
+```
+
+Тему можно задать на любом контейнере через `data-theme="light"` или `data-theme="dark"`.
+
+Начертание относится к самому текстовому стилю. Публичных токенов font-weight нет. SB Sans Text и SB Sans Display загружаются из `public/fonts`; переменная семейства SF Pro представлена системным стеком.
+
+## Локальные настройки
+
+Задержки появления карточек, длительность пульса, геометрия корпуса и параметры SVG хранятся у конкретных компонентов. Общая длительность взаимодействия `--motion-ui` и easing находятся в `main.scss`.
+
+CSS онбординга и его модель читают одни локальные длительности с корня `OnboardingFlow.vue`. `prefers-reduced-motion` задаётся в том же компоненте.
+
+При обновлении Figma нужно обновить прямые объявления SCSS и снимок значений. Проверки сравнивают обе темы со снимком и обнаруживают неразрешённые ссылки.
