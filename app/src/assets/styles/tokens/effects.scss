@@ -1,0 +1,41 @@
+// Прикладные эффекты и исходный брендинг онбординга. Не расширяют снимок цветов Figma.
+:root {
+  --effect-mask-opaque: #000;
+  --effect-background-tint: #d9d9d9;
+  --effect-assistant-badge: linear-gradient(90deg, #9df2bc, #32c0cd);
+  --effect-glass-shadow: 0 4px 11px rgb(56 71 87 / 6.5%);
+  --effect-glass-border: linear-gradient(
+    135deg,
+    rgb(142 156 168 / 42%),
+    rgb(246 255 255 / 90%) 34%,
+    rgb(255 255 255 / 94%) 67%,
+    rgb(108 141 150 / 31%)
+  );
+  --effect-onboarding-text: rgb(255 255 255 / 90%);
+  --effect-onboarding-focus: #fca8c9;
+  --effect-onboarding-bg: #050006;
+  --effect-onboarding-button: #c60053;
+  --effect-onboarding-wave-ink: #c30031;
+  --effect-onboarding-stream: #ffd1df;
+  --effect-onboarding-rim: #fc8aaa;
+  --effect-onboarding-wave-fill: radial-gradient(
+    closest-side,
+    transparent 26%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 3.5%, transparent) 37%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 12%, transparent) 50%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 27%, transparent) 61%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 41%, transparent) 72%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 34%, transparent) 81%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 16%, transparent) 89%,
+    color-mix(in srgb, var(--effect-onboarding-wave-ink) 4%, transparent) 96%,
+    transparent 100%
+  );
+  --effect-onboarding-wave-mask: conic-gradient(
+    from 26deg,
+    var(--effect-mask-opaque),
+    color-mix(in srgb, var(--effect-mask-opaque) 73.333%, transparent) 24%,
+    var(--effect-mask-opaque) 57%,
+    color-mix(in srgb, var(--effect-mask-opaque) 80%, transparent) 79%,
+    var(--effect-mask-opaque)
+  );
+}

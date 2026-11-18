@@ -1,0 +1,50 @@
+@use 'fonts';
+@use 'tokens/color';
+@use 'tokens/markup';
+@use 'tokens/text-style';
+@use 'tokens/effects';
+
+:root {
+  --motion-ui: 200ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-dissolve: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-dissolve-opacity: cubic-bezier(0.55, 0, 0.7, 1);
+  --ease-wave: cubic-bezier(0.34, 0.18, 0.38, 1);
+  --ease-reveal: cubic-bezier(0.4, 0, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+img {
+  display: block;
+}
+:focus-visible {
+  outline: 2px solid var(--color-accent-default);
+  outline-offset: 4px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg-page);
+  color: var(--color-fg-default);
+  font-family: var(--font-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-ui: 1ms;
+  }
+}
