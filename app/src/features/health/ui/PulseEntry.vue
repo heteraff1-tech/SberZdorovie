@@ -1,10 +1,6 @@
 <template>
-  <aside
-    class="pulse-entry"
-    :class="{ 'pulse-entry--compact': compact }"
-    aria-label="Ручной ввод пульса"
-  >
-    <h2 v-if="!compact">Добавить замер пульса</h2>
+  <aside class="pulse-entry" aria-label="Ручной ввод пульса">
+    <h2>Добавить замер пульса</h2>
     <form @submit.prevent="submit">
       <label :for="valueId">Пульс, уд/мин</label>
       <input
@@ -42,7 +38,6 @@ import { pulseInputMax } from '../model/usePulseMeasurements';
 const props = defineProps({
   save: { type: Function, required: true },
   reset: { type: Function, required: true },
-  compact: Boolean,
 });
 const valueId = useId();
 const timeId = useId();
@@ -81,9 +76,6 @@ function resetMeasurements() {
   color: var(--color-fg-default);
   font: 500 var(--text-label-size) / var(--text-label-line) var(--font-text);
 
-  &--compact {
-    width: 100%;
-  }
   h2 {
     margin: 0 0 var(--spacing-4);
     font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);

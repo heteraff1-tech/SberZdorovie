@@ -110,9 +110,18 @@ for (const viewport of [
     expect(
       await page.locator('.pulse-overview').evaluate((el) => el.scrollWidth <= el.clientWidth),
     ).toBe(true);
+    const header = page.locator('.pulse-overview__header');
+    const back = page.getByRole('button', { name: 'Вернуться к показателям здоровья' });
+    const headerBefore = await header.boundingBox();
+    const backBefore = await back.boundingBox();
     await page.locator('.pulse-overview').evaluate((el) => {
       el.scrollTop = el.scrollHeight;
     });
+    const headerAfter = await header.boundingBox();
+    const backAfter = await back.boundingBox();
+    expect(headerAfter.y).toBeCloseTo(headerBefore.y);
+    expect(backAfter.y).toBeCloseTo(backBefore.y);
+    await expect(header).toHaveCSS('background-color', 'rgb(255, 255, 255)');
     const report = await page.locator('.pulse-overview__report').boundingBox();
     const nav = await page.getByRole('navigation', { name: 'Основная навигация' }).boundingBox();
     expect(report.y + report.height).toBeLessThanOrEqual(nav.y);
@@ -157,6 +166,11 @@ test('the side form saves manual pulse readings and history filters them by loca
   await save.click();
   await expect(panel.getByRole('status')).toHaveText('Сохранено: 132 уд/мин');
   await expect(card).toContainText('132');
+  const glucoseStatus = page
+    .getByRole('article', { name: 'Глюкоза', exact: true })
+    .getByText('Высокий', { exact: true });
+  const warningColor = await glucoseStatus.evaluate((el) => getComputedStyle(el).color);
+  await expect(card.getByText('Высокий', { exact: true })).toHaveCSS('color', warningColor);
 
   await page.reload();
   await expect(card).toContainText('132');
@@ -177,24 +191,34 @@ test('the side form saves manual pulse readings and history filters them by loca
   await expect(card).toContainText('Повышенный');
 });
 
-test('pulse overview restores demo history and accepts a backdated manual reading', async ({
+test('direct pulse overview keeps the design buttons disabled and accepts readings from the side panel', async ({
   page,
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
   await page.goto('/#pulse');
   const overview = page.getByRole('region', { name: 'Пульс — обзор' });
+  const panel = page.getByRole('complementary', { name: 'Ручной ввод пульса' });
   await expect(overview.getByRole('img', { name: 'Пульс 99 ударов в минуту' })).toBeVisible();
+  await expect(overview.getByText('У вас повышенный пульс')).toBeVisible();
   await expect(overview.getByText('Пульс покоя выше нормы в течение дня')).toBeVisible();
   await expect(overview.getByRole('button', { name: '16:40 — 67 уд/мин' })).toBeVisible();
-  await overview.getByRole('button', { name: 'Добавить замер', exact: true }).click();
-  await overview.getByLabel('Дата и время замера').fill('2026-11-20T12:25');
-  await overview.getByLabel('Пульс, уд/мин').fill('78');
-  await overview.getByRole('button', { name: 'Сохранить замер' }).click();
-  await expect(overview.getByRole('status')).toContainText('которые уже наступили');
-  await overview.getByLabel('Дата и время замера').fill('2026-11-19T12:25');
-  await overview.getByRole('button', { name: 'Сохранить замер' }).click();
-  await expect(overview.getByRole('button', { name: '12:25 — 78 уд/мин' })).toBeVisible();
+  await expect(overview.getByRole('button', { name: 'Замер по камере' })).toBeDisabled();
+  await expect(overview.getByRole('button', { name: 'Добавить замер' })).toBeDisabled();
+  await expect(overview.locator('form')).toHaveCount(0);
+
+  await panel.getByLabel('Дата и время замера').fill('2026-11-20T12:25');
+  await panel.getByLabel('Пульс, уд/мин').fill('130');
+  await panel.getByRole('button', { name: 'Сохранить замер' }).click();
+  await expect(panel.getByRole('status')).toContainText('которые уже наступили');
+  await panel.getByLabel('Дата и время замера').fill('2026-11-19T12:25');
+  await panel.getByRole('button', { name: 'Сохранить замер' }).click();
+  await expect(overview.getByRole('button', { name: '12:25 — 130 уд/мин' })).toBeVisible();
+  await expect(overview.getByText('Высокий пульс', { exact: true })).toHaveCSS(
+    'color',
+    'rgb(253, 166, 16)',
+  );
+  await expect(overview.getByText('Среднее по ручным замерам')).toHaveCount(0);
   await overview.getByRole('button', { name: 'Неделя', exact: true }).click();
   await expect(overview.getByRole('button', { name: /16:40 — 67 уд\/мин/ })).toBeVisible();
 });

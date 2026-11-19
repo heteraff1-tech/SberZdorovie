@@ -11,20 +11,14 @@
       <h1>Пульс</h1>
     </header>
     <PulseHeart :value="value" />
-    <p class="pulse-overview__status" :data-tone="status.tone">
-      {{ status.label ? `${status.label} пульс` : 'Средний пульс' }}
+    <p v-if="status.label" class="pulse-overview__status">
+      {{ demo ? 'У вас повышенный пульс' : `${status.label} пульс` }}
     </p>
-    <p v-if="!demo" class="pulse-overview__summary">Среднее по ручным замерам</p>
     <div class="pulse-overview__actions">
-      <UiButton variant="secondary" pill aria-disabled="true"
-        ><UiIcon name="camera" />Замер по камере</UiButton
-      >
-      <UiButton variant="secondary" pill :aria-expanded="entryOpen" @click="entryOpen = !entryOpen"
-        ><UiIcon name="plus" />Добавить замер</UiButton
-      >
+      <UiButton variant="secondary" pill disabled><UiIcon name="camera" />Замер по камере</UiButton>
+      <UiButton variant="secondary" pill disabled><UiIcon name="plus" />Добавить замер</UiButton>
     </div>
     <div class="pulse-overview__widgets">
-      <PulseEntry v-if="entryOpen" :save="save" :reset="reset" compact />
       <PulseInsight @discuss="$emit('discuss')" />
       <PulseHistory :measurements="measurements" />
       <div class="pulse-overview__report">
@@ -39,7 +33,6 @@
 import { computed, onMounted, ref } from 'vue';
 import { UiButton, UiIcon, UiIconButton } from '@/shared/ui';
 import { pulseStatus } from '../model/measurementStatus';
-import PulseEntry from './PulseEntry.vue';
 import PulseHeart from './PulseHeart.vue';
 import PulseHistory from './PulseHistory.vue';
 import PulseInsight from './PulseInsight.vue';
@@ -47,12 +40,9 @@ const props = defineProps({
   value: { type: Number, default: null },
   measurements: { type: Array, required: true },
   demo: Boolean,
-  save: { type: Function, required: true },
-  reset: { type: Function, required: true },
 });
 defineEmits(['back', 'discuss']);
 const status = computed(() => pulseStatus(props.value, props.demo));
-const entryOpen = ref(false);
 const back = ref(null);
 // При раскрытии шторы первым доступным действием становится возврат.
 onMounted(() => back.value?.focus({ preventScroll: true }));
@@ -64,18 +54,22 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: none;
-  padding: var(--spacing-10) 0 calc(var(--spacing-9) * 2);
+  padding-bottom: calc(var(--spacing-9) * 2);
   background: var(--color-bg-page);
   &::-webkit-scrollbar {
     display: none;
   }
   &__header {
-    position: relative;
+    position: sticky;
+    z-index: 1;
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 43px;
+    height: calc(var(--spacing-10) + 43px);
+    padding-top: var(--spacing-10);
     margin-bottom: var(--spacing-5);
+    background: var(--color-bg-page);
     h1 {
       font: 600 var(--heading-h1-size) / var(--heading-h1-line) var(--font-display);
       margin: 0;
@@ -89,25 +83,17 @@ onMounted(() => back.value?.focus({ preventScroll: true }));
   &__status {
     font: 600 var(--heading-h4-size) / var(--heading-h4-line) var(--font-display);
     text-align: center;
-    margin: var(--spacing-2) 0 var(--spacing-3);
-    color: var(--color-fg-default);
-    &[data-tone='elevated'] {
-      color: var(--color-warning-default);
-    }
-    &[data-tone='critical'] {
-      color: var(--color-error-default);
-    }
-  }
-  &__summary {
-    text-align: center;
-    margin: 0 0 var(--spacing-3);
-    color: var(--color-neutral-default);
+    margin: var(--spacing-2) 0 0;
+    color: var(--color-warning-default);
   }
   &__actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--spacing-1);
-    margin: 0 var(--spacing-6) calc(var(--spacing-6) - var(--spacing-1) / 2);
+    margin: var(--spacing-3) var(--spacing-6) calc(var(--spacing-6) - var(--spacing-1) / 2);
+    .ui-button:disabled {
+      color: var(--color-fg-default);
+    }
   }
   &__widgets {
     display: grid;

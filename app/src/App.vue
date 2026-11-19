@@ -7,9 +7,7 @@
           :key="hash"
           :initial-view="initialView"
           :pulse-measurements="measurements"
-          :save-pulse="savePulse"
-          :reset-pulse="resetPulse"
-          @dashboard-ready="dashboardVisited = true"
+          @health-ready="healthVisited = true"
         />
         <Transition name="onboarding-exit" @after-leave="onboardingExit = false">
           <OnboardingPage v-if="!home" @complete="finishOnboarding" />
@@ -32,12 +30,10 @@ const hash = useLocationHash();
 const views = { '#home': 'home', '#assistant': 'assistant', '#pulse': 'pulse' };
 const initialView = computed(() => views[hash.value] || 'home');
 const home = ref(Boolean(views[hash.value]));
-const dashboardVisited = ref(false);
+const healthVisited = ref(false);
 const onboardingExit = ref(false);
 const { measurements, savePulse, resetPulse } = usePulseMeasurements();
-const showPulseEntry = computed(
-  () => home.value && dashboardVisited.value && !onboardingExit.value,
-);
+const showPulseEntry = computed(() => home.value && healthVisited.value && !onboardingExit.value);
 
 /** Завершает онбординг и оставляет адрес главной для перезагрузки страницы. */
 function finishOnboarding() {
@@ -49,7 +45,7 @@ function finishOnboarding() {
 // Прямой адрес открывает нужный экран без повторного онбординга.
 watch(hash, () => {
   home.value = Boolean(views[hash.value]);
-  if (!home.value) dashboardVisited.value = false;
+  if (!home.value) healthVisited.value = false;
 });
 </script>
 

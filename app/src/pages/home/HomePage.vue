@@ -47,8 +47,6 @@
         :value="averagePulse"
         :measurements="pulseHistory"
         :demo="!pulseMeasurements.length"
-        :save="savePulse"
-        :reset="resetPulse"
         @back="hidePulse"
         @discuss="showAssistant"
       />
@@ -81,10 +79,8 @@ const props = defineProps({
   initialView: { type: String, default: 'home' },
   name: { type: String, default: 'Анна' },
   pulseMeasurements: { type: Array, default: () => [] },
-  savePulse: { type: Function, required: true },
-  resetPulse: { type: Function, required: true },
 });
-const emit = defineEmits(['dashboard-ready']);
+const emit = defineEmits(['health-ready']);
 const latestPulse = computed(() => props.pulseMeasurements.at(-1)?.value ?? demoPulseValue);
 const averagePulse = computed(() => {
   const entries = props.pulseMeasurements;
@@ -108,12 +104,9 @@ const {
   openPulse,
   closePulse,
 } = useHealthScreen(props.initialView, screen);
-watch(
-  () => sheetOpen.value && !pulseOpen.value,
-  (dashboardOpen) => {
-    if (dashboardOpen) emit('dashboard-ready');
-  },
-);
+watch(sheetOpen, (open) => {
+  if (open) emit('health-ready');
+});
 const navigation = [
   { id: 'health', label: 'Здоровье', icon: 'heart' },
   { id: 'assistant', label: 'Помощник', icon: 'sparkles' },
