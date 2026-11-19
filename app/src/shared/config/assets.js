@@ -20,6 +20,7 @@ export const assets = {
   back: `${base}icons/back.svg`,
   chevron: `${base}icons/chevron.svg`,
   file: `${base}icons/file.svg`,
+  pulse: `${base}icons/pulse.svg`,
   heart: `${base}icons/heart.svg`,
   sparkles: `${base}icons/sparkles.svg`,
   pulseHeart: `${base}images/charts/pulse-heart.webp`,

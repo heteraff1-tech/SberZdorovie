@@ -7,6 +7,7 @@ export const icons = {
   back: { src: assets.back, width: 24, height: 24 },
   chevron: { src: assets.chevron, width: 18, height: 18 },
   file: { src: assets.file, width: 22, height: 22 },
+  pulse: { src: assets.pulse, width: 28, height: 28 },
   heart: { src: assets.heart, width: 76, height: 28 },
   sparkles: { src: assets.sparkles, width: 76, height: 28 },
   'at-sign': { src: assets.atSign, width: 16, height: 16 },

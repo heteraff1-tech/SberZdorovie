@@ -1,14 +1,7 @@
 <template>
   <section ref="screen" class="onboarding" :data-phase="state.phase" aria-label="Daybeat">
     <img class="glow glow-intro" :src="getSvg('glow-intro')" width="946" height="946" alt="" />
-    <img
-      class="glow glow-final"
-      :src="getSvg('glow-final')"
-      width="946"
-      height="1067"
-      alt=""
-      :style="{ opacity: state.phase === 'welcome' ? 1 : 0 }"
-    />
+    <img class="glow glow-final" :src="getSvg('glow-final')" width="946" height="1067" alt="" />
     <div v-if="showWave" class="light-wave" aria-hidden="true">
       <img class="light-afterglow" :src="getSvg('glow-final')" width="946" height="1067" alt="" />
       <span class="light-front"></span>
@@ -89,6 +82,7 @@ const {
 
 <style scoped lang="scss">
 .onboarding {
+  --glow-intensity: 0.7;
   --motion-action: 440ms;
   --motion-afterglow: 1120ms;
   --motion-arrow-step: 130ms;
@@ -141,8 +135,11 @@ const {
   top: -116px;
 }
 .onboarding[data-phase='intro'] .glow-intro {
-  opacity: 1;
+  opacity: var(--glow-intensity);
   transition-duration: var(--motion-intro);
+}
+.onboarding[data-phase='welcome'] .glow-final {
+  opacity: var(--glow-intensity);
 }
 .onboarding:is([data-phase='pull'], [data-phase='done']) .glow-final {
   transition: none;
@@ -312,6 +309,7 @@ const {
   position: absolute;
   inset: 0;
   overflow: clip;
+  opacity: var(--glow-intensity);
   pointer-events: none;
 }
 

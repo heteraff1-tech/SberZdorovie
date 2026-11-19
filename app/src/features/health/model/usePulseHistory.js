@@ -57,9 +57,13 @@ export function usePulseHistory(source) {
       y: 47 - ((point.value - min) / (max - min)) * 40,
     }));
   });
-  const selected = computed(
-    () => points.value.find((point) => point.id === selectedId.value) ?? points.value.at(-1),
-  );
+  const selected = computed(() => {
+    const current = points.value.find((point) => point.id === selectedId.value);
+    if (current) return current;
+    const latest = points.value.at(-1);
+    if (points.value.some((point) => !point.demo)) return latest;
+    return points.value.find((point) => point.phase === 'activity') ?? latest;
+  });
   const ticks = computed(() => {
     const { start, end } = interval.value;
     const formatter = new Intl.DateTimeFormat('ru-RU', {
