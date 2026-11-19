@@ -231,3 +231,31 @@ test('direct pulse overview keeps the design buttons disabled and accepts readin
   await overview.getByRole('button', { name: 'Неделя', exact: true }).click();
   await expect(overview.getByRole('button', { name: /16:40 — 67 уд\/мин/ })).toBeVisible();
 });
+
+test('bottom navigation opens pulse from health and the assistant and highlights the active view', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/#home');
+  const navigation = page.getByRole('navigation', { name: 'Основная навигация' });
+  const health = navigation.getByRole('button', { name: 'Здоровье', exact: true });
+  const pulse = navigation.getByRole('button', { name: 'Пульс', exact: true });
+  const assistant = navigation.getByRole('button', { name: 'Помощник', exact: true });
+  const overview = page.getByRole('region', { name: 'Пульс — обзор' });
+
+  await expect(health).toHaveAttribute('aria-current', 'page');
+  await pulse.click();
+  await expect(overview).toBeVisible();
+  await expect(pulse).toHaveAttribute('aria-current', 'page');
+  await page.getByRole('button', { name: 'Вернуться к показателям здоровья' }).click();
+  await expect(health).toHaveAttribute('aria-current', 'page');
+  await expect(pulse).toBeFocused();
+  await assistant.click();
+  await expect(assistant).toHaveAttribute('aria-current', 'page');
+  await pulse.click();
+  await expect(overview).toBeVisible();
+  await expect(pulse).toHaveAttribute('aria-current', 'page');
+  await health.click();
+  await expect(overview).toHaveCount(0);
+  await expect(health).toHaveAttribute('aria-current', 'page');
+});

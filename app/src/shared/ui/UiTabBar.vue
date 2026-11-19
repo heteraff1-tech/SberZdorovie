@@ -5,7 +5,7 @@
       :key="item.id"
       type="button"
       :aria-current="modelValue === item.id ? 'page' : undefined"
-      @click="$emit('update:modelValue', item.id)"
+      @click="$emit('update:modelValue', item.id, $event)"
     >
       <UiIcon :name="item.icon" /><span>{{ item.label }}</span>
     </button>
@@ -26,7 +26,7 @@ defineEmits(['update:modelValue']);
 .ui-tab-bar {
   position: relative;
   display: flex;
-  width: 188px;
+  width: 276px;
   height: 62px;
   padding: var(--spacing-1);
   border-radius: var(--border-radius-full);
@@ -40,7 +40,7 @@ defineEmits(['update:modelValue']);
     inset 0 -1px 4px color-mix(in srgb, var(--color-fg-default) 8%, transparent),
     0 8px 15px rgb(0 0 0 / 2%);
 
-  // Градиентная кромка не меняет внутреннюю ширину двух вкладок.
+  // Градиентная кромка не меняет внутреннюю ширину вкладок.
   &::before {
     content: '';
     position: absolute;
@@ -76,6 +76,10 @@ defineEmits(['update:modelValue']);
     cursor: pointer;
     &:hover {
       background: var(--color-bg-page);
+    }
+    &[aria-current='page'] {
+      background: color-mix(in srgb, var(--color-fg-default) 8%, transparent);
+      color: var(--color-blue);
     }
     &:focus-visible {
       outline-offset: 0;

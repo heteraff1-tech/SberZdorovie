@@ -54,7 +54,7 @@
     <UiTabBar
       class="home-page__navigation"
       :items="navigation"
-      :model-value="assistant ? 'assistant' : 'health'"
+      :model-value="activeTab"
       @update:model-value="navigate"
     />
     <img class="home-page__indicator" :src="assets.homeIndicator" alt="" aria-hidden="true" />
@@ -109,8 +109,12 @@ watch(sheetOpen, (open) => {
 });
 const navigation = [
   { id: 'health', label: 'Здоровье', icon: 'heart' },
+  { id: 'pulse', label: 'Пульс', icon: 'pulse' },
   { id: 'assistant', label: 'Помощник', icon: 'sparkles' },
 ];
+const activeTab = computed(() =>
+  assistant.value ? 'assistant' : pulseOpen.value ? 'pulse' : 'health',
+);
 let pulseTrigger;
 
 /** Открывает помощника и сохраняет работу Escape. */
@@ -132,7 +136,7 @@ function handleEscape() {
   else if (assistant.value) hideAssistant();
 }
 
-/** Запоминает карточку, чтобы вернуть на неё фокус после обзора. */
+/** Запоминает кнопку, чтобы вернуть на неё фокус после обзора. */
 function showPulse(event) {
   pulseTrigger = event.currentTarget;
   openPulse();
@@ -146,10 +150,11 @@ async function hidePulse() {
 }
 
 /** Переключает раздел через нижнюю навигацию. */
-function navigate(destination) {
-  if (destination === 'assistant') showAssistant();
-  else if (pulseOpen.value) hidePulse();
-  else hideAssistant();
+function navigate(destination, event) {
+  if (destination === activeTab.value) return;
+  if (destination === 'pulse') showPulse(event);
+  else if (destination === 'assistant') showAssistant();
+  else closeAssistant();
 }
 </script>
 
