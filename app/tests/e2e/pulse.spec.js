@@ -216,11 +216,8 @@ test('direct pulse overview keeps the design buttons disabled and accepts readin
   await expect(overview.getByRole('button', { name: 'Добавить замер' })).toBeDisabled();
   await expect(overview.locator('form')).toHaveCount(0);
 
-  await panel.getByLabel('Дата и время замера').fill('2026-11-20T12:25');
-  await panel.getByLabel('Пульс, уд/мин').fill('130');
-  await panel.getByRole('button', { name: 'Сохранить замер' }).click();
-  await expect(panel.getByRole('status')).toContainText('которые уже наступили');
   await panel.getByLabel('Дата и время замера').fill('2026-11-19T12:25');
+  await panel.getByLabel('Пульс, уд/мин').fill('130');
   await panel.getByRole('button', { name: 'Сохранить замер' }).click();
   await expect(overview.getByRole('button', { name: '12:25 — 130 уд/мин' })).toBeVisible();
   await expect(overview.getByText('Высокий пульс', { exact: true })).toHaveCSS(
@@ -258,4 +255,26 @@ test('bottom navigation opens pulse from health and the assistant and highlights
   await health.click();
   await expect(overview).toHaveCount(0);
   await expect(health).toHaveAttribute('aria-current', 'page');
+});
+
+test.describe('dated pulse entry in Omsk', () => {
+  test.use({ timezoneId: 'Asia/Omsk' });
+
+  test('saves the selected local time ahead of the device clock', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.clock.setFixedTime(new Date('2026-11-19T20:00:00+06:00'));
+    await page.goto('/#pulse');
+
+    const panel = page.getByRole('complementary', { name: 'Ручной ввод пульса' });
+    const history = page.getByRole('region', { name: 'История пульса' });
+    const reading = history.getByRole('button', { name: '22:13 — 130 уд/мин' });
+    await panel.getByLabel('Дата и время замера').fill('2026-11-19T22:13');
+    await panel.getByLabel('Пульс, уд/мин').fill('130');
+    await panel.getByRole('button', { name: 'Сохранить замер' }).click();
+
+    await expect(panel.getByRole('status')).toHaveText('Сохранено: 130 уд/мин');
+    await expect(reading).toBeVisible();
+    await page.reload();
+    await expect(reading).toBeVisible();
+  });
 });
