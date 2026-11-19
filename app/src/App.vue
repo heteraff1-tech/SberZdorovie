@@ -1,7 +1,7 @@
 <template>
-  <main class="app-stage" :class="{ 'app-stage--mobile': mobilePreview }">
+  <main class="app-stage">
     <div class="app-stage__layout" :class="{ 'app-stage__layout--with-entry': showPulseEntry }">
-      <component :is="mobilePreview ? TemporaryMobilePreview : PhonePreview" :light="home">
+      <PhonePreview :light="home">
         <HomePage
           v-if="home"
           :key="hash"
@@ -14,7 +14,7 @@
         <Transition name="onboarding-exit" @after-leave="onboardingExit = false">
           <OnboardingPage v-if="!home" @complete="finishOnboarding" />
         </Transition>
-      </component>
+      </PhonePreview>
       <PulseEntry v-if="showPulseEntry" :save="savePulse" :reset="resetPulse" />
     </div>
   </main>
@@ -23,15 +23,12 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import PhonePreview from '@/components/PhonePreview.vue';
-import TemporaryMobilePreview from '@/components/temporary-mobile/TemporaryMobilePreview.vue';
 import { PulseEntry, usePulseMeasurements } from '@/features/health';
 import HomePage from '@/pages/home/HomePage.vue';
 import OnboardingPage from '@/pages/onboarding/OnboardingPage.vue';
 import { useLocationHash } from '@/shared/composables/useLocationHash';
 
 const hash = useLocationHash();
-// Временный режим включается только явным ?mobile=1 перед hash экрана.
-const mobilePreview = new URLSearchParams(window.location.search).get('mobile') === '1';
 const views = { '#home': 'home', '#assistant': 'assistant', '#pulse': 'pulse' };
 const initialView = computed(() => views[hash.value] || 'home');
 const home = ref(Boolean(views[hash.value]));
@@ -39,7 +36,7 @@ const dashboardVisited = ref(false);
 const onboardingExit = ref(false);
 const { measurements, savePulse, resetPulse } = usePulseMeasurements();
 const showPulseEntry = computed(
-  () => !mobilePreview && home.value && dashboardVisited.value && !onboardingExit.value,
+  () => home.value && dashboardVisited.value && !onboardingExit.value,
 );
 
 /** Завершает онбординг и оставляет адрес главной для перезагрузки страницы. */
@@ -72,10 +69,6 @@ watch(hash, () => {
     align-items: center;
     gap: var(--spacing-5);
     width: 100%;
-  }
-  &--mobile {
-    display: block;
-    padding: 0;
   }
 }
 @media (min-width: 760px) {

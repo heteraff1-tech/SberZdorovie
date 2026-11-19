@@ -179,7 +179,7 @@ test('pulse overview restores demo history and accepts a backdated manual readin
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.clock.setFixedTime(new Date(2026, 10, 19, 16, 40));
-  await page.goto('/?mobile=1#pulse');
+  await page.goto('/#pulse');
   const overview = page.getByRole('region', { name: 'Пульс — обзор' });
   await expect(overview.getByRole('img', { name: 'Пульс 99 ударов в минуту' })).toBeVisible();
   await expect(overview.getByText('Пульс покоя выше нормы в течение дня')).toBeVisible();
