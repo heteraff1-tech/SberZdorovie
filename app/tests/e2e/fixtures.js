@@ -34,11 +34,12 @@ export function observeBrowserErrors(page) {
 // Auto-fixture подключает датчики до первого перехода и проверяет каждый сценарий.
 export const test = base.extend({
   runtimeGuard: [
-    async ({ page }, use) => {
+    async ({ page, baseURL }, use) => {
       const monitor = observeBrowserErrors(page);
       try {
         await use();
-        if (page.url().startsWith('http://localhost:4173')) await expectNoHorizontalOverflow(page);
+        if (new URL(page.url()).origin === new URL(baseURL).origin)
+          await expectNoHorizontalOverflow(page);
         expect(
           monitor.errors,
           'В браузере возникла ошибка; исправь причину, не подавляй console.error.',

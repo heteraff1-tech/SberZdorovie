@@ -90,13 +90,16 @@ for (const viewport of [
 ]) {
   test(`pulse overview ${viewport.width}×${viewport.height}: fits, scrolls and honors live reduced motion`, async ({
     page,
+    baseURL,
   }) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const failures = [];
     page.on('requestfailed', (request) => failures.push(request.url()));
     await page.route('**/*', (route) =>
-      route.request().url().startsWith('http://localhost:4173') ? route.continue() : route.abort(),
+      new URL(route.request().url()).origin === new URL(baseURL).origin
+        ? route.continue()
+        : route.abort(),
     );
     await page.goto('/#pulse');
     await expectNoHorizontalOverflow(page);

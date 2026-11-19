@@ -165,7 +165,7 @@ flowchart LR
 | `experience.spec.js`, `pulse.spec.js` | 375×812 и 360×740, отсутствие ошибок JS/консоли и горизонтального overflow, переходы и живое переключение reduced motion у BerryPulse/PulseHeart |
 | `sensors.spec.js`                     | Самопроверка датчиков на изолированной странице с намеренными JS/console-ошибками и переполнением                                                |
 
-Playwright всегда запускает свежий preview после production build; занятый порт 4173 завершает прогон ошибкой, а не подменяет проверяемую сборку. Датчики ошибок подключаются до первого перехода. GitHub Actions запускает ту же команду на PR и push в `main`/`codex/**`; при сбое сохраняет trace в артефактах. Для локальной диагностики: `npx.cmd playwright show-trace test-results/<сценарий>/trace.zip`.
+Playwright всегда запускает свежий preview после production build; занятый порт 4173 завершает прогон ошибкой, а не подменяет проверяемую сборку. Датчики ошибок подключаются до первого перехода. GitHub Actions на `ubuntu-24.04` использует предустановленный Google Chrome через штатный `channel: chrome` Playwright (`PLAYWRIGHT_CHANNEL=chrome`), без повторной установки браузера и системных пакетов. Перед QA проверяется наличие Chrome. Тестовый сервер доступен только на `127.0.0.1:4173`. GitHub Actions запускает ту же команду на PR и push в `main`/`codex/**`; при сбое сохраняет trace в артефактах. Для локальной диагностики: `npx.cmd playwright show-trace test-results/<сценарий>/trace.zip`.
 
 Ролевое разделение в процессе:
 
@@ -187,6 +187,6 @@ npm.cmd run qa
 npm.cmd run format:check
 ```
 
-Для браузерных тестов один раз установи Chromium: `npx.cmd playwright install chromium`. Если Chromium уже установлен, можно указать его путь переменной `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
+Для браузерных тестов один раз установи Chromium: `npx.cmd playwright install chromium`. Для установленного Google Chrome можно задать `PLAYWRIGHT_CHANNEL=chrome`. Если Chromium уже установлен, можно указать его путь переменной `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
 
 Форматирование всего фронтенда и корневого README: `npm.cmd run format`.

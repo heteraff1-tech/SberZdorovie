@@ -119,13 +119,16 @@ for (const viewport of [
 ]) {
   test(`mobile ${viewport.width}×${viewport.height}: layout and assets work with reduced motion and no external services`, async ({
     page,
+    baseURL,
   }) => {
     await page.setViewportSize(viewport);
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const failed = [];
     page.on('requestfailed', (request) => failed.push(request.url()));
     await page.route('**/*', (route) =>
-      route.request().url().startsWith('http://localhost:4173') ? route.continue() : route.abort(),
+      new URL(route.request().url()).origin === new URL(baseURL).origin
+        ? route.continue()
+        : route.abort(),
     );
     await page.goto('/#home');
     await expectNoHorizontalOverflow(page);

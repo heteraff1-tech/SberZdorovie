@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   qa:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     defaults:
       run:
@@ -27,8 +27,12 @@ jobs:
           cache: npm
           cache-dependency-path: app/package-lock.json
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run qa
+      - name: Check preinstalled Chrome
+        run: google-chrome --version
+      - name: Run full QA
+        run: npm run qa
+        env:
+          PLAYWRIGHT_CHANNEL: chrome
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

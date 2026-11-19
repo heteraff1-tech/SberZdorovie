@@ -1,12 +1,15 @@
 import { defineConfig } from '@playwright/test';
 
+const baseURL = 'http://127.0.0.1:4173';
+
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
   forbidOnly: true,
   timeout: 30_000,
   use: {
-    baseURL: 'http://localhost:4173',
+    baseURL,
+    channel: process.env.PLAYWRIGHT_CHANNEL || undefined,
     viewport: { width: 1000, height: 1000 },
     trace: 'retain-on-failure',
     launchOptions: {
@@ -14,8 +17,8 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: 'npm run preview -- --host 0.0.0.0 --port 4173 --strictPort',
-    url: 'http://localhost:4173',
+    command: 'npm run preview -- --host 127.0.0.1 --port 4173 --strictPort',
+    url: baseURL,
     reuseExistingServer: false,
   },
 });
