@@ -341,10 +341,10 @@ const {
     opacity: 0;
   }
   25% {
-    opacity: 0.9;
+    opacity: 0.45;
   }
   68% {
-    opacity: 1;
+    opacity: 0.5;
   }
   100% {
     transform: rotate(-13deg) scale(1.37, 1.24);
@@ -357,7 +357,7 @@ const {
     opacity: 0;
   }
   to {
-    opacity: 1;
+    opacity: 0.9;
   }
 }
 
