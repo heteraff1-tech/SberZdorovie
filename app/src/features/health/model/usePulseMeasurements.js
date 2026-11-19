@@ -49,11 +49,8 @@ export function usePulseMeasurements() {
   function savePulse(value, localTime = '') {
     if (!isPulseValue(value)) return `Введите целое число от 1 до ${pulseInputMax}.`;
 
-    const now = Date.now();
-    const recordedAt = localTime ? new Date(localTime).getTime() : now;
-    if (localTime && (!Number.isFinite(recordedAt) || recordedAt > now)) {
-      return 'Укажите дату и время замера, которые уже наступили.';
-    }
+    const recordedAt = localTime ? new Date(localTime).getTime() : Date.now();
+    if (!Number.isFinite(recordedAt)) return 'Укажите корректные дату и время замера.';
 
     try {
       const entries = readMeasurements().filter((entry) => entry.recordedAt !== recordedAt);
