@@ -180,7 +180,7 @@ test('the side form saves manual pulse readings and history filters them by loca
   await expect(history.getByRole('heading')).toHaveText('132 уд/мин');
   await expect(history.getByRole('button', { name: /— 64 уд\/мин/ })).toHaveCount(0);
   await history.getByRole('button', { name: 'Неделя', exact: true }).click();
-  await expect(history.getByRole('heading')).toHaveText('64–132 уд/мин');
+  await expect(history.getByRole('heading')).toHaveText('43–132 уд/мин');
   await history.getByRole('button', { name: /— 64 уд\/мин/ }).click();
   await expect(history.locator('.pulse-history__selection')).toContainText('64 уд/мин');
   page.once('dialog', (dialog) => dialog.accept());
@@ -202,7 +202,16 @@ test('direct pulse overview keeps the design buttons disabled and accepts readin
   await expect(overview.getByRole('img', { name: 'Пульс 99 ударов в минуту' })).toBeVisible();
   await expect(overview.getByText('У вас повышенный пульс')).toBeVisible();
   await expect(overview.getByText('Пульс покоя выше нормы в течение дня')).toBeVisible();
-  await expect(overview.getByRole('button', { name: '16:40 — 67 уд/мин' })).toBeVisible();
+  const history = overview.getByRole('region', { name: 'История пульса' });
+  await expect(history.getByRole('heading')).toHaveText('43–120 уд/мин');
+  await expect(history.getByRole('button', { name: '14:20 — 120 уд/мин' })).toHaveAttribute(
+    'aria-pressed',
+    'true',
+  );
+  await expect(history.locator('.pulse-history__selection')).toContainText('Тренировка');
+  await history.getByRole('button', { name: '04:36 — 43 уд/мин' }).click();
+  await expect(history.locator('.pulse-history__selection')).toContainText('Кофе');
+  await expect(history.getByRole('button', { name: '16:40 — 67 уд/мин' })).toBeVisible();
   await expect(overview.getByRole('button', { name: 'Замер по камере' })).toBeDisabled();
   await expect(overview.getByRole('button', { name: 'Добавить замер' })).toBeDisabled();
   await expect(overview.locator('form')).toHaveCount(0);

@@ -2,13 +2,13 @@ export const demoPulseValue = 99;
 const demoDate = '2026-11-18';
 
 export const demoPulseMeasurements = [
-  ['03:35', 70, 'rest'],
-  ['04:36', 104, 'coffee'],
-  ['06:30', 92, 'rest'],
-  ['07:20', 110, 'rest'],
-  ['09:24', 90, 'rest'],
-  ['10:24', 104, 'stress'],
-  ['13:39', 100, 'stress'],
+  ['03:35', 46, 'rest'],
+  ['04:36', 43, 'coffee'],
+  ['06:30', 53, 'rest'],
+  ['07:20', 72, 'rest'],
+  ['09:24', 67, 'rest'],
+  ['10:24', 70, 'stress'],
+  ['13:39', 80, 'stress'],
   ['14:20', 120, 'activity', 'Тренировка'],
   ['16:40', 67, 'stress'],
 ].map(([time, value, phase, label]) => ({

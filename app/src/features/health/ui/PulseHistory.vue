@@ -41,6 +41,10 @@
               </text>
             </g>
             <path class="pulse-history__scrubber" :d="`M${selected.x} 6V47`" />
+            <path
+              class="pulse-history__marker-lead"
+              :d="`M${selected.x} ${selected.y - 6.7}v2.2`"
+            />
           </svg>
           <button
             v-for="(point, index) in points"
@@ -178,10 +182,10 @@ const { period, selectedId, points, selected, ticks, range, axis } = usePulseHis
     &::after {
       content: '';
       position: absolute;
-      top: 7px;
-      left: 7px;
-      width: 6px;
-      height: 6px;
+      inset: 0;
+      margin: auto;
+      width: 8px;
+      height: 8px;
       border: 1px solid var(--color-bg-page);
       border-radius: 50%;
       background: var(--phase-color, var(--color-accent-default));
@@ -189,28 +193,30 @@ const { period, selectedId, points, selected, ticks, range, axis } = usePulseHis
     &--manual {
       z-index: 1;
     }
-    &:focus-visible {
-      z-index: 2;
-    }
     &--latest::after {
-      top: 7.25px;
-      left: 7.25px;
-      width: 5.5px;
-      height: 5.5px;
+      border-width: 1.3px;
       border-color: var(--phase-color, var(--color-accent-default));
       background: var(--color-bg-page);
     }
-    &[aria-pressed='true']::after {
-      top: 5.5px;
-      left: 5.5px;
-      width: 9px;
-      height: 9px;
-      border: 1.5px solid var(--color-warning-default);
-      background: var(--color-bg-page);
+    &[aria-pressed='true'] {
+      z-index: 1;
+      &::after {
+        width: 9px;
+        height: 9px;
+        border: 2px solid var(--color-warning-default);
+        background: var(--color-bg-page);
+      }
+    }
+    &:focus-visible {
+      z-index: 2;
     }
   }
   &__scrubber {
     stroke: var(--color-error-default);
+    stroke-width: 1;
+  }
+  &__marker-lead {
+    stroke: var(--color-warning-default);
     stroke-width: 1;
   }
   &__selection {
